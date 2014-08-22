@@ -1,0 +1,58 @@
+<?php
+ // module/Album/view/album/album/index.phtml:
+ $title = 'Search Results';
+ $this->headTitle($title.' : ');
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+ <p>
+     <a href="<?php echo $this->url('album', array('action'=>'add'));?>">Add new album</a>
+ </p>
+<?php
+ $url = $this->url('album', array(
+     'action' => 'search'
+ ));
+ ?>
+<form class="navbar-form navbar-left" role="search" action="<?php echo $url ?>" method="post">
+  <div class="form-group">
+    <input type="text" name="keyword" class="form-control" placeholder="Search">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+ <br/>
+<table class="table">
+    <tr>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Category</th>
+    </tr>
+
+    <?php foreach ($this->paginator as $album) : // <-- change here! ?>
+        <tr>
+            <td><?php echo $this->escapeHtml($album->title);?></td>
+            <td><?php echo $this->escapeHtml($album->artist);?></td>
+             <td><?php echo $this->escapeHtml($album->category);?></td>
+            <td>
+                <a href="<?php echo $this->url('album',
+                    array('action' => 'edit', 'id' => $album->id));?>" class="btn btn-default">Edit</a>
+                <a href="<?php echo $this->url('album',
+                    array('action' => 'delete', 'id' => $album->id));?>" class="btn btn-default">Delete</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+
+<?php // add at the end of the file after the table
+echo $this->paginationControl(
+    // the paginator object
+    $this->paginator,
+    // the scrolling style; see http://zf2.readthedocs.org/en/release-2.1.4/modules/zend.paginator.usage.html#rendering-pages-with-view-scripts
+    'sliding',
+    // the partial to use to render the control
+    'partial/searchresultpaginator.phtml',
+    // the route to link to when a user clicks a control link
+    array(
+        'route' => 'searchresult',
+        'kword'=> 'the'
+    )
+);
+?>
