@@ -29,6 +29,12 @@ class AlbumController extends AbstractActionController
 
 	public function addAction()
 	{
+		
+		if (! $this->getServiceLocator()
+		->get('AuthService')->hasIdentity()){
+			return $this->redirect()->toRoute('login');
+		}
+		
 		$form = new AlbumForm();
 		$form->get('submit')->setValue('Add');
 		
@@ -53,7 +59,7 @@ class AlbumController extends AbstractActionController
 
 	public function editAction()
 	{
-		
+	
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('album', array(
@@ -96,6 +102,9 @@ class AlbumController extends AbstractActionController
 	}
 
 	public function deleteAction(){
+		
+	
+		
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('album');
@@ -120,6 +129,12 @@ class AlbumController extends AbstractActionController
 		);
 	}
 	public function searchAction() {
+		
+// 		if (! $this->getServiceLocator()
+// 		->get('AuthService')->hasIdentity()){
+// 			return $this->redirect()->toRoute('login');
+// 		}
+		
 		$request = $this->getRequest();
 		if ($request->isPost ()) {
 			$kword = $request->getPost ( 'keyword' );
@@ -136,6 +151,12 @@ class AlbumController extends AbstractActionController
 	}
 	
 	public function searchresultAction(){
+		
+// 		if (! $this->getServiceLocator()
+// 		->get('AuthService')->hasIdentity()){
+// 			return $this->redirect()->toRoute('login');
+// 		}
+		
 		
 		$kw =  $this->params()->fromRoute('kword','');
 
@@ -160,6 +181,12 @@ class AlbumController extends AbstractActionController
 	
 	public function getAlbumTable()
 	{
+		
+// 		if (! $this->getServiceLocator()
+// 		->get('AuthService')->hasIdentity()){
+// 			return $this->redirect()->toRoute('login');
+// 		}
+		
 		if (!$this->albumTable) {
 			$sm = $this->getServiceLocator();
 			$this->albumTable = $sm->get('Album\Model\AlbumTable');

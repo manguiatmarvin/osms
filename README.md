@@ -1,77 +1,81 @@
-ZendSkeletonApplication
+Sourcefit Management System CRM +
 =======================
 
 Introduction
 ------------
-This is a simple, skeleton application using the ZF2 MVC layer and module
-systems. This application is meant to be used as a starting place for those
-looking to get their feet wet with ZF2.
+This application is meant to be used to support Sourcefit Philippines Employee and 
+Client Management. This app has several perpectives 
+
+1. CLIENT - will be able to cummunicate and track time table, work informations from   his/her service provider (sourcefit employee)
+
+2. ADMIN - Can view add or remove settings required for this application
+      - can also sends invites, create schedules.
+
+3. HR  -  sends invites to join soucefit, will be able to update user fro GUEST to 
+         employee. sends special notifications to employee 
+
+4. ACCOUNTING - Will be able to communicate, track time table for each employee, create reports 
+
+5. EMPLOYEE - Will be able to access his own time table, determines 
+          remaining leaves, employement status
+
+6. GUEST - will be able to create profile, uploads resume, and take online exam,
+            view notifications from HR
+        
+
+Requirements
+------------
+server:
+- server 
+- apache 2
+- Mysql
+
+please refer to system requirement for Zend Framework 2
 
 Installation
 ------------
 
-Using Composer (recommended)
-----------------------------
-The recommended way to get a working copy of this project is to clone the repository
-and use `composer` to install dependencies using the `create-project` command:
+1. (Source Code) First, Download the sourcecode from git (git@github.com:manguiatmarvin/osms.git)
 
-    curl -s https://getcomposer.org/installer | php --
-    php composer.phar create-project -sdev --repository-url="https://packages.zendframework.com" zendframework/skeleton-application path/to/install
+put the soucecode in a secure location eg
 
-Alternately, clone the repository and manually invoke `composer` using the shipped
-`composer.phar`:
+/home/user/Documents/vhost/
 
-    cd my/project/dir
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git
-    cd ZendSkeletonApplication
-    php composer.phar self-update
-    php composer.phar install
 
-(The `self-update` directive is to ensure you have an up-to-date `composer.phar`
-available.)
+2.(Setup the APACHE web server
 
-Another alternative for downloading the project is to grab it via `curl`, and
-then pass it to `tar`:
+# Normal set up for UBUNTO 14.02 see apace 2 vhost configuration 
 
-    cd my/project/dir
-    curl -#L https://github.com/zendframework/ZendSkeletonApplication/tarball/master | tar xz --strip-components=1
+<VirtualHost marvin.sourcefit.com:80>
+   ServerName marvin.sourcefit.com
+   DocumentRoot /var/www/vhost/marvin.sourcefit.com/public
+   SetEnv APPLICATION_ENV "development"
+   <Directory /var/www/vhost/marvin.sourcefit.com/public/>
+        DirectoryIndex index.php
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+   </Directory>
+</VirtualHost>
 
-You would then invoke `composer` to install dependencies per the previous
-example.
+Note: 
+set the APPLICATION_ENV to "production" when
+deploying to live site
 
-Using Git submodules
---------------------
-Alternatively, you can install using native git submodules:
 
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git --recursive
 
-Web Server Setup
-----------------
+3. create a symlink from application source folder and the configured VHOST
 
-### PHP CLI Server
+sudo ln -s /home/marvin/Documents/vhost/ vhost
 
-The simplest way to get started if you are using PHP 5.4 or above is to start the internal PHP cli-server in the root directory:
+**** this app is currently under development, so please be resourceful, and also it will be a big help if you can seek help from expert. 
 
-    php -S 0.0.0.0:8080 -t public/ public/index.php
 
-This will start the cli-server on port 8080, and bind it to all network
-interfaces.
 
-**Note: ** The built-in CLI server is *for development only*.
 
-### Apache Setup
 
-To setup apache, setup a virtual host to point to the public/ directory of the
-project and you should be ready to go! It should look something like below:
+  
 
-    <VirtualHost *:80>
-        ServerName zf2-tutorial.localhost
-        DocumentRoot /path/to/zf2-tutorial/public
-        SetEnv APPLICATION_ENV "development"
-        <Directory /path/to/zf2-tutorial/public>
-            DirectoryIndex index.php
-            AllowOverride All
-            Order allow,deny
-            Allow from all
-        </Directory>
-    </VirtualHost>
+
+
+

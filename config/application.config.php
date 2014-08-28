@@ -2,7 +2,9 @@
 return array(
      'modules' => array(
          'Application',
-         'Album',                  
+         'SanAuth',
+         'Dashboard',
+         'Profile'
      ),
      'module_listener_options' => array(
          'config_glob_paths'    => array(

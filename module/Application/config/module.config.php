@@ -53,6 +53,9 @@ return array(
         ),
     ),
     'service_manager' => array(
+         'factories' => array(
+    		'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory', // <-- add this
+         ),
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
             'Zend\Log\LoggerAbstractServiceFactory',
@@ -99,4 +102,5 @@ return array(
             ),
         ),
     ),
+    
 );
