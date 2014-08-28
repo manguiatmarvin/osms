@@ -4,7 +4,7 @@ Sourcefit Management System CRM +
 Introduction
 ------------
 This application is meant to be used to support Sourcefit Philippines Employee and 
-Client Management. This app has several perpectives 
+Client Management. This app has several perspectives 
 
 1. CLIENT - will be able to cummunicate and track time table, work informations from   his/her service provider (sourcefit employee)
 
