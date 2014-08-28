@@ -1,0 +1,156 @@
+/*
+    Skin Black
+    --------
+*/
+/* skin-black navbar */
+.skin-x .navbar {
+  background-color: #E2E2E2;
+  border-bottom: 1px solid #eee;
+}
+
+
+.skin-x .navbar .nav a {
+  color: #333333;
+}
+.skin-x .navbar .nav > li > a:hover,
+.skin-x .navbar .nav > li > a:active,
+.skin-x .navbar .nav > li > a:focus,
+.skin-x .navbar .nav .open > a,
+.skin-x .navbar .nav .open > a:hover,
+.skin-x .navbar .nav .open > a:focus {
+  background: #ffffff;
+  color: #999999;
+}
+.skin-x .navbar .navbar-right > .nav {
+  margin-right: 10px;
+}
+.skin-x .navbar .sidebar-toggle .icon-bar {
+  background: #333333;
+}
+.skin-x .navbar .sidebar-toggle:hover .icon-bar {
+  background: #999999 !important;
+}
+/* skin-black logo */
+.skin-x .logo {
+  background-color: #54607E;
+  color: #f9f9f9;
+}
+.skin-x .logo > a {
+  color: #161E30;
+}
+.skin-x .logo:hover {
+  background: #161E30;
+}
+/* skin-black content header */
+.skin-x .right-side > .content-header {
+  background: transparent;
+  box-shadow: none;
+}
+/* Skin-red user panel */
+.skin-x .user-panel > .image > img {
+  border: 1px solid #444;
+}
+.skin-x .user-panel > .info,
+.skin-x .user-panel > .info > a {
+  color: #eee;
+}
+/* skin-black sidebar */
+.skin-x .sidebar {
+  border-bottom: 1px solid #333;
+}
+.skin-x .sidebar > .sidebar-menu > li {
+  border-top: 1px solid #36435C;
+  border-bottom: 0px solid #252931;
+}
+.skin-x .sidebar > .sidebar-menu > li:first-of-type {
+  border-top: 1px solid #252931;
+}
+.skin-x .sidebar > .sidebar-menu > li:first-of-type > a {
+  border-top: 0px solid #252931;
+}
+.skin-x .sidebar > .sidebar-menu > li > a {
+  margin-right: 1px;
+}
+.skin-x .sidebar > .sidebar-menu > li > a:hover,
+.skin-x .sidebar > .sidebar-menu > li.active > a {
+  color: #f6f6f6;
+  background: #293649;
+}
+.skin-x .sidebar > .sidebar-menu > li > .treeview-menu {
+  margin: 0 1px;
+  background: #293649;
+}
+.skin-x .left-side {
+  background: #283655;
+}
+.skin-x .sidebar a {
+  color: #eee;
+}
+.skin-x .sidebar a:hover {
+  text-decoration: none;
+}
+.skin-x .treeview-menu > li > a {
+  color: #ccc;
+}
+.skin-x .treeview-menu > li.active > a,
+.skin-x .treeview-menu > li > a:hover {
+  color: #fff;
+}
+.skin-x .sidebar-form {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  border: 0px solid #555;
+  margin: 10px 10px;
+}
+.skin-x .sidebar-form input[type="text"],
+.skin-x .sidebar-form .btn {
+  box-shadow: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 0 solid rgba(255, 255, 255, 0.1);
+  height: 35px;
+  outline: none;
+}
+.skin-x .sidebar-form input[type="text"] {
+  color: #666;
+  -webkit-border-top-left-radius: 2px !important;
+  -webkit-border-top-right-radius: 0 !important;
+  -webkit-border-bottom-right-radius: 0 !important;
+  -webkit-border-bottom-left-radius: 2px !important;
+  -moz-border-radius-topleft: 2px !important;
+  -moz-border-radius-topright: 0 !important;
+  -moz-border-radius-bottomright: 0 !important;
+  -moz-border-radius-bottomleft: 2px !important;
+  border-top-left-radius: 2px !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 2px !important;
+}
+.skin-x .sidebar-form input[type="text"]:focus,
+.skin-x .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  background-color: #444;
+  border: 0;
+}
+.skin-x .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  border-left: 0;
+}
+.skin-x .sidebar-form .btn {
+  color: #999;
+  -webkit-border-top-left-radius: 0 !important;
+  -webkit-border-top-right-radius: 2px !important;
+  -webkit-border-bottom-right-radius: 2px !important;
+  -webkit-border-bottom-left-radius: 0 !important;
+  -moz-border-radius-topleft: 0 !important;
+  -moz-border-radius-topright: 2px !important;
+  -moz-border-radius-bottomright: 2px !important;
+  -moz-border-radius-bottomleft: 0 !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 2px !important;
+  border-bottom-right-radius: 2px !important;
+  border-bottom-left-radius: 0 !important;
+  border-left: 0;
+}
+
+.skin-x .bg-light-blue {
+background-color: #101520 !important;
+}

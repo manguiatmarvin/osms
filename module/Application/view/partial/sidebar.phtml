@@ -1,0 +1,59 @@
+<?php
+/**
+ * Sidebar Content 
+ * -Dynamic Sidebar for Zend Framework 2 
+ * 
+ * Author: Marvin Manguiat U.
+ * Sourcefit Philippines Inc 
+ * Aug. 28, 2014
+ * 
+ * 
+ */
+
+//user is not yet logged in
+if(null===$this->layout()->auth){
+	return null;
+}
+
+foreach ($this->container as $page){
+    $hasChildren = $page->hasPages();
+    $active = $page->isActive()  ? "active":"";
+    
+    
+    if( ! $hasChildren)
+    {
+        ?>
+    
+          <li class="<?php echo $active ?>">
+            <a href="<?php echo $page->getHref(); ?>">
+            <i class="fa <?php echo $page->getId(); ?>"></i> <span><?php echo $page->getLabel(); ?></span>
+            </a>
+          </li>
+        
+        <?php
+    }
+    else
+    {
+        ?>
+         <li class="treeview <?php echo $active ?>">
+             <a href="#">
+             <i class="fa <?php echo $page->getId(); ?>"></i>
+             <span><?php echo $page->getLabel(); ?></span>
+             <i class="fa fa-angle-left pull-right"></i>
+             </a>
+                   
+             <ul class="treeview-menu">
+            <?php
+            foreach($page->getPages() as $child)
+            {
+                ?>
+                <li><a href="<?php echo $child->getHref(); ?>"><i class="fa fa-angle-double-right"></i><?php echo $child->getLabel(); ?> </a></li>
+                <?php
+            }
+            ?>
+           </ul>
+       </li>
+        <?php
+    }
+}
+?>
