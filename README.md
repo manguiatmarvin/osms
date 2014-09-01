@@ -4,7 +4,7 @@ Sourcefit Management System CRM +
 Introduction
 ------------
 This application is meant to be used to support Sourcefit Philippines Employee and 
-Client Management. This app has several perpectives 
+Client Management. This app has several perspectives 
 
 1. CLIENT - will be able to cummunicate and track time table, work informations from   his/her service provider (sourcefit employee)
 
@@ -72,10 +72,30 @@ sudo ln -s /home/marvin/Documents/vhost/ vhost
 
 
 
+create a file local.php on config/autoload/
 
 
-  
+  <?php
+return array(
+    'db' => array(
+        'username' => '<DBUSER>',
+        'password' => '<DBPASSWORD>',
+    ),
+);
 
 
+4. DB schema
+
+ CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(100) NOT NULL,
+  `pass_word` varchar(100) NOT NULL,
+  `fname` varchar(45) NOT NULL,
+  `lname` varchar(45) NOT NULL,
+  `mi` varchar(45) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1
 
 
