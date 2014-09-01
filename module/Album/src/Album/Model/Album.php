@@ -13,14 +13,14 @@ class Album implements InputFilterAwareInterface
 	public $artist;
 	public $title;
 	private $inputFilter;
-	public $category;
+	public $category_id;
 
 	public function exchangeArray($data)
 	{
 		$this->id     = (!empty($data['id'])) ? $data['id'] : null;
 		$this->artist = (!empty($data['artist'])) ? $data['artist'] : null;
 		$this->title  = (!empty($data['title'])) ? $data['title'] : null;
-		$this->category  = (!empty($data['category'])) ? $data['category'] : null;
+		$this->category_id = (!empty($data['category_id'])) ? $data['category_id'] : null;
 	}
 	
 	

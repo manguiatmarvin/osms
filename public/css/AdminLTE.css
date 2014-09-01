@@ -561,7 +561,7 @@ body > .header .logo .icon {
   font-weight: 300;
 }
 .right-side > .content-header > .breadcrumb {
-  float: right;
+  float: left;
   background: transparent;
   margin-top: 0px;
   margin-bottom: 0;

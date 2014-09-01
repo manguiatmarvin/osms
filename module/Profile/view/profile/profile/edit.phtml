@@ -1,0 +1,120 @@
+<?php
+// module/Album/view/album/album/edit.phtml:
+$title = 'Edit Profile';
+$this->headTitle ( $title );
+?>
+
+<?php
+$form = $this->form;
+$form->setAttribute ( 'action', $this->url ( 'profile', array (
+		'action' => 'edit',
+		'id' => $this->id 
+) ) );
+
+$form->prepare();
+
+$date  =  new DateTime($form->get('birthdate')->getValue()) ;
+$bdate =  $date->format('d/m/Y');
+
+ ?>
+ 
+ <div class="row">
+ 
+ <!-- Left col -->
+ <section class="col-lg-7 connectedSortable">
+ <div>
+ <!-- main sub page content// -->
+ 
+ <div class="panel panel-default">
+ <div class="panel-heading"><?php echo $this->escapeHtml($title); ?></div>
+<div class="panel-body">
+
+	<div class="box-body">
+			  <div class="form-group">
+                 <?php echo $this->form()->openTag($form);?>
+                  <?php  echo $this->formHidden($form->get('id')); ?>
+                  <?php  echo $this->formHidden($form->get('users_id')); ?>
+                  <?php  echo $this->formRow($form->get('firstname')); ?>
+                  <?php  echo $this->formRow($form->get('lastname')); ?>
+                  <?php  echo $this->formRow($form->get('middle')); ?>
+                  
+                  <br/>
+                  <?php  echo $this->formRow($form->get('birthdate')); ?>
+                
+                   
+                  <?php  echo $this->formRow($form->get('gender_id')); ?>
+
+                  
+                   <?php   echo $this->formRow($form->get('about')); ?>
+                  
+                  
+                  <?php  echo $this->formRow($form->get('address')); ?>
+                 
+                              <!-- phone mask -->
+                  <div class="form-group">
+                     <label>Landline:</label>
+                     <div class="input-group">
+                         <div class="input-group-addon">
+                          <i class="fa fa-phone"></i>
+                          </div>
+                      <input type="text" name="landline" value ="<?php echo $form->get('landline')->getValue()?>" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask/>
+                            </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+                  
+                  <!-- phone mask -->
+                  <div class="form-group">
+                     <label>Cellphone:</label>
+                     <div class="input-group">
+                         <div class="input-group-addon">
+                          <i class="fa fa-phone"></i>
+                          </div>
+                      <input type="text" name="cellphone" value ="<?php echo $form->get('cellphone')->getValue()?>" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask/>
+                            </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+                
+                 <div class="input-group">
+                 <?php   echo $this->formSubmit($form->get('submit')); ?>
+                 </div>
+                  <?php  echo $this->form()->closeTag();?>
+                   
+             </div>
+
+	</div>
+
+
+</div>
+</div>
+
+</div>
+
+</section>
+<!-- /.Left col -->
+
+<!-- right col (We are only adding the ID to make the widgets sortable)-->
+<section class="col-lg-5 connectedSortable">
+
+	<div class="panel panel-default">
+		<div class="panel-heading">Profile Menu</div>
+		<div class="panel-body rightbar-menu">
+			<!-- right navigation //-->
+			<ul>
+
+				<li><a href="#">Change Profile Picture</a></li>
+				<li><a
+					href="<?php echo $this->url('profile',array('action'=>'edit')); ?>">Edit
+						Profile Details</a></li>
+				<li><a
+					href="<?php echo $this->url('profile',array('action'=>'settings')); ?>">Profile
+						Settings</a></li>
+				<li><a
+					href="<?php echo $this->url('profile',array('action'=>'settings')); ?>">Change
+						Password</a></li>
+				<li><a
+					href="<?php echo $this->url('login/process',array('action'=>'logout')); ?>">Logout</a></li>
+
+			</ul>
+		</div>
+	</div>
+</section>
+
+</div>

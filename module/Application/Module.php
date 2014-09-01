@@ -42,8 +42,7 @@ class Module{
      * @description Sets some variables for usage in any view
      * @param MvcEvent $e
      */
-    public function loadCommonViewVars(MvcEvent $e)
-    {
+    public function loadCommonViewVars(MvcEvent $e) {
     	$auth = null;
     	
     	if (! $this->isOpenRequest ( $e )) {

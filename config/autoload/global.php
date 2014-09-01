@@ -23,14 +23,21 @@ return array (
 						)
 						,
 						array (
-								'label' => 'Profile',
+								'label' => 'My Profile',
 								'route' => 'profile',
 								'id' => 'fa-user',
 								'pages' => array (
 										array (
-												'label' => 'View Profile',
+												'label' => 'View',
 												'route' => 'profile',
-												'action' => 'index' 
+												'action' => 'view',
+												'id'=>1
+										),
+										array (
+												'label' => 'Edit',
+												'route' => 'profile',
+												'action' => 'edit',
+												'show_in_menu' => false,
 										),
 										array (
 												'label' => 'Settings',
@@ -45,40 +52,85 @@ return array (
 								) 
 						)
 						,
+						array (
+								'label' => 'Human Resource',
+								'route' => 'humanresource',
+								'id' => 'fa-user',
+								'pages' => array (
+										array (
+												'label' => 'Employee',
+												'route' => 'humanresource',
+												'action' => 'index'
+										),
+										array (
+												'label' => 'Pre-Employment',
+												'route' => 'humanresource',
+												'action' => 'index'
+										),
+										array (
+												'label' => 'Reqruitment',
+												'route' => 'humanresource',
+												'action' => 'index'
+										)
+								)
+						)
+						,
 // 						array (
-// 								'label' => 'Album',
-// 								'route' => 'album',
-// 								'id' => 'fa-book',
+// 								'label' => 'Accounting',
+// 								'route' => 'acounting',
+// 								'id' => 'fa-user',
 // 								'pages' => array (
 // 										array (
-// 												'label' => 'View Album',
-// 												'route' => 'album',
-// 												'action' => 'index' 
+// 												'label' => 'Payroll',
+// 												'route' => 'acounting',
+// 												'action' => 'index'
 // 										),
 // 										array (
-// 												'label' => 'Add',
-// 												'route' => 'album',
-// 												'action' => 'add' 
-// 										),
-// 										array (
-// 												'label' => 'Edit',
-// 												'route' => 'album',
-// 												'action' => 'edit' 
-// 										),
-// 										array (
-// 												'label' => 'Delete',
-// 												'route' => 'album',
-// 												'action' => 'delete' 
-// 										),
-// 										array (
-// 												'label' => 'Search Results',
-// 												'route' => 'searchresult',
-// 												'action' => 'searchresult' 
+// 												'label' => 'Biometric',
+// 												'route' => 'acounting',
+// 												'action' => 'index'
 // 										)
 										
+// 								)
+// 						),
+						
+						array (
+								'label' => 'Album',
+								'route' => 'album',
+								'id' => 'fa-book',
+								'pages' => array (
+										array (
+												'label' => 'View Album',
+												'route' => 'album',
+												'action' => 'index' 
+										),
+										array (
+												'label' => 'Add',
+												'route' => 'album',
+												'action' => 'add' 
+										),
+										array (
+												'label' => 'Edit',
+												'route' => 'album',
+												'action' => 'edit',
+												'show_in_menu' => false,
+										),
+										array (
+												'label' => 'Delete',
+												'route' => 'album',
+												'action' => 'delete', 
+												'show_in_menu' => false,
+										),
+										array (
+												'label' => 'Search Results',
+												'route' => 'album',
+												'action' => 'searchresult',
+												'show_in_menu' => false,
+										)
 										
-// 								) 
-// 						) 
+										
+								) 
+						) 
 				) 
 		) 
 );

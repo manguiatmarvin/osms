@@ -4,7 +4,10 @@ return array(
          'Application',
          'SanAuth',
          'Dashboard',
-         'Profile'
+         'Profile',
+         'HumanResource',
+        'Album',
+   
      ),
      'module_listener_options' => array(
          'config_glob_paths'    => array(

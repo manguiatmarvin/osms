@@ -18,6 +18,7 @@ if(null===$this->layout()->auth){
 foreach ($this->container as $page){
     $hasChildren = $page->hasPages();
     $active = $page->isActive()  ? "active":"";
+    $showInNav = $page->get('show_in_menu');
     
     
     if( ! $hasChildren)
@@ -36,6 +37,7 @@ foreach ($this->container as $page){
     {
         ?>
          <li class="treeview <?php echo $active ?>">
+         
              <a href="#">
              <i class="fa <?php echo $page->getId(); ?>"></i>
              <span><?php echo $page->getLabel(); ?></span>
@@ -46,6 +48,10 @@ foreach ($this->container as $page){
             <?php
             foreach($page->getPages() as $child)
             {
+            	if($child->get('show_in_menu') === false) {
+            		//display the menu
+                  continue;            	
+                }
                 ?>
                 <li><a href="<?php echo $child->getHref(); ?>"><i class="fa fa-angle-double-right"></i><?php echo $child->getLabel(); ?> </a></li>
                 <?php

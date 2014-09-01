@@ -32,9 +32,8 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 	}
 	
 	
-	// Add this method:
-	public function getServiceConfig()
-	{
+
+	public function getServiceConfig(){
 		return array(
 				'factories' => array(
 						'Album\Model\AlbumTable' =>  function($sm) {

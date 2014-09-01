@@ -45,6 +45,7 @@
 .skin-x .right-side > .content-header {
   background: transparent;
   box-shadow: none;
+  
 }
 /* Skin-red user panel */
 .skin-x .user-panel > .image > img {
@@ -153,4 +154,47 @@
 
 .skin-x .bg-light-blue {
 background-color: #101520 !important;
+}
+
+.skin-x .right-side > .content-header > .breadcrumb > li > a {
+  color: rgb(59, 160, 228);
+  text-decoration: none;
+}
+
+.skin-x .form-box .header {
+-webkit-border-top-left-radius: 4px;
+-webkit-border-top-right-radius: 4px;
+-webkit-border-bottom-right-radius: 0;
+-webkit-border-bottom-left-radius: 0;
+-moz-border-radius-topleft: 4px;
+-moz-border-radius-topright: 4px;
+-moz-border-radius-bottomright: 0;
+-moz-border-radius-bottomleft: 0;
+border-top-left-radius: 4px;
+border-top-right-radius: 4px;
+border-bottom-right-radius: 0;
+border-bottom-left-radius: 0;
+background: #283655;
+box-shadow: inset 0px -3px 0px rgba(0, 0, 0, 0.2);
+padding: 20px 10px;
+text-align: center;
+font-size: 26px;
+font-weight: 300;
+color: #fff;
+}
+
+.skin-x .bg-olive {
+background-color: #3384AA !important;
+}
+
+
+.skin-x .rightbar-menu ul {
+	margin: 0; 
+    padding: 0; 
+	list-style-type: none; 
+	list-style-image: none; 
+}
+
+.skin-x .rightbar-menu ul a{
+text-decoration:underline;
 }

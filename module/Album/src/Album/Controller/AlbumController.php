@@ -29,36 +29,42 @@ class AlbumController extends AbstractActionController
 
 	public function addAction()
 	{
-		
+		//if not logged in, redirect to login page
 		if (! $this->getServiceLocator()
 		->get('AuthService')->hasIdentity()){
 			return $this->redirect()->toRoute('login');
 		}
 		
-		$form = new AlbumForm();
-		$form->get('submit')->setValue('Add');
+		$alForm = new AlbumForm();
+		$catOptions = $this->getAlbumTable()->getCategoryArray();
+		$alForm->setOptionSelect($catOptions);
+		$alForm->initialize();
+		
+		$alForm->get('submit')->setValue('Add');
 		
 		$request = $this->getRequest();
 		if ($request->isPost()) {
-			$album = new Album();
-			$form->setInputFilter($album->getInputFilter());
-			$form->setData($request->getPost());
+			
 		
-			if ($form->isValid()) {
-				$album->exchangeArray($form->getData());
+			$album = new Album();
+			$alForm->setInputFilter($album->getInputFilter());
+			$alForm->setData($request->getPost());
+		
+			if ($alForm->isValid()) {
+				$alForm->exchangeArray($alForm->getData());
 				$this->getAlbumTable()->saveAlbum($album);
 		
 				// Redirect to list of albums
 				return $this->redirect()->toRoute('album');
 			}
 		}
-		return array('form' => $form);
+			
+		return array('form' => $alForm);
 		
 		
 	}
 
-	public function editAction()
-	{
+	public function editAction(){
 	
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
@@ -71,6 +77,7 @@ class AlbumController extends AbstractActionController
 		// if it cannot be found, in which case go to the index page.
 		try {
 			$album = $this->getAlbumTable()->getAlbum($id);
+			
 		}
 		catch (\Exception $ex) {
 			return $this->redirect()->toRoute('album', array(
@@ -79,8 +86,12 @@ class AlbumController extends AbstractActionController
 		}
 		
 		$form  = new AlbumForm();
+		$catOptions = $this->getAlbumTable()->getCategoryArray();
+		$form->setOptionSelect($catOptions);
+		$form->initialize();
 		$form->bind($album);
-		$form->get('submit')->setAttribute('value', 'Edit');
+		$form->get('submit')->setValue('Update');
+		
 		
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -179,13 +190,12 @@ class AlbumController extends AbstractActionController
 		
 	}
 	
-	public function getAlbumTable()
-	{
+	public function getAlbumTable(){
 		
-// 		if (! $this->getServiceLocator()
-// 		->get('AuthService')->hasIdentity()){
-// 			return $this->redirect()->toRoute('login');
-// 		}
+		if (! $this->getServiceLocator()
+		->get('AuthService')->hasIdentity()){
+			return $this->redirect()->toRoute('login');
+		}
 		
 		if (!$this->albumTable) {
 			$sm = $this->getServiceLocator();

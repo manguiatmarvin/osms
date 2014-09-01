@@ -2,14 +2,21 @@
 namespace Album\Form;
 
 use Zend\Form\Form;
+use Zend\Db\Adapter\AdapterInterface;
 
-class AlbumForm extends Form
-{
-	public function __construct($name = null)
+class AlbumForm extends Form{
+	protected $optionSelect;
+	
+	public function __construct()
 	{
+		
 		// we want to ignore the name passed
 		parent::__construct('album');
 
+	}
+	
+	public function initialize(){
+		
 		$this->add(array(
 				'name' => 'id',
 				'type' => 'Hidden',
@@ -28,6 +35,20 @@ class AlbumForm extends Form
 						'label' => 'Artist',
 				),
 		));
+		
+		
+		
+		$this->add(array(
+				'name'    => 'category_id',
+				'type'    => 'Zend\Form\Element\Select',
+				'options' => array(
+						'label'         => 'category',
+						'value_options' => $this->getOptionSelect(),
+						'empty_option'  => '--- please choose ---'
+				)
+		));
+		
+		
 		$this->add(array(
 				'name' => 'submit',
 				'type' => 'Submit',
@@ -36,5 +57,16 @@ class AlbumForm extends Form
 						'id' => 'submitbutton',
 				),
 		));
+		
+	}
+	
+	//setter and getter for options 
+	
+	public function setOptionSelect($options){
+		$this->optionSelect = $options;
+	}
+	
+	public function getOptionSelect(){
+		return $this->optionSelect;
 	}
 }
