@@ -303,7 +303,7 @@ $loggedInUser = $this->layout()->auth["user_name"];
 				<!-- Sidebar user panel -->
 				<div class="user-panel">
 					<div class="pull-left image">
-						<img src="/img/avatar3.png" class="img-circle"
+						<img src="<?php echo $this->layout()->auth['profile_pic_url']?>" class="img-circle"
 							alt="<?php echo  $loggedInUser?>"
 							title="<?php echo  $loggedInUser?>" />
 					</div>

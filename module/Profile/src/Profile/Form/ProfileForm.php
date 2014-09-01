@@ -72,7 +72,7 @@ class ProfileForm extends Form{
 						'placeholder'=>'mm/dd/yyyy',
 				),
 				'options' => array(
-						'label' => 'birthdate',
+						'label' => 'Birthdate',
 				),
 		));
 		
