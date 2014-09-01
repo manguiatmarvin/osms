@@ -12,8 +12,12 @@ class AlbumController extends AbstractActionController
 	protected $albumTable;
 	
 	
-	public function indexAction()
-	{
+	public function indexAction(){
+		if (! $this->getServiceLocator()
+		->get('AuthService')->hasIdentity()){
+			return $this->redirect()->toRoute('login');
+		}
+		
 		
 	// grab the paginator from the AlbumTable
     $paginator = $this->getAlbumTable()->fetchAll(true);
@@ -65,6 +69,11 @@ class AlbumController extends AbstractActionController
 	}
 
 	public function editAction(){
+		if (! $this->getServiceLocator()
+		->get('AuthService')->hasIdentity()){
+			return $this->redirect()->toRoute('login');
+		}
+		
 	
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
@@ -114,7 +123,11 @@ class AlbumController extends AbstractActionController
 
 	public function deleteAction(){
 		
-	
+		if (! $this->getServiceLocator()
+		->get('AuthService')->hasIdentity()){
+			return $this->redirect()->toRoute('login');
+		}
+		
 		
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
@@ -141,10 +154,10 @@ class AlbumController extends AbstractActionController
 	}
 	public function searchAction() {
 		
-// 		if (! $this->getServiceLocator()
-// 		->get('AuthService')->hasIdentity()){
-// 			return $this->redirect()->toRoute('login');
-// 		}
+		if (! $this->getServiceLocator()
+		->get('AuthService')->hasIdentity()){
+			return $this->redirect()->toRoute('login');
+		}
 		
 		$request = $this->getRequest();
 		if ($request->isPost ()) {
@@ -163,10 +176,10 @@ class AlbumController extends AbstractActionController
 	
 	public function searchresultAction(){
 		
-// 		if (! $this->getServiceLocator()
-// 		->get('AuthService')->hasIdentity()){
-// 			return $this->redirect()->toRoute('login');
-// 		}
+		if (! $this->getServiceLocator()
+		->get('AuthService')->hasIdentity()){
+			return $this->redirect()->toRoute('login');
+		}
 		
 		
 		$kw =  $this->params()->fromRoute('kword','');

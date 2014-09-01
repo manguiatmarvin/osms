@@ -7,8 +7,11 @@ use Zend\Form\Annotation\AnnotationBuilder;
 
 use SanAuth\Model\User;
 
-class AuthController extends AbstractActionController
+use SanAuth\Model\SanAuthTable;
+
+class AuthController extends AbstractActionController 
 {
+	protected $authTable;
     protected $form;
     protected $storage;
     protected $authservice;
@@ -91,7 +94,9 @@ class AuthController extends AbstractActionController
                         $this->getAuthService()->setStorage($this->getSessionStorage());
                     }
                     $this->getAuthService()->setStorage($this->getSessionStorage());
-                    $this->getAuthService()->getStorage()->write($request->getPost('username'));
+         
+                    $loginDetails = $this->getAuthTable()->getProfileInfoByUserName($request->getPost('username'));
+                    $this->getAuthService()->getStorage()->write($loginDetails);
               
                 }
             }
@@ -110,4 +115,13 @@ class AuthController extends AbstractActionController
 
         return $this->redirect()->toRoute('login');
     }
+    
+    
+	public function getAuthTable(){
+		if (!$this->authTable) {
+			$sm = $this->getServiceLocator();
+			$this->authTable = $sm->get('SanAuth\Model\SanAuthTable');
+		}
+		return $this->authTable;
+	}
 }

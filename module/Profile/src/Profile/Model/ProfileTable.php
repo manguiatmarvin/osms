@@ -23,7 +23,6 @@ class ProfileTable {
 		}
 	}
 	
-
 	
 	public function getProfileInfoByUserName($username) {
 		// get DB adapter

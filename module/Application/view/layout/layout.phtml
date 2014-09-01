@@ -14,6 +14,8 @@
 // 	}
 // }
 
+//array(15) { ["user_name"]=> string(13) "nivramstrikes" ["id"]=> string(1) "1" ["users_id"]=> string(1) "1" ["firstname"]=> string(5) "Paolo" ["lastname"]=> string(8) "Bideones" ["middle"]=> string(1) "C" ["birthdate"]=> string(10) "1895-07-01" ["gender_id"]=> string(1) "1" ["about"]=> string(365) "Bediones started his career as a commercial model, and later transitioned to television show hosting. He is best known for hosting GMA Network's Extra Challenge and Survivor Philippines.[1] He is now a TV host and the newest newscaster on TV5. On December 3, 2009, Bediones announced in a press conference that he had signed a three-year exclusive contract with TV5" ["address"]=> string(34) "Unit 1820 Makati Executive Tower 3" ["landline"]=> string(9) "122222222" ["cellphone"]=> string(9) "901223221" ["created"]=> string(10) "2014-09-02" ["profile_pic_url"]=> string(0) "" ["last_modified"]=> string(23) "Sep 02, 2014 @ 03:33 AM" }
+
 
 $loggedInUser  = null;
 
@@ -24,7 +26,9 @@ if(null===$this->layout()->auth){
 	return;
 }
 
-$loggedInUser = $this->layout()->auth;
+//var_dump($this->layout()->auth);
+
+$loggedInUser = $this->layout()->auth["user_name"];
 
 ?>
 <!DOCTYPE html>
@@ -268,27 +272,17 @@ $loggedInUser = $this->layout()->auth;
 					</a>
 						<ul class="dropdown-menu">
 							<!-- User image -->
-							<li class="user-header bg-light-blue"><img src="/img/avatar3.png"
+							<li class="user-header bg-light-blue"><img src="<?php echo $this->layout()->auth['profile_pic_url']?>"
 								class="img-circle" alt="User Image" />
 								<p>
-									Paulo Bediones - Porn Peddler <small>Member since Aug. 2014</small>
+									<?php echo $this->layout()->auth['firstname'].", ".$this->layout()->auth['lastname']?> <small>Member since <?php echo $this->layout()->auth['created']?></small>
 								</p></li>
 							<!-- Menu Body -->
-							<li class="user-body">
-								<div class="col-xs-4 text-center">
-									<a href="#">Followers</a>
-								</div>
-								<div class="col-xs-4 text-center">
-									<a href="#">Sales</a>
-								</div>
-								<div class="col-xs-4 text-center">
-									<a href="#">Friends</a>
-								</div>
-							</li>
+			
 							<!-- Menu Footer-->
 							<li class="user-footer">
 								<div class="pull-left">
-									<a href="<?php echo $this->url("profile")?>"
+									<a href="<?php echo $this->url("profile",array('action'=>'view'))?>"
 										class="btn btn-default btn-flat">Profile</a>
 								</div>
 								<div class="pull-right">
@@ -314,7 +308,7 @@ $loggedInUser = $this->layout()->auth;
 							title="<?php echo  $loggedInUser?>" />
 					</div>
 					<div class="pull-left info">
-						<p title="<?php echo  $loggedInUser?>"> Hello, <?php echo $loggedInUser; ?></p>
+						<p title="<?php echo  $loggedInUser?>"> Hello, <?php echo $this->layout()->auth['firstname']; ?></p>
 
 						<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 					</div>

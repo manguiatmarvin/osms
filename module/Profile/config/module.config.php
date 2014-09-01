@@ -3,6 +3,7 @@ return array(
      'controllers' => array(
          'invokables' => array(
              'Profile\Controller\Profile' => 'Profile\Controller\ProfileController',
+            
          ),
      ),
 

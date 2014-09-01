@@ -40,6 +40,12 @@ return array (
 												'show_in_menu' => false,
 										),
 										array (
+												'label' => 'Change Password',
+												'route' => 'profile',
+												'action' => 'change-password',
+												'show_in_menu' => false,
+										),
+										array (
 												'label' => 'Settings',
 												'route' => 'profile',
 												'action' => 'settings' 

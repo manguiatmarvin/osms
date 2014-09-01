@@ -50,10 +50,12 @@ class Module{
     		$auth = $e->getApplication()->getServiceManager()->get('AuthService')->getStorage ()->read ();
     		
     		if ("" === $auth &&  null === $auth) {
-    			$e->getRouteMatch ()->setParam ( 'controller', 'SanAuth\Controller\Auth' )->setParam ( 'action', 'index' );
+    			$e->getRouteMatch ()->setParam ('controller', 'SanAuth\Controller\Auth' )->setParam ( 'action', 'index' );
     		
     		}else{
     			// let the logged in username avaliable into layout
+    		
+    			
     			$e->getViewModel()->setVariables(array('auth' => $auth));
     			
     		}

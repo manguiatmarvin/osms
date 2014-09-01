@@ -5,15 +5,27 @@ namespace Profile\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Profile\Model\Profile;          // <-- Add this import
-use Profile\Form\ProfileForm;       // <-- Add this import
+use Profile\Form\ProfileForm; // <-- Add this import
 
 class ProfileController extends AbstractActionController {
-	
 	protected $profileTable;
 	protected $usersId;
 	
 	public function indexAction() {
-		return new ViewModel();
+		if (! $this->getServiceLocator()
+				->get('AuthService')->hasIdentity()){
+					return $this->redirect()->toRoute('login');
+				}else{
+			
+			$identity = $this->getServiceLocator()->get('AuthService')->getIdentity()['user_name'];
+			
+		}
+				
+	 $profile = $this->getProfileTable ()->getProfileInfoByUserName($identity);
+		
+		return new ViewModel(array(
+			'profile'=>$profile
+		));
 	
 	}
 	
@@ -26,7 +38,7 @@ class ProfileController extends AbstractActionController {
 			return $this->redirect()->toRoute('login');
 		}else{
 			
-			$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
+			$identity = $this->getServiceLocator()->get('AuthService')->getIdentity()['user_name'];
 			
 		}
 
@@ -54,7 +66,8 @@ class ProfileController extends AbstractActionController {
 			return $this->redirect()->toRoute('login');
 		}else{
 			
-			$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
+			$identity = $this->getServiceLocator()->get('AuthService')->getIdentity()['user_name'];
+		
 			
 		}
 
@@ -97,9 +110,31 @@ class ProfileController extends AbstractActionController {
 	}
 	
 	public function settingsAction() {
+		
+		if (! $this->getServiceLocator()
+		->get('AuthService')->hasIdentity()){
+				
+			return $this->redirect()->toRoute('login');
+		}
+		
 		return new ViewModel();
 	
 	}
+	
+	
+	public function changePasswordAction() {
+		
+		if (! $this->getServiceLocator()
+		->get('AuthService')->hasIdentity()){
+				
+			return $this->redirect()->toRoute('login');
+		}
+		
+		return new ViewModel();
+	
+	}
+	
+	
 
 	
 	public function getProfileTable(){
