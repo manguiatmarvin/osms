@@ -187,14 +187,13 @@ color: #fff;
 background-color: #3384AA !important;
 }
 
-
 .skin-x .rightbar-menu ul {
 	margin: 0; 
     padding: 0; 
 	list-style-type: none; 
 	list-style-image: none; 
 }
-
 .skin-x .rightbar-menu ul a{
 text-decoration:underline;
 }
+
