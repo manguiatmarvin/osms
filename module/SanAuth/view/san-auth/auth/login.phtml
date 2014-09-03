@@ -32,6 +32,7 @@ $form->prepare ();
 <body class="bg-black skin-x">
 
 	<div class="form-box" id="login-box">
+	<?php echo $this->render('flashmessenger/layout') ?>
 		<div class="header">Sign In</div>
 		<form action="/auth/authenticate" method="POST" id="User">
 			<div class="body bg-gray">
@@ -59,27 +60,6 @@ $form->prepare ();
 					membership</a>
 			</div>
 		</form>
-		
-		<?php 
-		
-		if ($this->messages){
-         echo "<div class=\"alert alert-warning alert-dismissable\">";
-         echo "<i class=\"fa fa-warning\"></i>";
-         echo "<button type=\"button\" class=\"close\" data-dismiss=\"alert\"
-				aria-hidden=\"true\">×</button>";
-         echo "<b>Alert!</b>";
-         
-         
-			echo '<ul>';
-			foreach($this->messages as $message)
-			{
-				echo '<li>'.$message.'</li>';
-			}
-			echo '</ul>';
-			
-			echo "</div>";
-		}
-		?>
 
 
 	</div>
