@@ -121,11 +121,16 @@ class ProfileController extends AbstractActionController {
 					$this->flashMessenger()->addErrorMessage("Entered \"New Password\" invalid character count, acceptable 100");
 				}else{
 					//finalized and save
-					$this->flashMessenger()->addSuccessMessage("Password updated successfully");
+					$updatePasswordRes = $this->getProfileTable()->updatePassword($userDetails['user_name'],$passwordDetails->oldPassword,$desirePassword);
+					
+					if($updatePasswordRes){
+						$this->flashMessenger()->addSuccessMessage("Password updated successfully");
+					}else{
+						$this->flashMessenger()->addErrorMessage("OOps! There was a problem updating your password. Please contact the admin");
+					}
+								
 					
 				}
-				
-				
 				
 				return $this->redirect()->toRoute('profile',array('action'=>'change-password'));
 			}

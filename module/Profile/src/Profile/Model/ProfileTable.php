@@ -139,6 +139,39 @@ class ProfileTable {
 		return $pasword;
 	}
 	
+	/**
+	 * return : 0 or 1 defending on the update result
+	 * @param unknown $userName
+	 * @param unknown $oldPassword
+	 * @param unknown $newPassword
+	 */
+	public function updatePassword($userName,$oldPassword,$newPassword){
+		$dbAdapter = $this->tableGateway->getAdapter();
+		$sql = "SELECT `users`.*, 
+				(CASE WHEN `pass_word` = '{$oldPassword}' 
+				 THEN 1 ELSE 0 END) 
+			     AS `zend_auth_credential_match` 
+			   FROM `users` WHERE `user_name` = '{$userName}'";
+
+		$statement = $dbAdapter->query($sql);
+		$selectResult = $statement->execute();
+		
+		$data = $selectResult->current();
+		//update if exist
+		if ('1' === $data['zend_auth_credential_match']){
+		      //TODO: need to clean the data b4 saving to database
+			
+			$statement = $dbAdapter->query("Update users set pass_word = '{$newPassword}' 
+			                                WHERE users.id = {$data['id']} AND 
+			                                      users.user_name = '{$data['user_name']}'");
+			$updateResult = $statement->execute();
+			
+		  return $updateResult->getAffectedRows();
+		 
+		}
+		
+	}
+	
 	public function deleteProfile($id) {
 		$this->tableGateway->delete ( array (
 				'id' => ( int ) $id 
