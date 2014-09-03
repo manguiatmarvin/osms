@@ -1,3 +1,5 @@
+<?php echo $this->render('flashmessenger/layout') ?>
+
 <?php
 // module/Album/view/album/album/edit.phtml:
 $title = 'Edit Profile';
@@ -14,8 +16,7 @@ $form->setAttribute ( 'action', $this->url ( 'profile', array (
 $form->prepare();
 
 $date  =  new DateTime($form->get('birthdate')->getValue()) ;
-$bdate =  $date->format('d/m/Y');
-
+$bdate =  $date->format('m/d/Y');
  ?>
  
  <div class="row">
@@ -30,46 +31,67 @@ $bdate =  $date->format('d/m/Y');
 <div class="panel-body">
 
 	<div class="box-body">
+	
 			  <div class="form-group">
                  <?php echo $this->form()->openTag($form);?>
                   <?php  echo $this->formHidden($form->get('id')); ?>
                   <?php  echo $this->formHidden($form->get('users_id')); ?>
+                   <div class="form-group">
+                   <div class="input-group">
                   <?php  echo $this->formRow($form->get('firstname')); ?>
-                  <?php  echo $this->formRow($form->get('lastname')); ?>
-                  <?php  echo $this->formRow($form->get('middle')); ?>
+                  </div>
+                  </div>
                   
-                  <br/>
-                  <?php  echo $this->formRow($form->get('birthdate')); ?>
-                
-                   
+                  <div class="form-group">
+                  <div class="input-group">
+                  <?php  echo $this->formRow($form->get('lastname')); ?>
+                  </div>
+                  </div>
+                  
+                  <div class="form-group">
+                  <div class="input-group">
+                  <?php  echo $this->formRow($form->get('middle')); ?>
+                  </div>
+                  </div>
+                  
+                  <div class="form-group">
+                  <div class="input-group">
+    
+                    <?php  echo $this->formRow($form->get('birthdate')); ?>
+                  
+                   </div>
+                  </div>
+                       <div class="form-group">
+                     <div class="input-group">
                   <?php  echo $this->formRow($form->get('gender_id')); ?>
 
+                  </div>
+                  </div>
                   
+                      <div class="form-group">
+                     <div class="input-group">
                    <?php   echo $this->formRow($form->get('about')); ?>
+                    </div>
+                  </div>
                   
-                  
+                          <div class="form-group">
+                     <div class="input-group">
                   <?php  echo $this->formRow($form->get('address')); ?>
-                 
+                          </div>
+                  </div>
                               <!-- phone mask -->
                   <div class="form-group">
-                     <label>Landline:</label>
                      <div class="input-group">
-                         <div class="input-group-addon">
-                          <i class="fa fa-phone"></i>
-                          </div>
-                      <input type="text" name="landline" value ="<?php echo $form->get('landline')->getValue()?>" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask/>
-                            </div><!-- /.input group -->
+                       <?php  echo $this->formRow($form->get('landline')); ?>
+                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   
                   <!-- phone mask -->
                   <div class="form-group">
-                     <label>Cellphone:</label>
                      <div class="input-group">
-                         <div class="input-group-addon">
-                          <i class="fa fa-phone"></i>
-                          </div>
-                      <input type="text" name="cellphone" value ="<?php echo $form->get('cellphone')->getValue()?>" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask/>
-                            </div><!-- /.input group -->
+                   
+                   <?php  echo $this->formRow($form->get('cellphone')); ?>
+                      </div><!-- /.input group -->
                   </div><!-- /.form group -->
                 
                  <div class="input-group">
@@ -97,24 +119,8 @@ $bdate =  $date->format('d/m/Y');
 		<div class="panel-heading">Profile Menu</div>
 		<div class="panel-body rightbar-menu">
 			<!-- right navigation //-->
-			<ul>
-
-				<li><a href="#">Change Profile Picture</a></li>
-				<li><a
-					href="<?php echo $this->url('profile',array('action'=>'edit')); ?>">Edit
-						Profile Details</a></li>
-				<li><a
-					href="<?php echo $this->url('profile',array('action'=>'settings')); ?>">Profile
-						Settings</a></li>
-				<li><a
-					href="<?php echo $this->url('profile',array('action'=>'settings')); ?>">Change
-						Password</a></li>
-				<li><a
-					href="<?php echo $this->url('login/process',array('action'=>'logout')); ?>">Logout</a></li>
-
-			</ul>
+           <?php echo $this->render('layout/menu') ?>
 		</div>
 	</div>
 </section>
-
-</div>
+</div>        

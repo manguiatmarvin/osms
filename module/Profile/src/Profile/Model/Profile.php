@@ -217,7 +217,6 @@ class Profile implements InputFilterAwareInterface
 					),
 			));
 
-	
 			
 			$inputFilter->add(array(
 					'name'     => 'about',
@@ -226,22 +225,17 @@ class Profile implements InputFilterAwareInterface
 							array('name' => 'StripTags'),
 							array('name' => 'StringTrim'),
 					),
-// 					'validators' => array(
-// 							array(
-// 									'name'    => 'StringLength',
-// 									'options' => array(
-// 											'encoding' => 'UTF-8',
-// 											'min'      => 1,
-// 											'max'      => 500,
-// 									),
-// 							),
-// 					),
+					'validators' => array(
+							array(
+									'name'    => 'StringLength',
+									'options' => array(
+											'encoding' => 'UTF-8',
+											'min'      => 1,
+											'max'      => 500,
+									),
+							),
+					),
 			));
-			
-			
-
-
-
 	
 			$this->inputFilter = $inputFilter;
 		}

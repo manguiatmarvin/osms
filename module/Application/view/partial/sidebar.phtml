@@ -9,57 +9,36 @@
  * 
  * 
  */
-
-//user is not yet logged in
-if(null===$this->layout()->auth){
-	return null;
-}
-
-foreach ($this->container as $page){
-    $hasChildren = $page->hasPages();
-    $active = $page->isActive()  ? "active":"";
-    $showInNav = $page->get('show_in_menu');
-    
-    
-    if( ! $hasChildren)
-    {
-        ?>
-    
-          <li class="<?php echo $active ?>">
-            <a href="<?php echo $page->getHref(); ?>">
-            <i class="fa <?php echo $page->getId(); ?>"></i> <span><?php echo $page->getLabel(); ?></span>
-            </a>
-          </li>
-        
-        <?php
-    }
-    else
-    {
-        ?>
-         <li class="treeview <?php echo $active ?>">
-         
-             <a href="#">
-             <i class="fa <?php echo $page->getId(); ?>"></i>
-             <span><?php echo $page->getLabel(); ?></span>
-             <i class="fa fa-angle-left pull-right"></i>
-             </a>
-                   
-             <ul class="treeview-menu">
-            <?php
-            foreach($page->getPages() as $child)
-            {
-            	if($child->get('show_in_menu') === false) {
-            		//display the menu
-                  continue;            	
-                }
-                ?>
-                <li><a href="<?php echo $child->getHref(); ?>"><i class="fa fa-angle-double-right"></i><?php echo $child->getLabel(); ?> </a></li>
-                <?php
-            }
-            ?>
-           </ul>
-       </li>
-        <?php
-    }
-}
 ?>
+                     <?php foreach($this->container as $parent):?>
+                      <?php if($parent->get('show_in_menu') === false) continue ?>
+                       <?php if(!$parent->hasPages()):?>
+                        <li class="<?php echo $parent->isActive() ? "active":""?>">
+                            <a href="<?php echo $parent->getHref();?>">
+                                <i class="fa fa-<?php echo $parent->getId()?>"></i> <span><?php echo $parent->getLabel()?></span>
+                            </a>
+                        </li>
+                        <?php endif;?>
+                       <?php if($parent->hasPages()):?>
+                        <li class="treeview <?php echo $parent->isActive() ? "active":""?>">
+                            <a href="<?php echo $parent->getHref();?>">
+                                <i class="fa <?php echo $parent->getId()?>"></i>
+                                <span><?php echo $parent->getLabel()?></span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu <?php echo $parent->isActive() ? "active":""?>">
+                            <?php foreach ($parent as $child):?>
+                            <?php if($child->get('show_in_menu') === false) continue ?>
+                           <li><a href="<?php echo $child->getHref()?>"><i class="fa fa-<?php echo $child->getId()?>"></i><?php echo $child->getLabel()?> </a></li>
+                            <?php endforeach;?>
+                            </ul>
+                        </li>
+                       <?php endif;?>
+                     <?php endforeach;?>
+
+
+
+
+
+
+

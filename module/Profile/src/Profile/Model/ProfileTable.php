@@ -8,6 +8,8 @@ use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Sql;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
+use Zend\Filter\DateTimeFormatter;
+use Profile\Model\Password;
 
 class ProfileTable {
 	protected $tableGateway;
@@ -63,13 +65,16 @@ class ProfileTable {
 		return $row;
 	}
 	public function saveProfile(Profile $profile) {
-		$today = date ( "Y-m-d H:i:s" );
+		 //date formatting 
+		$today = date( "Y-m-d H:i:s" );
+		$bdate = new \DateTime($profile->birthdate);
+		$bdate = $bdate->format("Y-m-d"); 
 		
 		$data = array (
 				'firstname' => $profile->firstname,
 				'lastname' => $profile->lastname,
 				'middle' => $profile->middle,
-				'birthdate' => $profile->birthdate,
+				'birthdate' => $bdate,
 				'gender_id' => $profile->gender_id,
 				'about' => $profile->about,
 				'address' => $profile->address,
@@ -112,6 +117,26 @@ class ProfileTable {
 		}
 	
 		return $selectData;
+	}
+	
+	public function getPasswordDetails($user_id){
+		$dbAdapter = $this->tableGateway->getAdapter();
+		$sql = "Select users.id, users.user_name, users.pass_word as pass_word
+				From users 
+				Where users.id = {$user_id}";
+		
+		$statement = $dbAdapter->query($sql);
+		$result = $statement->execute();
+		
+		$data = $result->current();
+		$pasword = new Password();
+	
+	     foreach($data as $val){
+	     	$pasword->users_id = $data['id'];
+	     	$pasword->oldPassword = $data['pass_word'];
+	     }
+		
+		return $pasword;
 	}
 	
 	public function deleteProfile($id) {

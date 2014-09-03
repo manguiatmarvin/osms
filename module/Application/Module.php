@@ -53,11 +53,8 @@ class Module{
     			$e->getRouteMatch ()->setParam ('controller', 'SanAuth\Controller\Auth' )->setParam ( 'action', 'index' );
     		
     		}else{
-    			// let the logged in username avaliable into layout
-    		
-    			
+    			 // access details in layout eg. $this->layout->auth['user_name']
     			$e->getViewModel()->setVariables(array('auth' => $auth));
-    			
     		}
     	}
     	
@@ -81,7 +78,16 @@ class Module{
     
     					'AuthService' => function ($sm) {
     						$dbAdapter = $sm->get ( 'Zend\Db\Adapter\Adapter' );
-    						$dbTableAuthAdapter = new DbTableAuthAdapter ( $dbAdapter, 'users', 'user_name', 'pass_word', 'MD5(?)' );
+    						    // I'm going to change the password encryption from Md5 to  BCrypt 
+    						//$dbTableAuthAdapter = new DbTableAuthAdapter ( $dbAdapter, 'users', 'user_name', 'pass_word', 'MD5(?)' );
+    						
+//     						if ($bcrypt->verify("iloveyou","\$2y\$10\$yRz2geYWuRg4bgK5v5pN3O89PVOpQa0sk7uGMBzD3n7sEVuy5GmCa")) {
+//     							echo "The password is correct! \n";
+//     						} else {
+//     							echo "The password is NOT correct.\n";
+//     						}
+    						
+    						$dbTableAuthAdapter = new DbTableAuthAdapter ( $dbAdapter, 'users', 'user_name', 'pass_word', '' );
     							
     						$authService = new AuthenticationService ();
     						$authService->setAdapter ( $dbTableAuthAdapter );

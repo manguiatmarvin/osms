@@ -1,5 +1,6 @@
 $(function() {
-	
-	alert('sdsd');
-	
-}
+	//alert("DOM ready");
+    
+
+
+});

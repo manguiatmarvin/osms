@@ -1,15 +1,22 @@
+<?php echo $this->render('flashmessenger/layout')?>
 <div class="row">
-
 	<!-- Left col -->
 	<section class="col-lg-7 connectedSortable">
 		<div>
 			<!-- main sub page content// -->
 
 			<div class="panel panel-default">
-				<div class="panel-heading"><?php echo $this->profile['firstname'].", ".$this->profile['lastname']."  ".$this->profile['middle']."."?></div>
+				<div class="panel-heading">Profile</div>
 				<div class="panel-body">
 
 					<div class="box-body">
+
+						<div class="well">
+							<img src="<?php echo $this->profile['profile_pic_url']?>"
+								alt="User Image" />
+							<h3><?php echo $this->profile['firstname'].", ".$this->profile['lastname']."  ".$this->profile['middle']."."?></h3>
+						</div>
+
 						<dl class="dl-horizontal">
 							<dt><?php echo $this->translate('Address')?>:</dt>
 							<dd><?php echo $this->profile['address']?></dd>
@@ -25,8 +32,8 @@
 
 							<dt><?php echo $this->translate('Last Update')?>:</dt>
 							<dd><?php echo $this->profile['last_modified']?></dd>
-							
-						    <dt></dt>
+
+							<dt></dt>
 							<dd></dd>
 
 							<dt><?php echo $this->translate('About')?>:</dt>
@@ -49,24 +56,9 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Profile Menu</div>
 			<div class="panel-body rightbar-menu">
-			<!-- right navigation //-->
-			<ul>
-
-				<li><a href="#">Change Profile Picture</a></li>
-				<li><a
-					href="<?php echo $this->url('profile',array('action'=>'edit')); ?>">Edit
-						Profile Details</a></li>
-				<li><a
-					href="<?php echo $this->url('profile',array('action'=>'settings')); ?>">Profile
-						Settings</a></li>
-				<li><a
-					href="<?php echo $this->url('profile',array('action'=>'settings')); ?>">Change
-						Password</a></li>
-				<li><a
-					href="<?php echo $this->url('login/process',array('action'=>'logout')); ?>">Logout</a></li>
-
-			</ul>
-		</div>
+				<!-- right navigation //-->
+              <?php echo $this->render('layout/menu') ?>
+			</div>
 		</div>
 	</section>
 

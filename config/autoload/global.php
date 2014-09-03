@@ -12,7 +12,13 @@ return array (
 						'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory' 
 				) 
 		),
-		
+		'view_helper_config' => array(
+				'flashmessenger' => array(
+						'message_open_format' => '< div%s >',
+						'message_separator_string' => '< br >',
+						'message_close_string' => '<  /div >',
+				),
+		),
 		'navigation' => array (
 				'default' => array (
 						
@@ -31,7 +37,7 @@ return array (
 												'label' => 'View',
 												'route' => 'profile',
 												'action' => 'view',
-												'id'=>1
+												'show_in_menu' => true,
 										),
 										array (
 												'label' => 'Edit',
@@ -48,56 +54,36 @@ return array (
 										array (
 												'label' => 'Settings',
 												'route' => 'profile',
-												'action' => 'settings' 
+												'action' => 'settings',
+												'show_in_menu' => true,
 										),
 										array (
 												'label' => 'Logout',
 												'route' => 'login/process',
-												'action' => 'logout' 
+												'action' => 'logout',
+												'show_in_menu' => true,
 										) 
 								) 
 						)
+				
 						,
-						array (
-								'label' => 'Human Resource',
-								'route' => 'humanresource',
-								'id' => 'fa-user',
-								'pages' => array (
-										array (
-												'label' => 'Employee',
-												'route' => 'humanresource',
-												'action' => 'index'
-										),
-										array (
-												'label' => 'Pre-Employment',
-												'route' => 'humanresource',
-												'action' => 'index'
-										),
-										array (
-												'label' => 'Reqruitment',
-												'route' => 'humanresource',
-												'action' => 'index'
-										)
-								)
-						)
-						,
-// 						array (
-// 								'label' => 'Accounting',
-// 								'route' => 'acounting',
-// 								'id' => 'fa-user',
-// 								'pages' => array (
-// 										array (
-// 												'label' => 'Payroll',
-// 												'route' => 'acounting',
-// 												'action' => 'index'
-// 										),
-// 										array (
-// 												'label' => 'Biometric',
-// 												'route' => 'acounting',
-// 												'action' => 'index'
-// 										)
+//  						array (
+//  								'label' => 'Accounting',
+//  								'route' => 'acounting',
+//  								'id' => 'fa-user',
+//  								'pages' => array (
+//  										array (
+//  												'label' => 'Payroll',
+//  												'route' => 'acounting',
+//  												'action' => 'index'
+//  										),
+//  										array (
+//  												'label' => 'Biometric',
+//  												'route' => 'acounting',
+//  												'action' => 'index'
+//  										)
 										
-// 								)
+//  								)
 // 						),
 						
 						array (
@@ -108,7 +94,8 @@ return array (
 										array (
 												'label' => 'View Album',
 												'route' => 'album',
-												'action' => 'index' 
+												'action' => 'index',
+												 
 										),
 										array (
 												'label' => 'Add',

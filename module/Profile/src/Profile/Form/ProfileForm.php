@@ -66,9 +66,9 @@ class ProfileForm extends Form{
 		
 		$this->add(array(
 				'name' => 'birthdate',
-				'type' => 'Text',
+				'type' => 'Zend\Form\Element\Date',
 				'attributes' => array(
-						'class'  => 'form-control',
+						'class'  => 'datepicker',
 						'placeholder'=>'mm/dd/yyyy',
 				),
 				'options' => array(
@@ -107,9 +107,10 @@ class ProfileForm extends Form{
 		
 		$this->add(array(
 				'name' => 'landline',
-				'type' => 'Text',
+				'type' => 'Zend\Form\Element\Text',
 				'attributes' => array(
 						'class'  => 'form-control',
+						'placeholder'=>'Enter Phone ...',
 				),
 				'options' => array(
 						'label' => 'Landline',
@@ -122,8 +123,7 @@ class ProfileForm extends Form{
 				'type' => 'Text',
 				'attributes' => array(
 						'class'  => 'form-control',
-						'data-inputmask' => '"mask": "(999) 999-9999"',
-						 'data-mask'
+						'placeholder'=>'Enter Cellphone  ...',
 				),
 				'options' => array(
 						'label' => 'Mobile',

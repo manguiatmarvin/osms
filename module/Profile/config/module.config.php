@@ -28,11 +28,14 @@ return array(
   
          ),
      ),
-
-     'view_manager' => array(
-         'template_path_stack' => array(
-             'profile' => __DIR__ . '/../view',
-         ),
-     ),
+		'view_manager' => array (
+				'template_map' => array (
+						'layout/menu'  => __DIR__ . '/../view/layout/menu.phtml',
+				),
+				'template_path_stack' => array (
+						'profile' => __DIR__ . '/../view' 
+				)
+				 
+		),
  );
 ?>

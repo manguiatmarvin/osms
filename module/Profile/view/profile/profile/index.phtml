@@ -1,3 +1,4 @@
+<?php echo $this->render('flashmessenger/layout') ?>
 <div class="row">
 
  <!-- Left col -->
@@ -19,22 +20,7 @@
 			<div class="panel-heading">Profile Menu</div>
 			<div class="panel-body rightbar-menu">
 			<!-- right navigation //-->
-			<ul>
-
-				<li><a href="#">Change Profile Picture</a></li>
-				<li><a
-					href="<?php echo $this->url('profile',array('action'=>'edit')); ?>">Edit
-						Profile Details</a></li>
-				<li><a
-					href="<?php echo $this->url('profile',array('action'=>'settings')); ?>">Profile
-						Settings</a></li>
-				<li><a
-					href="<?php echo $this->url('profile',array('action'=>'settings')); ?>">Change
-						Password</a></li>
-				<li><a
-					href="<?php echo $this->url('login/process',array('action'=>'logout')); ?>">Logout</a></li>
-
-			</ul>
+          <?php echo $this->render('layout/menu') ?>
 		</div>
 		</div>
 	</section>

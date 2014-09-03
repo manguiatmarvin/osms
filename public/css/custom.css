@@ -188,10 +188,14 @@ background-color: #3384AA !important;
 }
 
 .skin-x .rightbar-menu ul {
-	margin: 0; 
-    padding: 0; 
+	margin: 0px 0px 0px 12px; 
+    padding: 0px; 
 	list-style-type: none; 
 	list-style-image: none; 
+}
+
+.skin-x .rightbar-menu li {
+  height:27px;
 }
 .skin-x .rightbar-menu ul a{
 text-decoration:underline;
