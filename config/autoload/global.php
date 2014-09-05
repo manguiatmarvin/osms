@@ -25,13 +25,15 @@ return array (
 						array (
 								'label' => 'Dashbaord',
 								'route' => 'home',
-								'id' => 'fa-dashboard' 
+								'id' => 'fa-dashboard', 
+								'resource'=> 'home',
 						)
 						,
 						array (
 								'label' => 'My Profile',
 								'route' => 'profile',
-								'id' => 'fa-user',
+								'class' => 'fa-user',
+								'resource'=> 'myProfile',
 								'pages' => array (
 										array (
 												'label' => 'View',
@@ -64,32 +66,43 @@ return array (
 												'show_in_menu' => true,
 										) 
 								) 
-						)
-				
-						,
-//  						array (
-//  								'label' => 'Accounting',
-//  								'route' => 'acounting',
-//  								'id' => 'fa-user',
-//  								'pages' => array (
-//  										array (
-//  												'label' => 'Payroll',
-//  												'route' => 'acounting',
-//  												'action' => 'index'
-//  										),
-//  										array (
-//  												'label' => 'Biometric',
-//  												'route' => 'acounting',
-//  												'action' => 'index'
-//  										)
-										
-//  								)
-// 						),
+						),
+						array (
+								'label' => 'Human Resource',
+								'route' => 'hr',
+								'class' => 'fa-user',
+								'pages' => array (
+										array (
+												'label' => 'Employee',
+												'route' => 'hr',
+												'action' => 'employee' 
+										),
+										array (
+												'label' => 'Pre-Employment',
+												'route' => 'hr',
+												'action' => 'index' 
+										),
+										array (
+												'label' => 'Recruitement',
+												'route' => 'hr',
+												'action' => 'index'
+										)
+										,
+										array (
+												'label' => 'Employee Details',
+												'route' => 'hr',
+												'action' => 'view-employee',
+												'show_in_menu' => false,
+										)
+								)
+								 
+						),
 						
 						array (
 								'label' => 'Album',
 								'route' => 'album',
-								'id' => 'fa-book',
+								'class' => 'fa-book',
+								'resource'=> 'album',
 								'pages' => array (
 										array (
 												'label' => 'View Album',

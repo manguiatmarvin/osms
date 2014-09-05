@@ -1,0 +1,58 @@
+<?php
+ $form = $this->form;
+ $form->setAttribute('action', $this->url(
+     'hr',
+     array(
+         'action' => 'view-employee',
+         'id'     => $this->id,
+     )
+ ));
+ 
+ $form->prepare();
+//  $out= "";
+ 
+//  $out.= $this->form()->openTag($form);
+//  $out.= $this->formRow($form->get('users_id'));
+//  $out.= $this->formRow($form->get('date_hired'));
+//  $out.= $this->formRow($form->get('status'));
+//  $out.= $this->formSubmit($form->get('submit'));
+//  $out.= $this->form()->closeTag();
+?>
+<div class="well box-body">
+	<div class="form-group">
+        <?php echo $this->form()->openTag($form);?>
+        <?php  echo $this->formHidden($form->get('users_id')); ?>
+       
+       <div class="form-group">
+	    <div class="input-group">
+           <?php  echo $this->formRow($form->get('date_hired')); ?>
+         </div>
+	   </div>
+	   
+	   <div class="form-group">
+	    <div class="input-group">
+           <?php echo  $this->formRow($form->get('status')); ?>
+         </div>
+	   </div>
+	   
+	    <div class="input-group">
+                 <?php   echo $this->formSubmit($form->get('submit')); ?>
+        </div>
+                 
+	   <?php echo $this->form()->closeTag();?>
+	</div>
+</div>
+	<ul>
+
+
+		<li><a href="#">Set Biometric Data</a></li>
+		<li><a
+			href="<?php echo $this->url('profile',array('action'=>'edit')); ?>">Activate
+				Employee</a></li>
+		<li><a
+			href="<?php echo $this->url('profile',array('action'=>'settings')); ?>">Departments</a></li>
+
+		<li><a
+			href="<?php echo $this->url('login/process',array('action'=>'logout')); ?>">Logout</a></li>
+
+	</ul>

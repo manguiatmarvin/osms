@@ -5,6 +5,7 @@ return array(
          'SanAuth',
          'Dashboard',
          'Profile',
+     	 'Hr',
          'Album',
    
      ),

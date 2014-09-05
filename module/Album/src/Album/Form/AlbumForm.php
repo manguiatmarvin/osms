@@ -39,7 +39,7 @@ class AlbumForm extends Form{
 		
 		
 		$this->add(array(
-				'name'    => 'category_id',
+				'name'    => 'status',
 				'type'    => 'Zend\Form\Element\Select',
 				'options' => array(
 						'label'         => 'category',

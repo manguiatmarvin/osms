@@ -34,7 +34,7 @@ return array(
          						),
          						'defaults' => array(
          								'controller' => 'Album\Controller\Album',
-         								'action'     => 'index',
+         								'action'     => 'searchresult',
          						),
          				),
          		),

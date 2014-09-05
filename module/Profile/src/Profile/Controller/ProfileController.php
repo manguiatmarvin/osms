@@ -116,7 +116,7 @@ class ProfileController extends AbstractActionController {
 			    }else if($desirePassword !== $desirePasswordRe){
 					$this->flashMessenger()->addErrorMessage("Entered \"Password\" does not matched");
 				}else if($currentPassword !== $passwordDetails->oldPassword){
-					$this->flashMessenger()->addErrorMessage("Entered \"Current Password\" does not matched from your original password {$passwordDetails->oldPassword}");
+					$this->flashMessenger()->addErrorMessage("Entered \"Current Password\" does not matched from your original password");
 				}else if(strlen($desirePassword) > 100){
 					$this->flashMessenger()->addErrorMessage("Entered \"New Password\" invalid character count, acceptable 100");
 				}else{

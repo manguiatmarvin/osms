@@ -25,8 +25,8 @@ class Module{
         $eventManager        = $application->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-        $eventManager->attach('dispatch', array($this, 'loadCommonViewVars'), 100);
-      
+       // $eventManager->attach('dispatch', array($this, 'loadCommonViewVars'), 100);
+        $eventManager -> attach('route', array($this, 'loadCommonViewVars'));
     }
 
     
@@ -45,6 +45,12 @@ class Module{
     public function loadCommonViewVars(MvcEvent $e) {
     	$auth = null;
     	
+//     	$dbAdapter = $e->getApplication()->getServiceManager()->get('Zend\Db\Adapter\Adapter');
+//     	$results = $dbAdapter->query('SELECT * FROM users')->execute();
+//         var_dump($results->current());
+        
+        // ALC Tutorial
+    	//http://ivangospodinow.com/zend-framework-2-acl-setup-in-5-minutes-tutorial/
     	if (! $this->isOpenRequest ( $e )) {
     		
     		$auth = $e->getApplication()->getServiceManager()->get('AuthService')->getStorage ()->read ();

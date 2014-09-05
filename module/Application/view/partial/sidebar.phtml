@@ -15,30 +15,23 @@
                        <?php if(!$parent->hasPages()):?>
                         <li class="<?php echo $parent->isActive() ? "active":""?>">
                             <a href="<?php echo $parent->getHref();?>">
-                                <i class="fa fa-<?php echo $parent->getId()?>"></i> <span><?php echo $parent->getLabel()?></span>
+                                <i class="fa fa-<?php echo $parent->get('class')?>"></i> <span><?php echo $parent->getLabel()?></span>
                             </a>
                         </li>
                         <?php endif;?>
                        <?php if($parent->hasPages()):?>
                         <li class="treeview <?php echo $parent->isActive() ? "active":""?>">
                             <a href="<?php echo $parent->getHref();?>">
-                                <i class="fa <?php echo $parent->getId()?>"></i>
+                                <i class="fa <?php echo $parent->get('class')?>"></i>
                                 <span><?php echo $parent->getLabel()?></span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu <?php echo $parent->isActive() ? "active":""?>">
                             <?php foreach ($parent as $child):?>
                             <?php if($child->get('show_in_menu') === false) continue ?>
-                           <li><a href="<?php echo $child->getHref()?>"><i class="fa fa-<?php echo $child->getId()?>"></i><?php echo $child->getLabel()?> </a></li>
+                            <li><a href="<?php echo $child->getHref()?>"><i class="fa fa-angle-double-right"></i><?php echo $child->getLabel()?> </a></li>
                             <?php endforeach;?>
                             </ul>
                         </li>
                        <?php endif;?>
                      <?php endforeach;?>
-
-
-
-
-
-
-
