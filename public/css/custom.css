@@ -4,7 +4,7 @@
 */
 /* skin-black navbar */
 .skin-x .navbar {
-  background-color: #E2E2E2;
+  background-color: #f5f5f5;
   border-bottom: 1px solid #eee;
 }
 
@@ -201,3 +201,6 @@ background-color: #3384AA !important;
 text-decoration:underline;
 }
 
+.skin-x select {
+
+}
