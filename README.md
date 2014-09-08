@@ -41,8 +41,10 @@ put the soucecode in a secure location eg
 
 /home/user/Documents/vhost/
 
+2. Download ZendFramework2 http://framework.zend.com/downloads/latest
+  uncompress the file to a secure location eg /home/marvin/ZendFramework2.3.3
 
-2.(Setup the APACHE web server
+3.(Setup the APACHE web server
 
 # Normal set up for UBUNTO 14.02 see apace 2 vhost configuration 
 
@@ -50,6 +52,7 @@ put the soucecode in a secure location eg
    ServerName marvin.sourcefit.com
    DocumentRoot /var/www/vhost/marvin.sourcefit.com/public
    SetEnv APPLICATION_ENV "development"
+   SetEnv ZF2_PATH "path/to/zend/library"
    <Directory /var/www/vhost/marvin.sourcefit.com/public/>
         DirectoryIndex index.php
         AllowOverride All

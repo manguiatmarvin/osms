@@ -3,16 +3,16 @@
 namespace SanAuth\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Form\Annotation\AnnotationBuilder;
-
 use SanAuth\Model\User;
-
 use SanAuth\Model\SanAuthTable;
+use SanAuth\Model\SanAuth;
+use SanAuth\Form\LoginForm;
+use SanAuth\Model\LoginFormFilter;
+
 
 class AuthController extends AbstractActionController 
 {
 	protected $authTable;
-    protected $form;
     protected $storage;
     protected $authservice;
 
@@ -36,16 +36,7 @@ class AuthController extends AbstractActionController
         return $this->storage;
     }
 
-    public function getForm()
-    {
-        if (! $this->form) {
-            $user       = new User();
-            $builder    = new AnnotationBuilder();
-            $this->form = $builder->createForm($user);
-        }
 
-        return $this->form;
-    }
 
     public function loginAction()
     {
@@ -54,27 +45,37 @@ class AuthController extends AbstractActionController
             return $this->redirect()->toRoute('success');
         }
 
-        $form       = $this->getForm();
-
+       $form = new LoginForm();
+       
         return array(
             'form'      => $form,
             'messages'  => $this->flashmessenger()->getMessages()
         );
     }
 
-    public function authenticateAction()
-    {
-        $form       = $this->getForm();
+    /**
+     * authenticate post username and password
+     */
+    public function authenticateAction(){
+        $form = new LoginForm();
         $redirect = 'login';
-
+        
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $form->setData($request->getPost());
-            if ($form->isValid()) {
+			$username = $request->getPost ( 'username' );
+			$password = $request->getPost ( 'password' );
+			$remember_me = $request->getPost ( 'remember_me' );
+        	
+        	if(empty($username)&&
+               empty($password)){
+        		$this->flashmessenger()->addErrorMessage("Please provide a username and password");
+        		return $this->redirect()->toRoute($redirect);
+        	}
+            
                 //check authentication...
                 $this->getAuthService()->getAdapter()
-                                       ->setIdentity($request->getPost('username'))
-                                       ->setCredential($request->getPost('password'));
+                                       ->setIdentity($username)
+                                       ->setCredential($password);
                 
 
                 $result = $this->getAuthService()->authenticate();
@@ -87,7 +88,7 @@ class AuthController extends AbstractActionController
                 if ($result->isValid()) {
                     $redirect = 'home';
                     //check if it has rememberMe :
-                    if ($request->getPost('rememberme') == 1 ) {
+                    if ($remember_me == 1 ) {
                         $this->getSessionStorage()
                              ->setRememberMe(1);
                         //set storage again
@@ -95,11 +96,9 @@ class AuthController extends AbstractActionController
                     }
                     $this->getAuthService()->setStorage($this->getSessionStorage());
          
-                    $loginDetails = $this->getAuthTable()->getProfileInfoByUserName($request->getPost('username'));
+                    $loginDetails = $this->getAuthTable()->getProfileInfoByUserName($username);
                     $this->getAuthService()->getStorage()->write($loginDetails);
-              
                 }
-            }
         }
 
         return $this->redirect()->toRoute($redirect);

@@ -2,9 +2,9 @@
 namespace Profile\Form;
 
 use Zend\Form\Form;
-use Zend\Db\Adapter\AdapterInterface;
+use Zend\Form\ElementInterface;
 
-class ProfileForm extends Form{
+class ProfileForm extends Form implements ElementInterface{
 	protected $genderOptionSelect;
 	
 	public function __construct()
@@ -66,10 +66,9 @@ class ProfileForm extends Form{
 		
 		$this->add(array(
 				'name' => 'birthdate',
-				'type' => 'Zend\Form\Element\Date',
+				'type' => 'Text',
 				'attributes' => array(
-						'class'  => 'datepicker',
-						'placeholder'=>'mm/dd/yyyy',
+						'class'  => 'datepicker'
 				),
 				'options' => array(
 						'label' => 'Birthdate',

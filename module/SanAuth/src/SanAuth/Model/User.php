@@ -4,37 +4,27 @@ namespace SanAuth\Model;
 
 use Zend\Form\Annotation;
 
-/**
- * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ObjectProperty")
- * @Annotation\Name("User")
- */
-class User
+
+class User implements InputFilterAwareInterface
 {
-    /**
-     * @Annotation\Type("Zend\Form\Element\Text")
-     * @Annotation\Required({"required":"true" })
-     * @Annotation\Filter({"name":"StripTags"})
-     * @Annotation\Options({"label":"Username:"})
-     */
     public $username;
-
-    /**
-     * @Annotation\Type("Zend\Form\Element\Password")
-     * @Annotation\Required({"required":"true" })
-     * @Annotation\Filter({"name":"StripTags"})
-     * @Annotation\Options({"label":"Password:"})
-     */
     public $password;
-
-    /**
-     * @Annotation\Type("Zend\Form\Element\Checkbox")
-     * @Annotation\Options({"label":"Remember Me ?:"})
-     */
     public $rememberme;
-
-    /**
-     * @Annotation\Type("Zend\Form\Element\Submit")
-     * @Annotation\Attributes({"value":"Submit"})
-     */
     public $submit;
+    
+    
+    public function exchangeArray($data)
+    {
+    	$this->username     = (!empty($data['username'])) ? $data['username'] : null;
+    	$this->password = (!empty($data['password'])) ? $data['password'] : null;
+    	$this->remember_me = (!empty($data['remember_me'])) ? $data['remember_me'] : null;
+    	$this->submit = (!empty($data['submit'])) ? $data['submit'] : null;
+    }
+    
+    public function getArrayCopy()
+    {
+    	return get_object_vars($this);
+    }
+
+    
 }

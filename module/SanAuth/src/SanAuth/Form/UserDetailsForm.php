@@ -145,8 +145,6 @@ class UserDetailsForm extends Form{
 		));
 		
 		
-		
-		
 		$this->add(array(
 				'name' => 'submit',
 				'type' => 'Submit',

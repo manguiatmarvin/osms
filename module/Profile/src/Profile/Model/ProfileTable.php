@@ -53,16 +53,40 @@ class ProfileTable {
 		$result = $statement->execute ();
 		return $result->current ();
 	}
-	public function getProfileById($id) {
+	public function getProfileById($id){
 		$id = ( int ) $id;
-		$rowset = $this->tableGateway->select ( array (
-				'id' => $id 
-		) );
-		$row = $rowset->current ();
+	   $dbAdapter = $this->tableGateway->getAdapter ();
+		// custom query
+		$sql = "SELECT  users.user_name,
+		user_profile.id,
+		user_profile.users_id,
+		user_profile.firstname,
+		user_profile.lastname,
+		user_profile.middle,
+        DATE_FORMAT(user_profile.birthdate,'%m/%d/%Y') as birthdate,
+		user_profile.gender_id,
+		user_profile.about,
+		user_profile.address,
+		user_profile.landline,
+		user_profile.cellphone,
+		user_profile.created,
+		user_profile.profile_pic_url,
+		DATE_FORMAT(user_profile.last_modified,'%b %d, %Y @ %h:%i %p') as last_modified
+		FROM users LEFT JOIN user_profile
+		ON  users.id = user_profile.users_id
+		WHERE users.id  = $id";
+		
+		$statement = $dbAdapter->query ( $sql );
+		$result = $statement->execute ();
+		$row =  $result->current ();
 		if (! $row) {
 			throw new \Exception ( "Could not find row $id" );
 		}
-		return $row;
+		
+		$profileObj = new Profile();
+		$profileObj->exchangeArray($row);
+		return $profileObj;
+		
 	}
 	public function saveProfile(Profile $profile) {
 		 //date formatting 
