@@ -68,8 +68,6 @@ class HrController extends AbstractActionController {
 			));
 		}
 		
-		
-		
 	//	var_dump($employeeAdditionalDetails);
 		
 		$form  = new HrForm();
@@ -98,6 +96,12 @@ class HrController extends AbstractActionController {
 		
 		return new ViewModel(array('employee_data'=>$employeeData,
 		                             'form'=>$form,'id'=>$employeeData['users_id']));
+	}
+	
+	
+
+	public function preEmploymentAction(){
+			return new viewModel();
 	}
 	
 	/**

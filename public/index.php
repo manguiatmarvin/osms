@@ -1,5 +1,5 @@
 <?php
-
+define('ROOT_PATH', dirname(__DIR__));
 /**
  * Display all errors when APPLICATION_ENV is development.
  */

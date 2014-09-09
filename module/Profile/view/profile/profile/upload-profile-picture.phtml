@@ -1,0 +1,74 @@
+<?php echo $this->render('flashmessenger/layout') ?>
+
+<?php
+// module/Album/view/album/album/edit.phtml:
+$title = 'Upload Profile Picture';
+$this->headTitle ( $title );
+?>
+
+ 
+ <div class="row">
+
+ <!-- Left col -->
+ <section class="col-lg-7 connectedSortable">
+ <div>
+ <!-- main sub page content// -->
+ 
+ <div class="panel panel-default">
+ <div class="panel-heading"><?php echo $this->escapeHtml($title); ?></div>
+<div class="panel-body">
+
+	<div class="box-body">
+	
+			  <div class="form-group">
+     
+<?php $form->prepare(); // The correct enctype is set here ?>
+<?php echo $this->form()->openTag($form); ?>
+
+    <div class="form-element">
+        <?php $fileElement = $form->get('image-file'); ?>
+                <div class="form-group">
+                   <div class="input-group">
+        <?php echo $this->formLabel($fileElement); ?>
+        </div></div>
+                <div class="form-group">
+                   <div class="input-group">
+                   
+        <?php echo $this->formFile($fileElement); ?>
+        </div></div>
+        
+                <div class="form-group">
+                   <div class="input-group">
+        <?php echo $this->formElementErrors($fileElement); ?>
+    </div></div>
+    </div>
+
+    <button>Submit</button>
+
+<?php echo $this->form()->closeTag(); ?>
+                   
+             </div>
+
+	</div>
+
+
+</div>
+</div>
+
+</div>
+
+</section>
+<!-- /.Left col -->
+
+<!-- right col (We are only adding the ID to make the widgets sortable)-->
+<section class="col-lg-5 connectedSortable">
+
+	<div class="panel panel-default">
+		<div class="panel-heading">Profile Menu</div>
+		<div class="panel-body rightbar-menu">
+			<!-- right navigation //-->
+           <?php echo $this->render('layout/menu') ?>
+		</div>
+	</div>
+</section>
+</div>        

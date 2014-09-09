@@ -26,6 +26,27 @@ class ProfileTable {
 	}
 	
 	
+	
+	public function updateProfilePicture($users_id,$image_file){
+	
+		if(empty($users_id) && empty($image_file)){
+			throw new \Exception ( 'Profile id, or iamge file  does not exist' );
+		}
+		
+		
+		$data = array (
+				'profile_pic_url' => $image_file,
+				);
+		
+
+	   $this->tableGateway->update ( $data, array (
+						'users_id' => $users_id
+				) );
+		
+	   return true;
+		
+	}
+	
 	public function getProfileInfoByUserName($username) {
 		// get DB adapter
 		$dbAdapter = $this->tableGateway->getAdapter ();

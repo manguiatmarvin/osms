@@ -7,7 +7,8 @@ use Profile\Model\Profile;          // <-- Add this import
 use Profile\Form\ProfileForm; // <-- Add this import
 use Profile\Form\ChangePasswordForm;
 use Zend\Form\Form;
-
+use Profile\Form\UploadPictureForm;
+use MarvinFileUploadUtils\FileUploadUtils;
 
 class ProfileController extends AbstractActionController {
 	protected $profileTable;
@@ -177,19 +178,95 @@ class ProfileController extends AbstractActionController {
 			if ($form->isValid()) {
 	
 				$this->getProfileTable()->saveProfile($profile);
-	            //set flashmessage
-	            $this->flashMessenger()->addSuccessMessage("Profile updated successfully");
+					// set flashmessage
+				$this->flashMessenger ()->addSuccessMessage ( "Profile updated successfully" );
 				// Redirect to profile
-				return $this->redirect()->toRoute('profile',array('action'=>'view'));
+				return $this->redirect ()->toRoute ( 'profile', array (
+						'action' => 'view' 
+				) );
 			}
 		}
-	
-		return array(
-				'form' => $form,
+		
+		return array (
+				'form' => $form 
 		);
-	
 	}
+	
+	/**
+	 * 
+	 * @return multitype:unknown \Profile\Form\UploadPictureForm
+	 */
+	public function uploadProfilePictureAction() {
+		$form = new UploadPictureForm ( 'upload-profile-picture' );
+		$request = $this->getRequest ();
+		if ($request->isPost ()) {
+			//get currently logged profiledata
+			$profileData        =  $this->getServiceLocator()->get('AuthService')->getIdentity();
+			
+			// Make certain to merge the files info!
+			$post = array_merge_recursive($request->getPost ()->toArray (), 
+					                        $request->getFiles ()->toArray () );
+			
+			$form->setData ( $post );
+			if ($form->isValid()) {
+				
+            $data = $form->getData();
+            $file = $data["image-file"]["tmp_name"];
+            $uploadUtils = new FileUploadUtils($file);
+            
+            //check if image
+            if(!$uploadUtils->file_is_image()){
+            	unset($file);
+            	$this->flashMessenger ()->addSuccessMessage ( "Please upload image file only ");
+            	return $this->redirect()->toRoute('profile',array('action'=>'upload-profile-picture'));
+            }
+            //check file size
+            if($uploadUtils->isFileTooBig()){
+            	unset($file);
+            	$this->flashMessenger ()->addSuccessMessage ( "Please upload image file not larger that 2 mb");
+            	return $this->redirect()->toRoute('profile',array('action'=>'upload-profile-picture'));
+            }
+            
+            //process file  make it 150px in width            
+            $uploadUtils->file_new_name_body = '_small_'.$profileData['users_id'];
+            $uploadUtils->image_resize = true;
+            $uploadUtils->image_x = 150;
+            $uploadUtils->image_ratio_y = true;
+            $uploadUtils->process(ROOT_PATH.'/public/img/avatar/');
+            
+            if ($uploadUtils->processed) {
+            	$uploadUtils->clean ();
+            	
+                $old_image_file  =  ROOT_PATH.'/public'.$profileData["profile_pic_url"];
+            	$new_image_url   =  '/img/avatar/'.$uploadUtils->getProcessedFile();
+                
+                //updateDB
+            	$this->getProfileTable()->updateProfilePicture($profileData['users_id'],$new_image_url);
+            	
+            	//delete old profile picture 
+            	if(file_exists($old_image_file)){
+            		   unlink($old_image_file); 
+            	}
+            	
+                // set success 	
+            	$this->flashMessenger ()->addSuccessMessage ( "Profile picture updated successfully!");
+            
+            } else {
+            	
+            	$this->flashMessenger ()->addSuccessMessage ( "$uploadUtils->error");
+            	return $this->redirect()->toRoute('profile',array('action'=>'upload-profile-picture'));
+            }
+            
+            // Form is valid, save the form!
+            return $this->redirect()->toRoute('profile',array('action'=>'view'));
+        }
+    }
 
+      return array(
+        'form'     => $form,
+    );
+      
+	}
 	
 	public function getProfileTable(){
 	

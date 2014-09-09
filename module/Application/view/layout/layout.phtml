@@ -328,16 +328,15 @@ $loggedInUser = $this->layout()->auth["user_name"];
 				<!-- /.search form -->
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 				<ul class="sidebar-menu">
-                    <?php echo $this->navigation('navigation')
-                                     ->menu()
-                                     ->setPartial('partial/sidebar')
-                                        ->setOnlyActiveBranch(true)
-                                        ->setRenderParents(false)
-                                        ->setMaxDepth(2)
-                                     ->render();
+                    <?php 
                     
-                    
-         
+
+                    echo $this->navigation('navigation')
+                    ->menu()
+                    ->setPartial('partial/sidebar')
+                    ->setAcl($this->layout()->acl)
+                    ->setRole('guest')
+                    ->render();
                                  
                     ?>
                     </ul>
@@ -351,7 +350,11 @@ $loggedInUser = $this->layout()->auth["user_name"];
 			<!-- Content Header (Page header) -->
 	        <?php echo $this->navigation('navigation')->breadcrumbs()
                                                       ->setMinDepth(0)
+                                                      ->setMaxDepth(2)
                                                       ->setPartial('partial/breadcrumb');
+	        
+	        
+	        
             ?>
 
 			<!-- Main content -->

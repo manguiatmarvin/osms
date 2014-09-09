@@ -33,36 +33,46 @@ return array (
 								'label' => 'My Profile',
 								'route' => 'profile',
 								'class' => 'fa-user',
-								'resource'=> 'myProfile',
+								'resource'=> 'profile',
 								'pages' => array (
 										array (
 												'label' => 'View',
 												'route' => 'profile',
 												'action' => 'view',
+												'resource'=> 'viewProfile',
 												'show_in_menu' => true,
 										),
 										array (
-												'label' => 'Edit',
+												'label' => 'Edit Profile',
 												'route' => 'profile',
 												'action' => 'edit',
 												'show_in_menu' => false,
 										),
 										array (
-												'label' => 'Change Password',
+												'label' => 'Update Password',
 												'route' => 'profile',
 												'action' => 'change-password',
-												'show_in_menu' => false,
+												'resource'=> 'change-password',
+												'show_in_menu' => true,
 										),
 										array (
 												'label' => 'Settings',
 												'route' => 'profile',
 												'action' => 'settings',
+												'resource'=> 'settings',
 												'show_in_menu' => true,
+										),
+										array (
+												'label' => 'Upload Picture',
+												'route' => 'profile',
+												'action' => 'upload-profile-picture',
+												'show_in_menu' => false,
 										),
 										array (
 												'label' => 'Logout',
 												'route' => 'login/process',
 												'action' => 'logout',
+												'resource'=> 'profileLogout',
 												'show_in_menu' => true,
 										) 
 								) 
@@ -71,16 +81,19 @@ return array (
 								'label' => 'Human Resource',
 								'route' => 'hr',
 								'class' => 'fa-user',
+								'resource'=> 'hr',
 								'pages' => array (
 										array (
 												'label' => 'Employee',
 												'route' => 'hr',
-												'action' => 'employee' 
+												'action' => 'employee', 
+												'resource'=>'employee'
 										),
 										array (
 												'label' => 'Pre-Employment',
 												'route' => 'hr',
-												'action' => 'index' 
+												'action' => 'pre-employment',
+												'resource'=>'pre-employment'
 										),
 										array (
 												'label' => 'Recruitement',

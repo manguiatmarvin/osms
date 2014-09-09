@@ -9,29 +9,41 @@
  * 
  * 
  */
+//var_dump($this->layout()->acl->isAllowed('admin','profile'));
+$acl = $this->layout()->acl;
+$role = "admin";
+
 ?>
-                     <?php foreach($this->container as $parent):?>
+     <?php foreach($this->container as $parent):?>
                       <?php if($parent->get('show_in_menu') === false) continue ?>
                        <?php if(!$parent->hasPages()):?>
+                      <?php if($parent->get('resource')!="" && $acl->isAllowed($role,$parent->get('resource'))):?>
                         <li class="<?php echo $parent->isActive() ? "active":""?>">
                             <a href="<?php echo $parent->getHref();?>">
                                 <i class="fa fa-<?php echo $parent->get('class')?>"></i> <span><?php echo $parent->getLabel()?></span>
                             </a>
                         </li>
                         <?php endif;?>
+                        <?php endif;?>
                        <?php if($parent->hasPages()):?>
+                        <?php if($parent->get('resource')!="" && $acl->isAllowed($role,$parent->get('resource'))):?>
                         <li class="treeview <?php echo $parent->isActive() ? "active":""?>">
+                        
                             <a href="<?php echo $parent->getHref();?>">
                                 <i class="fa <?php echo $parent->get('class')?>"></i>
                                 <span><?php echo $parent->getLabel()?></span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
+                            
                             <ul class="treeview-menu <?php echo $parent->isActive() ? "active":""?>">
                             <?php foreach ($parent as $child):?>
+                            <?php if($child->get('resource')!="" && $acl->isAllowed($role,$child->get('resource'))):?>
                             <?php if($child->get('show_in_menu') === false) continue ?>
                             <li><a href="<?php echo $child->getHref()?>"><i class="fa fa-angle-double-right"></i><?php echo $child->getLabel()?> </a></li>
+                           <?php endif;?>
                             <?php endforeach;?>
                             </ul>
                         </li>
+                        <?php endif;?>
                        <?php endif;?>
                      <?php endforeach;?>
