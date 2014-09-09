@@ -29,6 +29,10 @@ class FileUploadUtils extends Upload {
 		return $this->file_dst_name;
 	}
 	
+	public function clear(){
+		parent::clean();
+	}
+	
 	/**
 	 * determine the target file exceeds file limits (2097152) 2 mb
 	 * @return boolean

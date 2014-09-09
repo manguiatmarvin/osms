@@ -54,40 +54,32 @@ class Module{
     			$e->getRouteMatch ()->setParam ('controller', 'SanAuth\Controller\Auth' )->setParam ( 'action', 'index' );
     		
     		}else{
-    			//var_dump($auth['users_id']);
-    			
-    			//update $auth details from DB
-    			//update $auth from DB
-    			$dbAdapter = $e->getApplication()->getServiceManager()->get('Zend\Db\Adapter\Adapter');
-    			$sql = "SELECT   employees.id, 
-			                 employees.users_id,
-     			             employees.date_hired, 
-     			             employees.status,
-     			             user_profile.firstname, 
-     			             user_profile.lastname, 
-     			             user_profile.middle, 
-     			             DATE_FORMAT(user_profile.birthdate,'%b %d, %Y') as birthdate,
-     			             user_profile.address, 
-     			             user_profile.landline, 
-     			             user_profile.cellphone, 
-     			             user_profile.birthdate, 
-     			             user_profile.profile_pic_url,
-     			             user_profile.about,
-     			             DATE_FORMAT(user_profile.created,'%b %d, %Y') as created,
-     			             DATE_FORMAT(user_profile.last_modified,'%b %d, %Y @ %h:%i %p') as last_modified,
-     			             users.user_name,
-     			             users.email
-     	                FROM employees
-     	           LEFT JOIN user_profile 
-     			          ON employees.users_id = user_profile.users_id
-     			   LEFT JOIN users
-     			          ON users.id = user_profile.users_id
-     			        WHERE employees.users_id = {$auth['users_id']}";
-    			
+
     			if($auth['users_id']!=null){
+    				$dbAdapter = $e->getApplication()->getServiceManager()->get('Zend\Db\Adapter\Adapter');
+    				$sql = "SELECT 
+    				users.user_name,
+    				users.email,
+    				user_profile.firstname,
+    				user_profile.lastname,
+    				user_profile.middle,
+    				DATE_FORMAT(user_profile.birthdate,'%b %d, %Y') as birthdate,
+    				user_profile.address,
+    				user_profile.landline,
+    				user_profile.cellphone,
+    				user_profile.birthdate,
+    				user_profile.gender_id,
+    				user_profile.profile_pic_url,
+    				user_profile.about,
+    				DATE_FORMAT(user_profile.created,'%b %d, %Y') as created,
+    				DATE_FORMAT(user_profile.last_modified,'%b %d, %Y @ %h:%i %p') as last_modified
+    				FROM users
+    				LEFT JOIN user_profile
+    				ON users.id = user_profile.users_id
+    				WHERE users.id = {$auth['users_id']}";
+    				
     				$results = $dbAdapter->query($sql)->execute();
     			     $auth = $results->current();
-    				
     			}
     			
     			//acl

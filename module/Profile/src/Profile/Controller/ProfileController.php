@@ -228,14 +228,15 @@ class ProfileController extends AbstractActionController {
             }
             
             //process file  make it 150px in width            
-            $uploadUtils->file_new_name_body = '_small_'.$profileData['users_id'];
+            $uploadUtils->file_new_name_body = 'user'.$profileData['users_id'];
             $uploadUtils->image_resize = true;
             $uploadUtils->image_x = 150;
             $uploadUtils->image_ratio_y = true;
+            $uploadUtils->file_overwrite = true; 
             $uploadUtils->process(ROOT_PATH.'/public/img/avatar/');
             
             if ($uploadUtils->processed) {
-            	$uploadUtils->clean ();
+            	$uploadUtils->clear();
             	
                 $old_image_file  =  ROOT_PATH.'/public'.$profileData["profile_pic_url"];
             	$new_image_url   =  '/img/avatar/'.$uploadUtils->getProcessedFile();

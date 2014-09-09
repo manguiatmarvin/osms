@@ -19,6 +19,9 @@
 
 $loggedInUser  = null;
 
+
+//var_dump($this->layout()->auth);
+
 // the user is not logged in, dislplay only the content,
 // which is a sign in page
 if(null===$this->layout()->auth){
@@ -29,6 +32,8 @@ if(null===$this->layout()->auth){
 //var_dump($this->layout()->auth);
 
 $loggedInUser = $this->layout()->auth["user_name"];
+$gender_id = $this->layout()->auth["gender_id"];
+$profile_pic = $this->layout()->auth["profile_pic_url"];
 
 ?>
 <!DOCTYPE html>
@@ -272,7 +277,7 @@ $loggedInUser = $this->layout()->auth["user_name"];
 					</a>
 						<ul class="dropdown-menu">
 							<!-- User image -->
-							<li class="user-header bg-light-blue"><img src="<?php echo $this->layout()->auth['profile_pic_url']?>"
+							<li class="user-header bg-light-blue"><img src="<?php echo $profile_pic;?>"
 								class="img-circle" alt="User Image" />
 								<p>
 									<?php echo $this->layout()->auth['firstname'].", ".$this->layout()->auth['lastname']?> <small>Member since <?php echo $this->layout()->auth['created']?></small>
@@ -303,7 +308,7 @@ $loggedInUser = $this->layout()->auth["user_name"];
 				<!-- Sidebar user panel -->
 				<div class="user-panel">
 					<div class="pull-left image">
-						<img src="<?php echo $this->layout()->auth['profile_pic_url']?>" class="img-circle"
+						<img src="<?php echo $profile_pic;?>" class="img-circle"
 							alt="<?php echo  $loggedInUser?>"
 							title="<?php echo  $loggedInUser?>" />
 					</div>
