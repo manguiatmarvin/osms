@@ -25,7 +25,7 @@ return array (
 						array (
 								'label' => 'Dashbaord',
 								'route' => 'home',
-								'id' => 'fa-dashboard', 
+								'class' => 'fa-dashboard', 
 								'resource'=> 'home',
 						)
 						,

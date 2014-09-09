@@ -20,7 +20,9 @@ $role = "admin";
                       <?php if($parent->get('resource')!="" && $acl->isAllowed($role,$parent->get('resource'))):?>
                         <li class="<?php echo $parent->isActive() ? "active":""?>">
                             <a href="<?php echo $parent->getHref();?>">
-                                <i class="fa fa-<?php echo $parent->get('class')?>"></i> <span><?php echo $parent->getLabel()?></span>
+                                <i class="fa <?php echo $parent->get('class')?>"></i> 
+                                <span><?php echo $parent->getLabel()?></span>
+                               
                             </a>
                         </li>
                         <?php endif;?>
