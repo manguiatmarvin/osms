@@ -17,15 +17,12 @@ use Zend\Permissions\Acl\Acl;
 
 class Module{
 	
-    //Means i can display authentication information in any view / layout rather than having to pass it in the view modal
-	
     public function onBootstrap(MvcEvent $e)
     {
     	$application         = $e->getApplication();
         $eventManager        = $application->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-       // $eventManager->attach('dispatch', array($this, 'loadCommonViewVars'), 100);
         $eventManager -> attach('route', array($this, 'loadCommonViewVars'));
     }
 
@@ -79,7 +76,7 @@ class Module{
     				WHERE users.id = {$auth['users_id']}";
     				
     				$results = $dbAdapter->query($sql)->execute();
-    			     $auth = $results->current();
+    			    $auth = $results->current();
     			}
     			
     			//acl
@@ -97,7 +94,6 @@ class Module{
     			
     				//adding resources
     				foreach ($resources as $resource) {
-    					// Edit 4
     					if(!$acl ->hasResource($resource))
     						$acl -> addResource(new \Zend\Permissions\Acl\Resource\GenericResource($resource));
     				}
@@ -109,10 +105,6 @@ class Module{
     			//testing
     			//var_dump($acl->isAllowed('admin','home'));
     			//true
-    			//setting to view
-    			//$e -> getViewModel()->acl = $acl;
-    			
-    			// access details in layout eg. $this->layout->auth['user_name']
     			$e->getViewModel()->setVariables(array('auth' => $auth,
     			                                        'acl'=>$acl));
     			

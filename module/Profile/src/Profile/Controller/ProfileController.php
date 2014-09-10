@@ -20,7 +20,8 @@ class ProfileController extends AbstractActionController {
 					return $this->redirect()->toRoute('login');
 				}else{
 			
-			$identity = $this->getServiceLocator()->get('AuthService')->getIdentity()['user_name'];
+			$data = $this->getServiceLocator()->get('AuthService')->getIdentity();
+			$identity = $data['user_name'];
 			
 		}
 				
@@ -41,8 +42,8 @@ class ProfileController extends AbstractActionController {
 			return $this->redirect()->toRoute('login');
 		}else{
 			
-			$identity = $this->getServiceLocator()->get('AuthService')->getIdentity()['user_name'];
-			
+			$data = $this->getServiceLocator()->get('AuthService')->getIdentity();
+			$identity = $data['user_name'];
 		}
 
 		try {
@@ -149,13 +150,12 @@ class ProfileController extends AbstractActionController {
 			return $this->redirect()->toRoute('login');
 		}else{
 				
-			$user_id = $this->getServiceLocator()->get('AuthService')->getIdentity()['users_id'];
-				
+			$data = $this->getServiceLocator()->get('AuthService')->getIdentity();
+			$user_id = $data['users_id'];
 		}
 	
 		try {
-// 			$profile = $this->getProfileTable ()->getProfileInfoByUserName($identity);
-// 			$id = $profile['users_id'];
+
 			$profile = $this->getProfileTable ()->getProfileById($user_id);
 		}
 		catch (\Exception $ex) {
@@ -178,9 +178,9 @@ class ProfileController extends AbstractActionController {
 			if ($form->isValid()) {
 	
 				$this->getProfileTable()->saveProfile($profile);
-					// set flashmessage
+		
 				$this->flashMessenger ()->addSuccessMessage ( "Profile updated successfully" );
-				// Redirect to profile
+	
 				return $this->redirect ()->toRoute ( 'profile', array (
 						'action' => 'view' 
 				) );
@@ -270,11 +270,6 @@ class ProfileController extends AbstractActionController {
 	}
 	
 	public function getProfileTable(){
-	
-// 		if (! $this->getServiceLocator()
-// 		->get('AuthService')->hasIdentity()){
-// 			return $this->redirect()->toRoute('login');
-// 		}
 	
 		if (!$this->profileTable) {
 			$sm = $this->getServiceLocator();
