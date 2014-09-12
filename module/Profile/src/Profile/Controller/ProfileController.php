@@ -211,19 +211,22 @@ class ProfileController extends AbstractActionController {
 			if ($form->isValid()) {
 				
             $data = $form->getData();
+          
             $file = $data["image-file"]["tmp_name"];
             $uploadUtils = new FileUploadUtils($file);
             
             //check if image
             if(!$uploadUtils->file_is_image()){
-            	unset($file);
-            	$this->flashMessenger ()->addSuccessMessage ( "Please upload image file only ");
+            	unlink($file);
+            	$uploadUtils->clear();
+            	$this->flashMessenger ()->addErrorMessage( "Please upload image file only ");
             	return $this->redirect()->toRoute('profile',array('action'=>'upload-profile-picture'));
             }
             //check file size
             if($uploadUtils->isFileTooBig()){
-            	unset($file);
-            	$this->flashMessenger ()->addSuccessMessage ( "Please upload image file not larger that 2 mb");
+            	unlink($file);
+            	$uploadUtils->clear();
+            	$this->flashMessenger ()->addErrorMessage ( "Please upload image file not larger that 2 mb");
             	return $this->redirect()->toRoute('profile',array('action'=>'upload-profile-picture'));
             }
             
@@ -244,17 +247,12 @@ class ProfileController extends AbstractActionController {
                 //updateDB
             	$this->getProfileTable()->updateProfilePicture($profileData['users_id'],$new_image_url);
             	
-            	//delete old profile picture 
-            	if(file_exists($old_image_file)){
-            		   unlink($old_image_file); 
-            	}
-            	
                 // set success 	
             	$this->flashMessenger ()->addSuccessMessage ( "Profile picture updated successfully!");
             
             } else {
             	
-            	$this->flashMessenger ()->addSuccessMessage ( "$uploadUtils->error");
+            	$this->flashMessenger ()->addErrorMessage ( $uploadUtils->error);
             	return $this->redirect()->toRoute('profile',array('action'=>'upload-profile-picture'));
             }
             
