@@ -42,17 +42,21 @@
 	   <?php echo $this->form()->closeTag();?>
 	</div>
 </div>
-	<ul>
+	
+	
+<ul>
 
+	<li><i class="fa fa-paperclip"></i> </li>
+	<li><i class="fa fa-calendar"></i> <a href="#">Memos</a></li>
+	<li><i class="fa fa-check-square"></i> <a href="#">Quizzes</a></li>
+	<li><i class="fa fa-foursquare"></i> <a href="#">Attendance</a></li>
+    <li><i class="fa fa-search"></i> <a href="#">Evaluations</a></li>
+	<li><i class="fa fa-dollar"></i> <a href="#">Salary</a></li>
+	<li><i class="fa fa-comments"></i> <a href="#">Feedback</a></li>
+	<li><i class="fa fa-ticket"></i> <a href="#">Clubs</a></li>
+	<li><i class="fa fa-bullseye"></i> <a href="#">Points</a></li>
 
-		<li><a href="#">Set Biometric Data</a></li>
-		<li><a
-			href="<?php echo $this->url('profile',array('action'=>'edit')); ?>">Activate
-				Employee</a></li>
-		<li><a
-			href="<?php echo $this->url('profile',array('action'=>'settings')); ?>">Departments</a></li>
+	<li><i class="fa     fa-times-circle-o"></i> <a
+		href="<?php echo $this->url('login/process',array('action'=>'logout')); ?>">Logout</a></li>
 
-		<li><a
-			href="<?php echo $this->url('login/process',array('action'=>'logout')); ?>">Logout</a></li>
-
-	</ul>
+</ul>

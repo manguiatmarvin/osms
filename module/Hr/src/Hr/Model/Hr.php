@@ -13,6 +13,11 @@ class Hr implements InputFilterAwareInterface
 	public $users_id;
 	public $date_hired;
 	public $status;
+	public $currentPosition;
+	public $currentSalary;
+	public $lastRaiseDate;
+	public $lastRisedAmmount;
+	public $evaluationDue;
     protected $inputFilter;
     
 	public function exchangeArray($data)
@@ -21,6 +26,11 @@ class Hr implements InputFilterAwareInterface
 		$this->users_id = (!empty($data['users_id'])) ? $data['users_id'] : null;
 		$this->date_hired  = (!empty($data['date_hired'])) ? $data['date_hired'] : null;
 		$this->status = (!empty($data['status'])) ? $data['status'] : null;
+		$this->currentPosition = (!empty($data['currentPosition'])) ? $data['currentPosition'] : null;
+		$this->currentSalary = (!empty($data['currentSalary'])) ? $data['currentSalary'] : null;
+		$this->lastRaiseDate = (!empty($data['lastRaiseDate'])) ? $data['lastRaiseDate'] : null;
+		$this->lastRisedAmmount = (!empty($data['lastRisedAmmount'])) ? $data['lastRisedAmmount'] : null;
+		$this->evaluationDue = (!empty($data['evaluationDue'])) ? $data['evaluationDue'] : null;
 	}
 	
 	

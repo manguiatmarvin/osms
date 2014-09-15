@@ -62,7 +62,7 @@ use Zend\Paginator\Paginator;
 	 * @param unknown $emp_id
 	 * @return mixed|NULL
 	 */
-	public function getEmployeeDetails($emp_id) {
+	public function getEmployeePersonal($emp_id) {
 		if ($emp_id != "") {
 			
 			$dbAdapter = $this->tableGateway->getAdapter ();
@@ -92,6 +92,51 @@ use Zend\Paginator\Paginator;
      	}
        return null;
      }
+     
+     
+     public function getEmployeeFiles($emp_id) {
+     	if ($emp_id != "") {
+     			
+     		$dbAdapter = $this->tableGateway->getAdapter ();
+     		$sql = "SELECT employee_files.id,
+     		              employee_files.file_type_id,
+     		              employee_files.filename,
+     		              employee_files.description,
+     		              employee_files.added,
+     		              employee_filetypes.file_type_name 
+     		        FROM employee_files 
+     		        LEFT JOIN employee_filetypes 
+     		        ON  employee_files.file_type_id = employee_filetypes.id 
+     		WHERE employee_files.employee_id = {$emp_id}";
+     		$statement = $dbAdapter->query($sql);
+     		$result    = $statement->execute();
+     		return $result;
+     	}
+     	return null;
+     	}
+     	
+     	
+     	
+     	public function getEmployeeWorkDetails($emp_id) {
+     		if ($emp_id != "") {
+     	
+     			$dbAdapter = $this->tableGateway->getAdapter ();
+     			$sql = "SELECT employee_files.id,
+     			employee_files.file_type_id,
+     			employee_files.filename,
+     			employee_files.description,
+     			employee_files.added,
+     			employee_filetypes.file_type_name
+     			FROM employee_files
+     			LEFT JOIN employee_filetypes
+     			ON  employee_files.file_type_id = employee_filetypes.id
+     			WHERE employee_files.employee_id = {$emp_id}";
+     			$statement = $dbAdapter->query($sql);
+     			$result    = $statement->execute();
+     			return $result;
+     		}
+     		return null;
+     		}
      
      
      /**

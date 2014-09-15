@@ -2,7 +2,7 @@
 return array (
 		'db' => array (
 				'driver' => 'Pdo',
-				'dsn' => 'mysql:dbname=zend_tut1;host=localhost',
+				'dsn' => 'mysql:dbname=zend_tut1;host=localhost', 
 				'driver_options' => array (
 						PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\'' 
 				) 
@@ -24,7 +24,7 @@ return array (
 						
 						array (
 								'label' => 'Dashbaord',
-								'route' => 'home',
+								'route' => 'dashboard',
 								'class' => 'fa-dashboard', 
 								'resource'=> 'home',
 						)
@@ -36,7 +36,7 @@ return array (
 								'resource'=> 'profile',
 								'pages' => array (
 										array (
-												'label' => 'View',
+												'label' => 'Overview',
 												'route' => 'profile',
 												'action' => 'view',
 												'resource'=> 'viewProfile',
@@ -115,7 +115,6 @@ return array (
 								'label' => 'Album',
 								'route' => 'album',
 								'class' => 'fa-book',
-								'resource'=> 'album',
 								'pages' => array (
 										array (
 												'label' => 'View Album',

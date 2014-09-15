@@ -55,7 +55,9 @@ class HrController extends AbstractActionController {
 		
 		try {
 			
-			$employeeData = $this->getHrTable()->getEmployeeDetails($emp_id);
+			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
+			$employeeFiles = $this->getHrTable()->getEmployeeFiles($emp_id);
+			
 		    $empObj = new Hr();
 		    $empObj->users_id = $employeeData['users_id'];
 		    $empObj->date_hired = $employeeData['date_hired'];
@@ -95,11 +97,11 @@ class HrController extends AbstractActionController {
      	
 		
 		return new ViewModel(array('employee_data'=>$employeeData,
+				                    'employeeFiles'=>$employeeFiles,
 		                             'form'=>$form,'id'=>$employeeData['users_id']));
 	}
 	
 	
-
 	public function preEmploymentAction(){
 			return new viewModel();
 	}

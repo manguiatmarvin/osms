@@ -204,3 +204,13 @@ text-decoration:underline;
 .skin-x select {
 
 }
+
+
+
+
+.skin-x .panel-heading {
+padding: 8px 7px 7px 12px;
+border-bottom: 1px solid transparent;
+border-top-right-radius: 3px;
+border-top-left-radius: 3px;
+}
