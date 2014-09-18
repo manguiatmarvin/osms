@@ -1,8 +1,8 @@
-
+	
 <ul>
 
-	<li><i class="fa fa-paperclip"></i> </li>
-	<li><i class="fa fa-calendar"></i> <a href="#">Memos</a></li>
+	<li><i class="fa fa-paperclip"></i> <a href="<?php echo $this->url('hr',array('action'=>'employee-files','id'=>$this->id));?>">201 files</a> </li>
+	<li><i class="fa fa-calendar"></i> <a href="<?php echo $this->url('hr',array('action'=>'employee-memo','id'=>$this->id)); ?>">Memos</a></li>
 	<li><i class="fa fa-check-square"></i> <a href="#">Quizzes</a></li>
 	<li><i class="fa fa-foursquare"></i> <a href="#">Attendance</a></li>
     <li><i class="fa fa-search"></i> <a href="#">Evaluations</a></li>
@@ -15,4 +15,3 @@
 		href="<?php echo $this->url('login/process',array('action'=>'logout')); ?>">Logout</a></li>
 
 </ul>
-

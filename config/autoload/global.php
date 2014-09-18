@@ -99,14 +99,22 @@ return array (
 												'label' => 'Recruitement',
 												'route' => 'hr',
 												'action' => 'index'
-										)
-										,
+										),
 										array (
 												'label' => 'Employee Details',
 												'route' => 'hr',
 												'action' => 'view-employee',
 												'show_in_menu' => false,
+										
+										),
+										array (
+												'label' => 'Employee Memo',
+												'route' => 'hr',
+												'action' => 'employee-memo',
+												'show_in_menu' => false,
+										
 										)
+										
 								)
 								 
 						),

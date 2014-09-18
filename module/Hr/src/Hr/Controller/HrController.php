@@ -7,25 +7,21 @@ use Zend\View\Model\ViewModel;
 use Hr\Model\Hr; // <-- Add this import
 use Hr\Form\HrForm; // <-- Add this import
 use Zend\Form\Form;
+use Hr\Model\EmployeeFile;
 
 class HrController extends AbstractActionController {
 	
 	protected $hrTable;
+	protected $eFilesTable;
 	
 	public function indexAction() {
 		
-		if (! $this->getServiceLocator ()->get ( 'AuthService' )->hasIdentity ()) {
-			return $this->redirect ()->toRoute ( 'login' );
-		}
+		$this->checkLogin();
 	}
-	
 	
 	public function employeeAction() {
 		
-		if (! $this->getServiceLocator ()->get ( 'AuthService' )->hasIdentity ()) {
-			return $this->redirect ()->toRoute ( 'login' );
-		}
-		
+	$this->checkLogin();
 				
 		// grab the paginator from the AlbumTable
 		$paginator = $this->getHrTable()->fetchAll();
@@ -43,9 +39,7 @@ class HrController extends AbstractActionController {
 	
 	public function viewEmployeeAction(){
 		
-		if (! $this->getServiceLocator ()->get ( 'AuthService' )->hasIdentity ()) {
-			return $this->redirect ()->toRoute ( 'login' );
-		}
+          $this->checkLogin();
 		
 		$emp_id = (int) $this->params()->fromRoute('id', 0);
 		
@@ -69,8 +63,6 @@ class HrController extends AbstractActionController {
 					'action' => 'index'
 			));
 		}
-		
-	//	var_dump($employeeAdditionalDetails);
 		
 		$form  = new HrForm();
 		$form->initialize();
@@ -98,7 +90,8 @@ class HrController extends AbstractActionController {
 		
 		return new ViewModel(array('employee_data'=>$employeeData,
 				                    'employeeFiles'=>$employeeFiles,
-		                             'form'=>$form,'id'=>$employeeData['users_id']));
+		                             'form'=>$form,
+				                     'id'=>$employeeData['users_id']));
 	}
 	
 	
@@ -106,6 +99,57 @@ class HrController extends AbstractActionController {
 			return new viewModel();
 	}
 	
+	public function employeeMemoAction(){
+		$emp_id = (int) $this->params()->fromRoute('id', 0);
+		$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
+		$employeeFiles = $this->getHrTable()->getEmployeeFiles($emp_id);
+		
+		return new viewModel(array('files'=>$employeeFiles));
+	}
+	
+	/*
+	 * 
+	 * 201 files 
+	 */
+	public function employeeFilesAction(){
+				
+		$this->checkLogin();
+		
+		$emp_id = (int) $this->params()->fromRoute('id', 0);
+		
+		
+		if (!$emp_id) {
+			return $this->redirect()->toRoute('hr');
+		}
+		
+		try {
+			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
+		    $employeeFiles = $this->getEmployeeFileTable()->getEmployeeFiles($emp_id);
+		   
+		}
+		catch (\Exception $ex) {
+			
+			return $this->redirect()->toRoute('hr', array(
+					'action' => 'employee'
+			));
+		}
+		
+		
+		return new ViewModel(array('empFiles'=>$employeeFiles,'employeeData'=>$employeeData));
+	}
+	
+	
+	
+	private function checkLogin(){
+		if (! $this->getServiceLocator ()->get ( 'AuthService' )->hasIdentity ()) {
+			return $this->redirect ()->toRoute ( 'login' );
+			exit;
+		}
+	}
+	
+	
+	
+	//services!!!!!!!
 	/**
 	 * 
 	 * @return Ambigous <object, multitype:>
@@ -113,9 +157,22 @@ class HrController extends AbstractActionController {
 	public function getHrTable() {
 		if (! $this->hrTable) {
 			$sm = $this->getServiceLocator ();
-			$this->hrTable = $sm->get ( 'Hr\Model\HrTable' );
+			$this->hrTable = $sm->get('Hr\Model\HrTable' );
 		}
 		return $this->hrTable;
+	}
+	
+	
+	public function getEmployeeFileTable(){
+	
+		if (!$this->eFilesTable) {
+			$sm = $this->getServiceLocator();
+			if($sm->has('Hr\Model\EmployeeFileTable')){
+				$this->eFilesTable = $sm->get('Hr\Model\EmployeeFileTable');
+			}
+		}
+		
+		return $this->eFilesTable;
 	}
 }
 ?>
