@@ -107,7 +107,7 @@ use Zend\Paginator\Paginator;
      		        FROM employee_files 
      		        LEFT JOIN employee_filetypes 
      		        ON  employee_files.file_type_id = employee_filetypes.id 
-     		WHERE employee_files.employee_id = {$emp_id}";
+     		WHERE employee_files.employee_id = {$emp_id} LIMIT 10";
      		$statement = $dbAdapter->query($sql);
      		$result    = $statement->execute();
      		return $result;
@@ -170,25 +170,7 @@ use Zend\Paginator\Paginator;
          return $row;
      }
 
-     public function saveAlbum(Album $album)
-     {
-         $data = array(
-             'artist' => $album->artist,
-             'title'  => $album->title,
-         	 'category_id' =>$album->category_id
-         );
 
-         $id = (int) $album->id;
-         if ($id == 0) {
-             $this->tableGateway->insert($data);
-         } else {
-             if ($this->getAlbum($id)) {
-                 $this->tableGateway->update($data, array('id' => $id));
-             } else {
-                 throw new \Exception('Album id does not exist');
-             }
-         }
-     }
      
    /**
     * id is the id from employee table not the employee id

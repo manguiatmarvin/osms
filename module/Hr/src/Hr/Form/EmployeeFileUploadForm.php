@@ -7,6 +7,8 @@ use Zend\Form\Form;
 
 class EmployeeFileUploadForm extends Form{
 	
+	protected  $file_extention;
+	
   public function __construct($name = null, $options = array()){
         parent::__construct($name, $options);
         $this->addElements();
@@ -14,13 +16,12 @@ class EmployeeFileUploadForm extends Form{
   }
   
   public function addElements(){
-//   	// File Input
-//   	$file = new Element\File('employee-file');
-//   	$file->setLabel('201 File Upload')
-//   	->setAttribute('id', '201-file');
-//   	$this->add($file);
   	
-  	//File 
+  	$this->add(array(
+  			'name' => 'id',
+  			'type' => 'Hidden',
+  	));
+  	
   	$this->add(array(
   			'name' => 'employee-file',
   			'type' => 'Zend\Form\Element\File',
@@ -29,7 +30,7 @@ class EmployeeFileUploadForm extends Form{
   					'id' => '201-file',
   			),
   			'options' => array(
-  					'label' => 'Upload Doc',
+  					'label' => 'Upload 201 File',
   			),
   	));
   	
@@ -42,7 +43,10 @@ class EmployeeFileUploadForm extends Form{
   			),
   			'options' => array(
   					'label'         => 'Type',
-  					'value_options' => array('1'=>'1','2'=>'2'),
+  					'value_options' => array('1'=>'Picture',
+  							                 '2'=>'Resume',
+  					                         '3'=>'Job Offer',
+  					                         '4'=>'Contract'),
   					'empty_option'  => '--- please choose ---'
   			)
   	));
@@ -53,8 +57,8 @@ class EmployeeFileUploadForm extends Form{
   			'type' => 'Zend\Form\Element\Textarea',
   			'attributes' => array(
   					'class'  => 'form-control',
-  					'cols'=>'110',
-  					'rows'=>'5',
+  					'cols'=>'30',
+  					'rows'=>'3',
   					'placeholder'=>'Enter description of file...',
   			),
   			'options' => array(
@@ -82,13 +86,13 @@ class EmployeeFileUploadForm extends Form{
   public function addInputFilter(){
   	$inputFilter = new InputFilter\InputFilter();
   
-  	// File Input
+//   	// File Input
   	$fileInput = new InputFilter\FileInput('employee-file');
   	$fileInput->setRequired(true);
   	$fileInput->getFilterChain()->attachByName(
   			'filerenameupload',
   			array(
-  					'target'    => './data/tmpuploads/201files.doc',
+  					'target'    => './data/uploads/201files.data',
   					'randomize' => true,
   			)
   	);
@@ -146,6 +150,15 @@ class EmployeeFileUploadForm extends Form{
   
   	$this->setInputFilter($inputFilter);
   }
+  
+  public function setUploadFileExtention($xt){
+  	$this->file_extention = $xt;
+  }
+  
+  public  function getUploadFileExtention(){
+  	 return $this->file_extention;
+  }
+  
 }
 
 ?>

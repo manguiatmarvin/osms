@@ -1,0 +1,47 @@
+<?php echo $this->render('flashmessenger/layout');?>
+<?php $addForm = $this->form; ?>
+
+<div class="well box-body">
+<div class="form-group">
+<?php 
+$addForm->setAttribute ( 'action', $this->url ( 'hr', array (
+		'action' => 'add-employee-file',
+		'id' => $this->emp_id 
+) ) );
+$addForm->prepare();
+?>
+		
+<div class="form-group">
+<div class="input-group">			
+<?php echo $this->form()->openTag($addForm);?>
+</div>
+</div>
+
+<div class="form-group">
+<div class="input-group">
+<?php echo $this->formRow($addForm->get('employee-file'));?>
+</div>
+</div>
+
+<div class="form-group">
+<div class="input-group">
+<?php echo $this->formRow($addForm->get('file_type_id'));?>
+</div>
+</div>
+
+<div class="form-group">
+<div class="input-group">
+<?php echo $this->formRow($addForm->get('description'));?>
+</div>
+</div>
+
+<div class="form-group">
+<div class="input-group">
+<?php echo $this->formSubmit($addForm->get('submit'));?>
+</div>
+</div>
+
+<?php echo $this->form()->closeTag();?>
+
+</div>
+</div>

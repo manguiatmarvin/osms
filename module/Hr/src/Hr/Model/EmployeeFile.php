@@ -14,6 +14,7 @@ class EmployeeFile implements InputFilterAwareInterface
 	public $filename;
 	public $description;
 	public $employee_id;
+	public $added;
 	
 	//input filter
 	private $inputFilter;
@@ -25,6 +26,7 @@ class EmployeeFile implements InputFilterAwareInterface
 		$this->file_type_id = (!empty($data['file_type_id'])) ? $data['file_type_id'] : null;
 		$this->filename  = (!empty($data['filename'])) ? $data['filename'] : null;
 		$this->description = (!empty($data['description'])) ? $data['description'] : null;
+		$this->added = (!empty($data['added'])) ? $data['added'] : null;
 	}
 	
 	

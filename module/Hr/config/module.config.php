@@ -12,7 +12,7 @@ return array(
              'hr' => array(
                  'type'    => 'segment',
                  'options' => array(
-                     'route'    => '/hr[/][:action][/:id]',
+                     'route'    => '/hr[/][:action][/:id][/:emp_id]',
                      'constraints' => array(
                          'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                          'id'     => '[0-9]+',

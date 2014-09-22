@@ -27,15 +27,14 @@ class EmployeeFileTable {
 
 	
 	public function getEmployeeFiles($emp_id){
-			$select = new Select('employee_filetypes');
-		
-		$select->join('employee_files', // table name,
+			$select = new Select('employee_files');
+			$select->join('employee_filetypes', // table name,
 				'employee_files.file_type_id = employee_filetypes.id', // expression to join on (will be quoted by platform object before insertion),
-				array('description','added','employee_id','filename'), // (optional) list of columns, same requiremetns as columns() above
+				array('file_type'=>'file_type_name'), // (optional) list of columns, same requiremetns as columns() above
 				Select::JOIN_LEFT // (optional), one of inner, outer, left, right also represtned by constants in the API
-		);            
-		
-		$select->where(array('employee_id'=>$emp_id));
+		)->where(array('employee_files.employee_id'=>$emp_id));
+			
+			$select->order(array('added ASC',)); // produces 'name' ASC, 'age' DESC
 		
 		$paginatorAdapter = new DbSelect(
 				// our configured select object
@@ -51,14 +50,56 @@ class EmployeeFileTable {
 	}
 	
 	
-	public function saveEmpoyeeFile(EmployeeFile $file){
+	public function saveEmpoyeeFile(EmployeeFile $efile){
+		
+		$data = array(
+				'id'=>$efile->id,
+				'file_type_id' => $efile->file_type_id,
+				'filename'  => $efile->filename,
+				'description' => $efile->description,
+				'employee_id' => $efile->employee_id,
+				'added' => ($efile->added !=null) ? $efile->added : date("Y-m-d H:i:s") 
+		);
+		
+	
+		
+		$id = (int) $efile->id;
+		if ($id == 0) {
+			$this->tableGateway->insert($data);
+		} else {
+			if ($this->getSingleEmployeeFile($id)) {
+				$this->tableGateway->update($data, array('id' => $id));
+			} else {
+				throw new \Exception('File id does not exist');
+			}
+		}
+	}
+	
+    /**
+     * get specific employee file from file table
+     * @param unknown $emp_id
+     * @param unknown $file_id
+     */
+	public function getSingleEmployeeFile($emp_id,$file_id){
+		$rowSet = $this->tableGateway->select(array('employee_id'=>$emp_id,
+				'id' => (int)$file_id));
+		
+		return $rowSet->current();
 		
 	}
 	
-
-	
-
-	
+     /**
+      * delete single employee file 
+      * id  - this is the id of file
+      * emp_id
+      * @param unknown $id
+      */
+	public function deleteEmployeeFile($emp_id,$id){
+		{
+			$this->tableGateway->delete(array('employee_id'=>$emp_id,
+					                                   'id' => (int)$id));
+		}
+	}
 	
 
   

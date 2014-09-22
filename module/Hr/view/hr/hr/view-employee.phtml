@@ -92,19 +92,16 @@
                                             <th>Date Added</th>
                                             <th>File</th>
                                             <th>Description</th>
-                                            <th>Options</th>
                                           
                                         </tr>
                                         
                                         <?php foreach ($this->employeeFiles as $efiles):?>
                                         <tr>
                                             <td><?php echo $efiles['file_type_name']?></td>
-                                            <td><?php echo $efiles['added']?></td>
+                                            <td><?php echo date("m/d/y g:i A", strtotime($efiles['added'])); ?></td>
                                             <td><i class="fa  fa-file-o"></i><?php echo $efiles['filename']?></td>
                                             <td><?php echo $efiles['description']?></td>
-                                              <td><a href="#"><i class="fa fa-cloud-download"></i></a> | 
-                                            <a href="#"><i class="fa  fa-times-circle"></i></a> | 
-                                            <a href="#"><i class="fa   fa-plus-circle"></i></a> </td>
+                                              
                                         </tr>
                                         <?php endforeach;?>
                                         

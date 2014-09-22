@@ -197,6 +197,15 @@ class ProfileController extends AbstractActionController {
 	 * @return multitype:unknown \Profile\Form\UploadPictureForm
 	 */
 	public function uploadProfilePictureAction() {
+		if (! $this->getServiceLocator ()->get ( 'AuthService' )->hasIdentity ()) {
+				
+			return $this->redirect ()->toRoute('login');
+		}else{
+				
+			$userDetails = $this->getServiceLocator()->get('AuthService')->getIdentity();
+				
+		}
+		
 		$form = new UploadPictureForm ( 'upload-profile-picture' );
 		$request = $this->getRequest ();
 		if ($request->isPost ()) {
@@ -240,9 +249,15 @@ class ProfileController extends AbstractActionController {
             
             if ($uploadUtils->processed) {
             	$uploadUtils->clear();
+            	$processedFile = $uploadUtils->getProcessedFile();
             	
                 $old_image_file  =  ROOT_PATH.'/public'.$profileData["profile_pic_url"];
-            	$new_image_url   =  '/img/avatar/'.$uploadUtils->getProcessedFile();
+            	$new_image_url   =  '/img/avatar/'.$processedFile;
+            	
+//             	$fileToCopy = ROOT_PATH.'/public'.$new_image_url;
+//             	$descFile = ROOT_PATH.'/data/employee_files/'.$userDetails['users_id'].'/'.$processedFile;
+            	
+//             	if(!copy($fileToCopy, $descFile))$this->flashMessenger()->addErrorMessage("unable to copy file ".$fileToCopy." to ".$descFile);
                 
                 //updateDB
             	$this->getProfileTable()->updateProfilePicture($profileData['users_id'],$new_image_url);

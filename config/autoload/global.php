@@ -107,6 +107,12 @@ return array (
 												'show_in_menu' => false,
 										
 										),
+										
+										array('label' => '201 Files',
+												'route' => 'hr',
+												'action'=>'employee-files',
+										        'show_in_menu' => false),
+										
 										array (
 												'label' => 'Employee Memo',
 												'route' => 'hr',

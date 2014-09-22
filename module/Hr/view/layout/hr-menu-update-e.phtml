@@ -1,56 +1,105 @@
-<?php
- $form = $this->form;
- $form->setAttribute('action', $this->url(
-     'hr',
-     array(
-         'action' => 'view-employee',
-         'id'     => $this->id,
-     )
- ));
- 
- $form->prepare();
-//  $out= "";
- 
-//  $out.= $this->form()->openTag($form);
-//  $out.= $this->formRow($form->get('users_id'));
-//  $out.= $this->formRow($form->get('date_hired'));
-//  $out.= $this->formRow($form->get('status'));
-//  $out.= $this->formSubmit($form->get('submit'));
-//  $out.= $this->form()->closeTag();
-?>
+  <?php echo $this->render('flashmessenger/layout');?>
+  
+  
+ <?php if($this->viewEmployeeForm != null ):?>
+  <?php
+		$form = $this->viewEmployeeForm;
+		$form->setAttribute ( 'action', $this->url ( 'hr', array (
+				'action' => 'view-employee',
+				'id' => $this->id 
+		) ) );
+		$form->prepare ();
+  ?>
 <div class="well box-body">
 	<div class="form-group">
         <?php echo $this->form()->openTag($form);?>
-        <?php  echo $this->formHidden($form->get('users_id')); ?>
-       
-       <div class="form-group">
-	    <div class="input-group">
-           <?php  echo $this->formRow($form->get('date_hired')); ?>
-         </div>
-	   </div>
-	   
-	   <div class="form-group">
-	    <div class="input-group">
-           <?php echo  $this->formRow($form->get('status')); ?>
-         </div>
-	   </div>
-	   
-	    <div class="input-group">
-                 <?php   echo $this->formSubmit($form->get('submit')); ?>
+        <div class="form-group">
+        <div class="input-group">
+        <?php echo $this->formHidden($form->get('users_id')); ?>
         </div>
-                 
+        </div>
+        
+        <div class="form-group">
+        <div class="input-group">
+        <?php echo $this->formRow($form->get('date_hired')); ?>
+        </div>
+        </div>
+        
+        <div class="form-group">
+        <div class="input-group">
+        <?php echo  $this->formRow($form->get('status')); ?>
+        </div>
+        </div>
+        
+        <div class="form-group">
+        <div class="input-group">
+        <?php echo $this->formSubmit($form->get('submit')); ?>   
+        </div>
+        </div>      
 	   <?php echo $this->form()->closeTag();?>
 	</div>
 </div>
-	
-	
-<ul>
+<?php endif;?>
 
-	<li><i class="fa fa-paperclip"></i> <a href="<?php echo $this->url('hr',array('action'=>'employee-files','id'=>$this->id));?>">201 files</a> </li>
-	<li><i class="fa fa-calendar"></i> <a href="<?php echo $this->url('hr',array('action'=>'employee-memo','id'=>$this->id)); ?>">Memos</a></li>
+
+ 
+ 
+<?php if($this->addFileForm):?>
+
+  <?php
+	$form = $this->addFileForm;
+	$form->setAttribute ( 'action', $this->url ( 'hr', array (
+			'action' => 'add-employee-file',
+			'id' => $this->id 
+	) ) );
+	
+	$form->prepare ();
+  ?>
+
+<div class="well box-body">
+	<div class="form-group">
+ 
+	<?php echo $this->form()->openTag($form);	?>
+	<div class="form-group">
+    <div class="input-group">
+	<?php echo $this->formRow($form->get('employee-file'));?>
+    </div>
+    </div>
+    
+    <div class="form-group">
+    <div class="input-group">
+    <?php echo $this->formRow($form->get('file_type_id'));?>
+   </div>
+   </div>
+   
+    <div class="form-group">
+    <div class="input-group">
+    <?php echo $this->formRow($form->get('description'));?>
+    </div>
+    </div>
+    
+    <div class="form-group">
+    <div class="input-group">
+	<?php echo $this->formSubmit($form->get('submit'));?>
+	</div>
+	</div>
+	
+	<?php echo $this->form()->closeTag();?>
+	   
+	</div>
+</div>
+<?php endif;?>
+
+
+<ul>
+	<li><i class="fa fa-paperclip"></i> <a
+		href="<?php echo $this->url('hr',array('action'=>'employee-files','id'=>$this->id));?>">201
+			files</a></li>
+	<li><i class="fa fa-calendar"></i> <a
+		href="<?php echo $this->url('hr',array('action'=>'employee-memo','id'=>$this->id)); ?>">Memos</a></li>
 	<li><i class="fa fa-check-square"></i> <a href="#">Quizzes</a></li>
 	<li><i class="fa fa-foursquare"></i> <a href="#">Attendance</a></li>
-    <li><i class="fa fa-search"></i> <a href="#">Evaluations</a></li>
+	<li><i class="fa fa-search"></i> <a href="#">Evaluations</a></li>
 	<li><i class="fa fa-dollar"></i> <a href="#">Salary</a></li>
 	<li><i class="fa fa-comments"></i> <a href="#">Feedback</a></li>
 	<li><i class="fa fa-ticket"></i> <a href="#">Clubs</a></li>
