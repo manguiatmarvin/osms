@@ -226,14 +226,14 @@ class ProfileController extends AbstractActionController {
             
             //check if image
             if(!$uploadUtils->file_is_image()){
-            	unlink($file);
+            	@unlink($file);
             	$uploadUtils->clear();
             	$this->flashMessenger ()->addErrorMessage( "Please upload image file only ");
             	return $this->redirect()->toRoute('profile',array('action'=>'upload-profile-picture'));
             }
             //check file size
             if($uploadUtils->isFileTooBig()){
-            	unlink($file);
+            	@unlink($file);
             	$uploadUtils->clear();
             	$this->flashMessenger ()->addErrorMessage ( "Please upload image file not larger that 2 mb");
             	return $this->redirect()->toRoute('profile',array('action'=>'upload-profile-picture'));

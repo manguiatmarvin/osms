@@ -25,7 +25,7 @@ return array (
 						array (
 								'label' => 'Dashbaord',
 								'route' => 'dashboard',
-								'class' => 'fa-dashboard', 
+								'class' => 'fa-bar-chart-o', 
 								'resource'=> 'home',
 						)
 						,
@@ -80,7 +80,7 @@ return array (
 						array (
 								'label' => 'Human Resource',
 								'route' => 'hr',
-								'class' => 'fa-user',
+								'class' => 'fa-group',
 								'resource'=> 'hr',
 								'pages' => array (
 										array (
