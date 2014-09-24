@@ -33,6 +33,10 @@ class FileUploadUtils extends Upload {
 		parent::clean();
 	}
 	
+	public function getMemiType(){
+		return $this->file_src_mime;
+	}
+	
 	/**
 	 * determine the target file exceeds file limits (2097152) 2 mb
 	 * @return boolean

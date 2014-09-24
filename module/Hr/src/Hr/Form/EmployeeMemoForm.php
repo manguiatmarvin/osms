@@ -21,8 +21,7 @@ class EmployeeMemoForm extends Form{
   			'name' => 'id',
   			'type' => 'Hidden',
   	));
-  	
-
+ 
   	
   	//text input
   	$this->add(array(
@@ -41,7 +40,7 @@ class EmployeeMemoForm extends Form{
 
 
   	$this->add(array(
-  			'name' => 'employee-file',
+  			'name' => 'employee-memo',
   			'type' => 'Zend\Form\Element\File',
   			'attributes' => array(
   					'class'  => 'form-control',
@@ -71,13 +70,16 @@ class EmployeeMemoForm extends Form{
   	$inputFilter = new InputFilter\InputFilter();
   
 //   	// File Input
-  	$fileInput = new InputFilter\FileInput('employee-file');
+  	$fileInput = new InputFilter\FileInput('employee-memo');
   	$fileInput->setRequired(true);
   	$fileInput->getFilterChain()->attachByName(
   			'filerenameupload',
   			array(
-  					'target'    => './data/uploads/memofiles.data',
+  					'target'    => './data/uploads/',
   					'randomize' => true,
+  					'overwrite' => true,
+  					'use_upload_name' => true,
+  					
   			)
   	);
   	

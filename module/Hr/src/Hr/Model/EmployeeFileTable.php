@@ -80,10 +80,8 @@ class EmployeeFileTable {
      * @param unknown $emp_id
      * @param unknown $file_id
      */
-	public function getSingleEmployeeFile($emp_id,$file_id){
-		$rowSet = $this->tableGateway->select(array('employee_id'=>$emp_id,
-				'id' => (int)$file_id));
-		
+	public function getSingleEmployeeFile($file_id){
+		$rowSet = $this->tableGateway->select(array('id' => (int)$file_id));
 		return $rowSet->current();
 		
 	}
@@ -95,14 +93,8 @@ class EmployeeFileTable {
       * @param unknown $id
       */
 	public function deleteEmployeeFile($emp_id,$id){
-		{
-			$this->tableGateway->delete(array('employee_id'=>$emp_id,
-					                                   'id' => (int)$id));
-		}
+		$this->tableGateway->delete(array('employee_id'=>$emp_id,
+				'id' => (int)$id));
 	}
 	
-
-  
-	
-
 }

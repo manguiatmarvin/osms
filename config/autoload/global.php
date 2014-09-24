@@ -119,6 +119,13 @@ return array (
 												'action' => 'employee-memo',
 												'show_in_menu' => false,
 										
+										),
+										array (
+												'label' => 'Add Employee Memo',
+												'route' => 'hr',
+												'action' => 'add-employee-memo',
+												'show_in_menu' => false,
+										
 										)
 										
 								)

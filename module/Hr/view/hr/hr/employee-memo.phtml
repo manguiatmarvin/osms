@@ -1,9 +1,6 @@
 <?php echo $this->render('flashmessenger/layout');
-$files= $this->empMemos;
+$memoGoldfiles= $this->empMemos;
 $addForm = $this->addFileForm;
-
-var_dump($files);
-
  ?>
 <div class="row">
 
@@ -40,15 +37,17 @@ var_dump($files);
 											<th>Options</th>
 											
 										</tr>
-                                       
+                                       <?php foreach($memoGoldfiles as $memo):?>
                                         <tr>
-										  <td>Tardiness 1st Warning</td>
-										  <td>7/7/14</td>
-										    <td>userMemo_1_458854sd87sds8sds.docx</td>
-										  <td><a ref="#" title="delete this memo"><i class="fa fa-times"></i></a></td>
+										  <td><?php echo $memo['title']?></td>
+										  <td><?php echo date("m/d/y g:i A", strtotime($memo['issue_date'])); ?></td>
+										    <td><?php echo $memo['filename']?></td>
+										  <td>
+										  <a  title ="download this file" href="<?php echo  $this->url('hr',array('action'=>'download-employee-memo',
+												                                            'id'=>$memo['id']));?>""><i class="fa fa-cloud-download"></i></a> |
+										  <a href="<?php echo $this->url('hr',array('action'=>'delete-employee-memo','id'=>$memo['id']))?>" title="delete this memo"><i class="fa fa-times"></i></a></td>
 										</tr>
-								
-
+								        <?php endforeach;?>
 									</tbody>
 								</table>
 								

@@ -1,0 +1,48 @@
+<?php echo $this->render('flashmessenger/layout') ?>
+<div class="row">
+
+	<!-- Left col -->
+	<section class="col-lg-7 connectedSortable">
+		<div>
+			<!-- main sub page content// -->
+
+			<div class="panel panel-default">
+				<div class="panel-heading">Delete Memo</div>
+				<div class="panel-body">
+
+					<div class="box-body">
+					
+					
+					 <p>Are you sure that you want to delete
+     <b>"<?php echo $this->escapeHtml($memo->title); ?>"</b> from <?php echo $empData->firstname; ?> 
+ </p>
+ <?php
+ $url = $this->url('hr', array(
+     'action' => 'delete-employee-memo',
+     'id'     => $this->id,
+ ));
+ ?>
+ <form action="<?php echo $url; ?>" method="post">
+ <div>
+     <input type="hidden" name="id" value="<?php echo (int) $memo->id; ?>" />
+        <input type="hidden" name="emp_id" value="<?php echo (int) $memo->issued_to; ?>" />
+     <input type="submit" name="del" value="Yes" />
+     <input type="submit" name="del" value="No" />
+ </div>
+ </form>
+ 
+					</div>
+
+
+				</div>
+			</div>
+
+		</div>
+
+	</section>
+	<!-- /.Left col -->
+
+	<!-- right col (We are only adding the ID to make the widgets sortable)-->
+
+
+</div>

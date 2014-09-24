@@ -108,12 +108,25 @@ use Zend\Paginator\Paginator;
      		        LEFT JOIN employee_filetypes 
      		        ON  employee_files.file_type_id = employee_filetypes.id 
      		WHERE employee_files.employee_id = {$emp_id} LIMIT 10";
-     		$statement = $dbAdapter->query($sql);
-     		$result    = $statement->execute();
-     		return $result;
-     	}
-     	return null;
-     	}
+			$statement = $dbAdapter->query ( $sql );
+			$result = $statement->execute ();
+			return $result;
+		}
+		return null;
+	}
+	
+	/*
+	 * get 10 latest emp memo
+	 */
+	public function getEmployeeMemo($emp_id) {
+		$dbAdapter = $this->tableGateway->getAdapter ();
+		
+		$sql = "SELECT * from employee_memo WHERE issued_to = ".$emp_id." limit 10";
+     			$statement = $dbAdapter->query($sql);
+     			$result    = $statement->execute();
+     			
+     	return $result;
+     		}
      	
      	
      	

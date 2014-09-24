@@ -110,7 +110,7 @@
 	<?php echo $this->form()->openTag($form);	?>
 	<div class="form-group">
     <div class="input-group">
-	<?php echo $this->formRow($form->get('employee-file'));?>
+	<?php echo $this->formRow($form->get('employee-memo'));?>
     </div>
     </div>
     
@@ -136,7 +136,7 @@
 
 <ul>
 	<li><i class="fa fa-paperclip"></i> <a
-		href="<?php echo $this->url('hr',array('action'=>'employee-files','id'=>$this->id));?>">201
+		href="<?php echo $this->url('hr',array('action'=>'employee-file','id'=>$this->id));?>">201
 			files</a></li>
 	<li><i class="fa fa-calendar"></i> <a
 		href="<?php echo $this->url('hr',array('action'=>'employee-memo','id'=>$this->id)); ?>">Memos</a></li>

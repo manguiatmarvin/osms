@@ -50,7 +50,7 @@ class AlbumController extends AbstractActionController
 		if ($request->isPost()) {
 			
 		
-			$album = new Album();
+			$album = new AlbumForm();
 			$alForm->setInputFilter($album->getInputFilter());
 			$alForm->setData($request->getPost());
 		

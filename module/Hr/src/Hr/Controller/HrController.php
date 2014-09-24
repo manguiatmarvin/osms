@@ -9,14 +9,20 @@ use Hr\Form\HrForm; // <-- Add this import
 use Hr\Form\EmployeeMemoForm;
 use Zend\Form\Form;
 use Hr\Model\EmployeeFile;
+use Hr\Form\EmployeeFileUploadForm;
 use Zend\InputFilter;
 use MarvinFileUploadUtils\FileUploadUtils;
+use Zend\Log\Logger;
+use Zend\Log\Writer\Stream;
+use Hr\Model\EmployeeMemo;
+
 
 class HrController extends AbstractActionController {
 	
 	protected $hrTable;
 	protected $eFilesTable;
 	protected $eMemoTable;
+    protected $logger;
 	
 	public function indexAction() {
 		
@@ -55,6 +61,8 @@ class HrController extends AbstractActionController {
 			
 			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
 			$employeeFiles = $this->getHrTable()->getEmployeeFiles($emp_id);
+			$employeeMemo = $this->getHrTable()->getEmployeeMemo($emp_id);
+		
 			
 		    $empObj = new Hr();
 		    $empObj->users_id = $employeeData['users_id'];
@@ -94,6 +102,7 @@ class HrController extends AbstractActionController {
 		
 		return new ViewModel(array('employee_data'=>$employeeData,
 				                    'employeeFiles'=>$employeeFiles,
+				                     'employeeMemo'=>$employeeMemo,
 		                             'viewEmployeeForm'=>$form,
 				                     'id'=>$employeeData['users_id']));
 	}
@@ -104,7 +113,7 @@ class HrController extends AbstractActionController {
 	}
 	
 	public function employeeMemoAction(){
-				$this->checkLogin ();
+		$this->checkLogin ();
 		
 		$emp_id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
 		
@@ -126,14 +135,62 @@ class HrController extends AbstractActionController {
 		) );
 	}
 	
-	public function addEmployeeMemo(){
+	public function addEmployeeMemoAction(){
 		$this->checkLogin ();
+		$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
 		
 		$emp_id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
+		$memoForm = new  EmployeeMemoForm();
 		
-		if (! $emp_id) {
-			return $this->redirect ()->toRoute ( 'hr' );
+		$request = $this->getRequest();
+		if($request->isPost()){
+	
+			$post = array_merge_recursive($request->getPost ()->toArray (),
+					$request->getFiles ()->toArray () );
+
+			$memoForm->setData($post);
+
+            if($memoForm->isValid()){
+            	
+              $data = $memoForm->getData();
+              $file = $data["employee-memo"]["tmp_name"];
+              
+              $uploadUtils = new FileUploadUtils($file);
+              
+              if($uploadUtils->isFileTooBig()){
+              	@unlink($file);
+              	$uploadUtils->clear();
+              	$this->flashMessenger ()->addErrorMessage ( "Please upload a file not larger that 2 mb");
+              	return $this->redirect()->toRoute('hr');
+              }
+              
+              //process file  make it 150px in width
+              $uploadUtils->file_new_name_body = 'memo_'.$emp_id.'_'.uniqid();
+              $uploadUtils->file_overwrite = true;
+              $desc = ROOT_PATH.'/data/employee_files/'.$emp_id.'/';
+            
+              $uploadUtils->process($desc);
+              
+              if($uploadUtils->processed){
+              	//save to data to Mysql
+              	$eMemo = new EmployeeMemo();
+              	$eMemo->exchangeArray($data);
+              	//fill missing data
+              	$eMemo->filename = $uploadUtils->getProcessedFile();
+              	$eMemo->issued_to = $emp_id;
+              	$eMemo->issued_by = $identity["users_id"];
+              	
+              	$this->getEmployeeMemoTable()->saveEmployeeMemo($eMemo);
+              	
+                   return $this->redirect ()->toRoute ( 'hr',array('action'=>'employee-memo','id'=>$emp_id) );
+              }
+            }else{
+            	$this->getLogger()->err("addEmployeeMemoAction(): EmployeeMemoForm() Form is inValid ");
+            	 
+            }
+			
 		}
+	
 		
 		return new ViewModel();
 	}
@@ -141,7 +198,7 @@ class HrController extends AbstractActionController {
 		/*
 	 * 201 files
 	 */
-	public function employeeFilesAction() {
+	public function employeeFileAction() {
 		$this->checkLogin ();
 		
 		$emp_id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
@@ -183,9 +240,47 @@ class HrController extends AbstractActionController {
 		$this->getEmployeeFileTable ()->deleteEmployeeFile ( $emp_id, $id );
 		
 		return $this->redirect ()->toRoute ( 'hr', array (
-				'action' => 'employee-files',
+				'action' => 'employee-file',
 				'id' => $emp_id 
 		) );
+	}
+	
+	public function deleteEmployeeMemoAction(){
+		$this->checkLogin ();
+		
+		$id = (int) $this->params()->fromRoute('id', 0);
+		$memoData = $this->getEmployeeMemoTable()->getEmployeeMemoSingle( $id );
+		$employeeData = $this->getHrTable()->getEmployee($memoData->issued_to);
+		
+		if (!$id) {
+			$this->flashMessenger()->addErrorMessage("fatal!: id not found");
+			return $this->redirect()->toRoute('hr',array('action'=>'employee'));
+		}
+		
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$del = $request->getPost('del', 'No');
+			$id = (int) $request->getPost('id',0);
+			$emp_id = (int) $request->getPost('emp_id',0);
+			
+			if ($del == 'Yes' && 
+			    $id &&
+			    $emp_id) {
+				
+				$this->getEmployeeMemoTable()->deleteEmployeeMemo($id);
+			}
+		
+			// Redirect to list of albums
+			return $this->redirect ()->toRoute ( 'hr' ,array('action'=>'employee-memo','id'=>$emp_id));
+		}
+		
+		
+		
+		return array (
+				'id' => $id,
+				'memo' => $memoData,
+				'empData'=>$employeeData
+		);
 	}
 	
 	/**
@@ -196,13 +291,13 @@ class HrController extends AbstractActionController {
 		$this->checkLogin();
 		
 		$id = (int) $this->params()->fromRoute('id', 0);
-		$emp_id = (int) $this->params()->fromRoute('emp_id', 0);
-		if(!$id && !$emp_id){
+
+		if(!$id){
 			return $this->redirect()->toRoute('hr');
 		}
 		try {
 			
-			$employeeFiles = $this->getEmployeeFileTable()->getSingleEmployeeFile($emp_id,$id);
+			$employeeFiles = $this->getEmployeeFileTable()->getSingleEmployeeFile($id);
 			 
 		}
 		catch (\Exception $ex) {
@@ -212,11 +307,11 @@ class HrController extends AbstractActionController {
 			));
 		}
 		
-		$fileName = ROOT_PATH.'/data/employee_files/'.$emp_id.'/'.$employeeFiles->filename;
+		$fileName = ROOT_PATH.'/data/employee_files/'.$employeeFiles->employee_id.'/'.$employeeFiles->filename;
 		
 		if(!file_exists($fileName)){
 			$this->flashMessenger()->addErrorMessage("Fatal Error! File ".$employeeFiles->filename." canot found on server");
-		 	return $this->redirect()->toRoute('hr',array('action'=>'employee-files','id'=>$emp_id));
+		 	return $this->redirect()->toRoute('hr',array('action'=>'employee-file','id'=>$emp_id));
 		    exit;
 		}
 		
@@ -225,13 +320,62 @@ class HrController extends AbstractActionController {
 		$response = $this->getResponse();
 		$headers = $response->getHeaders();
 		$headers->clearHeaders()
-		->addHeaderLine('Content-type: ' . $fileUtils->file_src_mime)
+		->addHeaderLine('Content-type: ' . $fileUtils->getMemiType())
 		->addHeaderLine("Content-Disposition: attachment; filename=".rawurlencode($fileUtils->file_src_name).";");
 		$fileUtils->process();
-		
-		return $this->response;
+		if($fileUtils->processed){
+			$fileUtils->clear();
+			return $this->response;
+		}
 	}
 	
+	
+	public function downloadEmployeeMemoAction(){
+		$this->checkLogin();
+		$id = (int) $this->params()->fromRoute('id', 0); // the id of the file
+		
+		if(!$id){
+			$this->flashMessenger()->addErrorMessage("To download a file, please provide an ID");
+			return $this->redirect()->toRoute('hr');
+		}
+		
+		
+		try {
+				
+			$empMemo = $this->getEmployeeMemoTable()->getEmployeeMemoSingle($id);
+		}catch (\Exception $ex) {
+			$this->flashMessenger()->addErrorMessage("Fatal Error! Memo File ".addslashes($ex));
+			return $this->redirect()->toRoute('hr', array(
+					'action' => 'employee'
+			));
+		}
+		
+		$owner = $empMemo->issued_to;
+		$filename = $empMemo->filename;
+		$path = ROOT_PATH.'/data/employee_files/'.$owner.'/'.$filename;
+			
+	   if(!file_exists($path)){
+	   	$this->flashMessenger()->addErrorMessage("Fatal Error! File ".$filename." canot found on server");
+	   	return $this->redirect()->toRoute('hr',array('action'=>'employee-memo','id'=>$owner));
+	   	exit;
+	   }
+	   
+	   
+	   //download process start
+	   $fileUtils = new FileUploadUtils($path);
+	   $response = $this->getResponse();
+	   $headers = $response->getHeaders();
+	   $headers->clearHeaders()
+	   ->addHeaderLine('Content-type: ' . $fileUtils->file_src_mime)
+	   ->addHeaderLine("Content-Disposition: attachment; filename=".rawurlencode($fileUtils->file_src_name).";");
+	   $fileUtils->process();
+	   
+	   if($fileUtils->processed){
+	   	$fileUtils->clear();
+	   	
+	   }
+	   return $this->response;
+	}
 	
 	/**
 	 * add 201 files
@@ -275,7 +419,7 @@ class HrController extends AbstractActionController {
 				$filenameBody = "userfile".$emp_id."_".$data["file_type_id"].'_'.$unique;
 			    $fileDestn = ROOT_PATH.'/data/employee_files/'.$emp_id.'/'.$filenameBody.'.'.$extension;
 	
-			    mkdir(dirname($fileDestn), 0777, true);
+			    @mkdir(dirname($fileDestn), 0777, true);
 			    @copy($fileToCopy,$fileDestn);
 			    
 			    $eFile->filename = $filenameBody.'.'.$extension;
@@ -283,7 +427,7 @@ class HrController extends AbstractActionController {
 		        $this->getEmployeeFileTable()->saveEmpoyeeFile($eFile);
 		        
 		       	return $this->redirect()->toRoute('hr', array(
-					'action' => 'employee-files',
+					'action' => 'employee-file',
 		       			'id'=>$emp_id
 			    ));
 			    
@@ -308,6 +452,16 @@ class HrController extends AbstractActionController {
 	}
 
 	
+	private function getLogger(){
+		if(!$this->logger){
+			//build
+			$this->logger = new Logger();
+			$this->logger->addWriter(new Stream('/tmp/sourcefit/sms.log'));
+		}
+		
+		return $this->logger;
+	}
+	
 	
 	private function checkLogin(){
 		if (! $this->getServiceLocator ()->get ( 'AuthService' )->hasIdentity ()) {
@@ -315,13 +469,13 @@ class HrController extends AbstractActionController {
 			exit;
 		}
 	}
-
 	
 	//services!!!!!!!
 	/**
 	 * 
 	 * @return Ambigous <object, multitype:>
 	 */
+	
 	public function getHrTable() {
 		if (! $this->hrTable) {
 			$sm = $this->getServiceLocator ();
@@ -329,6 +483,7 @@ class HrController extends AbstractActionController {
 		}
 		return $this->hrTable;
 	}
+	
 	
 	
 	public function getEmployeeFileTable(){
@@ -342,6 +497,7 @@ class HrController extends AbstractActionController {
 		
 		return $this->eFilesTable;
 	}
+	
 	
 	public function getEmployeeMemoTable(){
 	

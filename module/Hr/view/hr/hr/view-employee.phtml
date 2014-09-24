@@ -109,6 +109,39 @@
                                     </table>
                                 </div><!-- /.box-body -->
                             </div><!-- /.box -->
+                            
+                            
+                            
+                            
+                             <div class="box">
+                             
+                       
+                                <div class="box-header">
+                                    <h3 class="box-title"><i class="fa fa-calendar"></i> Memo Received</h3>
+                              
+                                </div><!-- /.box-header -->
+                                <div class="box-body table-responsive no-padding">
+                                    <table class="table table-hover">
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Date Added</th>
+                                            <th>File</th>
+                                          
+                                        </tr>
+                                        
+                                        <?php foreach ($this->employeeMemo as $ememo):?>
+                                        <tr>
+                                            <td><?php echo $ememo['title']?></td>
+                                            <td><?php echo date("m/d/y g:i A", strtotime($ememo['issue_date'])); ?></td>
+                                            <td><i class="fa  fa-file-o"></i><?php echo $ememo['filename']?></td>
+                                              
+                                        </tr>
+                                        <?php endforeach;?>
+                                        
+                
+                                    </table>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
                     
 					</div>
 
