@@ -1,0 +1,98 @@
+<?php echo $this->render('flashmessenger/layout');
+$empQuizzes= $this->empQuizzes;
+ ?>
+<div class="row">
+
+	<!-- Left col -->
+	<section class="col-lg-7 connectedSortable">
+		<div>
+			<!-- main sub page content// -->
+
+			<div class="panel panel-default">
+				<div class="panel-heading"><a href="<?php echo $this->url('hr',array('action'=>'view-employee','id'=>$this->employeeData["users_id"]))?>"><i class="fa fa-angle-double-left"></i></a> <?php echo $this->employeeData["firstname"];?>'s Quizzes</div>
+				<div class="panel-body">
+
+					<div class="box-body">
+
+
+						<div class="box well">
+
+
+							<div class="box-header">
+								<h3 class="box-title">
+									<i class="fa fa-calendar"></i> Quizzes
+								</h3>
+
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body table-responsive no-padding">
+								<table class="table table-hover">
+									<tbody>
+										<tr>
+											
+											<th>Title</th>
+											<th>Date</th>
+											<th>Score</th>
+											<th>Options</th>
+											
+										</tr>
+                                       <?php foreach($empQuizzes as $q):?>
+                                        <tr>
+										  <td><?php echo $q['title']?></td>
+										  <td><?php echo date("m/d/y g:i A", strtotime($q['created'])); ?></td>
+										    <td><?php echo $q['score']?></td>
+										  <td>
+										  <a href="<?php echo $this->url('hr',array('action'=>'edit-employee-quiz','id'=>$q['id']))?>">edit</a> |
+										  <a href="<?php echo $this->url('hr',array('action'=>'delete-employee-quiz','id'=>$q['id']))?>">del</a>
+										  </td>
+										</tr>
+								        <?php endforeach;?>
+									</tbody>
+								</table>
+								
+														<?php
+// // add at the end of the file after the table
+// echo $this->paginationControl (
+// 		// the paginator object
+// 		$files,
+// 		// the scrolling style; see http://zf2.readthedocs.org/en/release-2.1.4/modules/zend.paginator.usage.html#rendering-pages-with-view-scripts
+// 		'Jumping',
+// 		// the partial to use to render the control
+// 		array (
+// 				'partial/paginator.phtml',
+// 				'Hr'
+// 		),
+// 		// the route to link to when a user clicks a control link
+// 		array (
+// 				'route' => 'paginator',
+// 		) );
+
+                         ?>
+							</div>
+							<!-- /.box-body -->
+						</div>
+
+					</div>
+
+
+				</div>
+			</div>
+
+		</div>
+
+	</section>
+	<!-- /.Left col -->
+
+	<!-- right col (We are only adding the ID to make the widgets sortable)-->
+	<section class="col-lg-5 connectedSortable">
+
+		<div class="panel panel-default">
+			<div class="panel-heading">Quiz Menu</div>
+			<div class="panel-body rightbar-menu">
+				<!-- right navigation //-->
+                      <?php  echo $this->render('layout/hr-menu-update-e') ?>
+		</div>
+		</div>
+	</section>
+
+</div>

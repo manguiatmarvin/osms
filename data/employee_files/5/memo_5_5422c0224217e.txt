@@ -1,0 +1,15 @@
+Initial analysis on website 
+http://entrustict.com.au/: 
+
+by using a  Markup Validation Service we found lots of error in homepage.
+Errors found while checking this document as HTML5
+25 Errors, 9 warning(s)
+
+Also when looking at the "Feature products" menu, the content on each tab seems
+blured out, also the description at the bottom of each slides doesn't stand out. It will also good it we adjust the color a little darker and size a little bit bigger. the logo looks washed out.
+
+
+
+
+
+

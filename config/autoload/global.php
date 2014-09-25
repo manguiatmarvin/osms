@@ -110,7 +110,7 @@ return array (
 										
 										array('label' => '201 Files',
 												'route' => 'hr',
-												'action'=>'employee-files',
+												'action'=>'employee-file',
 										        'show_in_menu' => false),
 										
 										array (
@@ -133,14 +133,16 @@ return array (
 						),
 						
 						array (
-								'label' => 'Album',
-								'route' => 'album',
+								'label' => 'Accounting',
+								'route' => 'hr',
 								'class' => 'fa-book',
+								'resource'=> 'accounting',
 								'pages' => array (
 										array (
 												'label' => 'View Album',
 												'route' => 'album',
 												'action' => 'index',
+												'show_in_menu' => false,
 												 
 										),
 										array (

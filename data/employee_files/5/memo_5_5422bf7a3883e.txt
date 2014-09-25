@@ -1,0 +1,12 @@
+
+Hi Ian, Sorry but i think i accidentally flush ip-tables configuration, could you please open up again ports 80, 443  and 22.
+
+My ip address is : 121.96.66.190 
+
+Also i need these additional ports open 
+
+    port 25 (regular SMTP) 
+    port 110 (POP3)
+    
+    
+    

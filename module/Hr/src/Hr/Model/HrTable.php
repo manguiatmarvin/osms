@@ -127,6 +127,21 @@ use Zend\Paginator\Paginator;
      			
      	return $result;
      		}
+     		
+     		
+
+     		/*
+     		 * get 10 latest emp quiz
+     		*/
+     		public function getEmployeeQuiz($emp_id) {
+     			$dbAdapter = $this->tableGateway->getAdapter ();
+     		
+     			$sql = "SELECT * from employee_quiz WHERE employee_id = ".$emp_id." limit 10";
+     			$statement = $dbAdapter->query($sql);
+     			$result    = $statement->execute();
+     		
+     			return $result;
+     		}
      	
      	
      	

@@ -10,18 +10,23 @@ use Hr\Form\EmployeeMemoForm;
 use Zend\Form\Form;
 use Hr\Model\EmployeeFile;
 use Hr\Form\EmployeeFileUploadForm;
+
 use Zend\InputFilter;
 use MarvinFileUploadUtils\FileUploadUtils;
 use Zend\Log\Logger;
 use Zend\Log\Writer\Stream;
 use Hr\Model\EmployeeMemo;
 
+use Hr\Model\EmployeeQuiz;
+use Hr\Form\EmployeeQuizzesForm;
 
 class HrController extends AbstractActionController {
 	
 	protected $hrTable;
 	protected $eFilesTable;
 	protected $eMemoTable;
+	protected $eQuizTable;
+	
     protected $logger;
 	
 	public function indexAction() {
@@ -62,7 +67,7 @@ class HrController extends AbstractActionController {
 			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
 			$employeeFiles = $this->getHrTable()->getEmployeeFiles($emp_id);
 			$employeeMemo = $this->getHrTable()->getEmployeeMemo($emp_id);
-		
+			$employeeQuiz = $this->getHrTable()->getEmployeeQuiz($emp_id);
 			
 		    $empObj = new Hr();
 		    $empObj->users_id = $employeeData['users_id'];
@@ -103,6 +108,7 @@ class HrController extends AbstractActionController {
 		return new ViewModel(array('employee_data'=>$employeeData,
 				                    'employeeFiles'=>$employeeFiles,
 				                     'employeeMemo'=>$employeeMemo,
+				                      'employeeQuiz'=>$employeeQuiz,
 		                             'viewEmployeeForm'=>$form,
 				                     'id'=>$employeeData['users_id']));
 	}
@@ -330,6 +336,128 @@ class HrController extends AbstractActionController {
 	}
 	
 	
+	/**
+	 * list employee quizzes
+	 */
+	public function employeeQuizzesAction(){
+		$this->checkLogin ();
+		
+		$emp_id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
+		
+		if (! $emp_id) {
+			return $this->redirect ()->toRoute ( 'hr' );
+		}
+		
+		$employeeData = $this->getHrTable ()->getEmployeePersonal ( $emp_id );
+		$employeeQuizzes = $this->getEmployeeQuizzesTable ()->getEmployeeQuiz( $emp_id );
+		$employeeQuizForm = new EmployeeQuizzesForm();
+		
+		$request = $this->getRequest();
+		if($request->isPost()){
+			
+			$employeeQuiz = new EmployeeQuiz();
+			$employeeQuizForm->setInputFilter($employeeQuiz->getInputFilter());
+			$employeeQuizForm->setData($request->getPost());
+			
+			if($employeeQuizForm->isValid()){
+				$employeeQuiz->exchangeArray($employeeQuizForm->getData());
+				$employeeQuiz->employee_id = $emp_id;
+				$this->getEmployeeQuizzesTable()->saveEmployeeQuiz($employeeQuiz);
+				return $this->redirect()->toRoute('hr',array('action'=>'employee-quizzes','id'=>$emp_id));
+			}
+		}
+		
+		return new ViewModel ( array (
+				'empQuizzes' => $employeeQuizzes,
+				'employeeData' => $employeeData,
+				'addQuizForm' =>$employeeQuizForm,
+				'id' => $emp_id, 
+		) );
+		
+		
+		
+		
+	}
+	
+	
+	public function editEmployeeQuizAction(){
+		$this->checkLogin ();
+		// id is the quiz id not employee id
+		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
+		
+		if (!$id) {
+			return $this->redirect ()->toRoute ( 'hr' );
+		}
+		
+		try {
+				
+			$employeeQuiz = $this->getEmployeeQuizzesTable()->getEmployeeQuizSingle($id);
+			$employeeQuizzes = $this->getEmployeeQuizzesTable ()->getEmployeeQuiz( $employeeQuiz->employee_id );
+			$employeeData = $this->getHrTable ()->getEmployeePersonal ( $employeeQuiz->employee_id);
+		    
+		}
+		catch (\Exception $ex) {
+			$this->flashMessenger()->addErrorMessage("Fatal Error! File ".addslashes($ex));
+			return $this->redirect()->toRoute('hr', array(
+					'action' => 'employee'
+			));
+		}
+		
+		$employeeQuizForm = new EmployeeQuizzesForm();
+		$employeeQuizForm->bind($employeeQuiz);
+		$employeeQuizForm->get('submit')->setAttribute('value', 'Update');
+		
+		$request = $this->getRequest();
+		if($request->isPost()){
+			$employeeQuizForm->setInputFilter($employeeQuiz->getInputFilter());
+			$employeeQuizForm->setData($request->getPost());
+			
+			if($employeeQuizForm->isValid()){
+				
+				$this->getEmployeeQuizzesTable()->saveEmployeeQuiz($employeeQuiz);
+				return $this->redirect()->toRoute('hr',array('action'=>'employee-quizzes','id'=>$employeeQuiz->employee_id));
+			}
+			
+			
+		}
+		
+		return new ViewModel ( array (
+				'empQuizzes' => $employeeQuizzes,
+				'employeeData' => $employeeData,
+				'editQuizForm' =>$employeeQuizForm,
+				'id' => $id,
+		) );
+		
+	}
+	
+	public function deleteEmployeeQuizAction(){
+		$this->checkLogin ();
+		// id is the quiz id not employee id
+		$id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
+		
+		try{
+		    
+			$employeeQuiz = $this->getEmployeeQuizzesTable()->getEmployeeQuizSingle($id);
+			$employeeData = $this->getHrTable ()->getEmployeePersonal ( $employeeQuiz->employee_id);
+			
+		}catch (\Exception $ex){
+			$this->flashMessenger()->addErrorMessage("Fatal Error! File ".addslashes($ex));
+			return $this->redirect()->toRoute('hr', array(
+					'action' => 'employee'
+			));
+		}
+		
+		$this->getEmployeeQuizzesTable()->deleteEmployeeQuiz($id);
+		
+		return $this->redirect()->toRoute('hr',array('action'=>'employee-quizzes','id'=>$employeeQuiz->employee_id));
+	}
+	
+	
+	
+	public function addEmployeeQuizAction(){
+		return new ViewModel();
+	}
+	
 	public function downloadEmployeeMemoAction(){
 		$this->checkLogin();
 		$id = (int) $this->params()->fromRoute('id', 0); // the id of the file
@@ -509,6 +637,17 @@ class HrController extends AbstractActionController {
 		}
 	
 		return $this->eMemoTable;
+	}
+	
+	public function getEmployeeQuizzesTable(){
+		if (!$this->eQuizTable) {
+			$sm = $this->getServiceLocator();
+			if($sm->has('Hr\Model\EmployeeQuizTable')){
+				$this->eQuizTable = $sm->get('Hr\Model\EmployeeQuizTable');
+			}
+		}
+		
+		return $this->eQuizTable;
 	}
 	
 }

@@ -18,5 +18,6 @@ return array(
 				'pre-employment',
 				'view',
 				'settings',
+				'accounting',
 		),
 );

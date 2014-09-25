@@ -33,6 +33,16 @@ return array(
          						),
          				),
          		),
+         		
+         		'employee-quiz-paginator' => array(
+         				'type' => 'segment',
+         				'options' => array(
+         						'route' => 'employee-quizzes[/:id][page/:page]',
+         						'defaults' => array(
+         								'page' => 1,
+         						),
+         				),
+         		),
 
          ),
      ),
