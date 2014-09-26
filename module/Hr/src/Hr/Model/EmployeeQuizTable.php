@@ -27,7 +27,7 @@ class EmployeeQuizTable {
 
 	public function getEmployeeQuiz($emp_id){
 		$rowSet = $this->tableGateway->select(array('employee_id'=>$emp_id));
-		return $rowSet->toArray();
+		return (array)$rowSet->toArray();
 	}
 	
 	public function deleteEmployeeQuiz($id){
