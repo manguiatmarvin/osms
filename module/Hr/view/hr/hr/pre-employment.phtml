@@ -1,1 +1,138 @@
-Pre Employment
+<?php echo $this->render('flashmessenger/layout') ?>
+
+<div class="row">
+	<!-- Left col -->
+	<section class="col-lg-7 connectedSortable">
+		<div>
+			<!-- main sub page content// -->
+
+			<div class="panel panel-default">
+				<div class="panel-heading"><?php echo $this->escapeHtml("Pre Employment"); ?></div>
+				<div class="panel-body">
+					<div class="box-body">
+						<!-- Content here -->
+						<div class="box">
+							<div class="box-header">
+								<h3 class="box-title">Candidates for employment</h3>
+								<div class="box-tools">
+									<div class="form-group">
+
+										<div class="input-group input-sm pull-right">
+											<select name="gender_id" class="form-control pull-right input-sm" style="width:80px;border-left:none;outline:none">
+											    <option value="firstname">By Name</option>
+												<option value="address">By Address</option>
+												<option value="landline">By Landline</option>
+												<option value="cellphone">By Landline</option>
+											</select> 
+											
+											<input type="text" name="table_search"
+												class="form-control input-sm pull-right"
+												style="width:110px;" placeholder="Search" />
+											<div class="input-group-btn">
+												<button class="btn btn-sm btn-default">
+													<i class="fa fa-search"></i>
+												</button>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body table-responsive no-padding">
+								<table class="table table-hover table-striped">
+									<tr>
+										<th></th>
+										<th>Full Name</th>
+										<th>Joined Date</th>
+										<th>Last Update</th>
+										<th>Status</th>
+										<th>Options</th>
+									</tr>
+									
+									
+									   <?php foreach ($this->paginator as $employee) : ?>
+									   <?php 
+									   //clean
+									   $fname = ucfirst($this->escapeHtml($employee->firstname));
+									   $lastname = ucfirst($this->escapeHtml($employee->lastname));
+									   $middle = ucfirst($this->escapeHtml($employee->middle));
+									   $address = $this->escapeHtml($employee->address);
+									   $about = $this->escapeHtml($employee->about);
+									   $birthdate = $this->escapeHtml($employee->birthdate);
+									   $landline = $this->escapeHtml($employee->landline);
+									   $cellphone = $this->escapeHtml($employee->cellphone);
+									   $htmlStatus = "<span class=\"label label-warning\">Reserved</span>";
+									   ?>
+									
+									<tr>
+										<td>
+											<div class="user-panel">
+												<div class="pull-left image">
+													<img src="<?php echo $this->escapeHtml($employee->profile_pic_url)?>" class="img-circle"
+														alt="<?php echo $this->escapeHtml($employee->firstname)?>" title="<?php echo $this->escapeHtml($employee->firstname)?>">
+												</div>
+
+											</div>
+										</td>
+										<td><?php echo $fname." ".$lastname.". ".$middle?></td>
+										<td><?php echo date("m/d/y", strtotime($employee->created))?></td>
+										<td><?php echo  date("m/d/y g:i A", strtotime($employee->last_modified)) ?></td>
+										<td><?php echo $htmlStatus?></td>
+										<td>
+										<a
+						href="<?php echo $this->url('hr',array('action'=>'view-candidate-profile','id'=>$employee->id)); ?>"><i class="fa fa-search"></i>View </a>
+										</td>
+									</tr>
+                                      <?php endforeach;?>
+								</table>
+							</div>
+							<!-- /.box-body -->
+							
+							<!-- pagination -->
+						<?php
+// add at the end of the file after the table
+echo $this->paginationControl (
+		// the paginator object
+		$this->paginator,
+		// the scrolling style; see http://zf2.readthedocs.org/en/release-2.1.4/modules/zend.paginator.usage.html#rendering-pages-with-view-scripts
+		'Jumping',
+		// the partial to use to render the control
+		array (
+				'partial/paginator.phtml',
+				'Hr'
+		),
+		// the route to link to when a user clicks a control link
+		array (
+				'route' => 'paginator',
+		) );
+
+                         ?>
+							
+						</div>
+						<!-- /.box -->
+
+
+						<!-- Content here:end -->
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</section>
+	<!-- /.Left col -->
+
+	<!-- right col (We are only adding the ID to make the widgets sortable)-->
+	<section class="col-lg-5 connectedSortable">
+
+		<div class="panel panel-default">
+			<div class="panel-heading">Employee Menu</div>
+			<div class="panel-body rightbar-menu">
+				<!-- right navigation //-->
+               <?php echo $this->render('layout/hr-menu') ?>
+			</div>
+		</div>
+	</section>
+</div>
+

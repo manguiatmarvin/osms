@@ -57,6 +57,36 @@ use Zend\Paginator\Paginator;
 		return $paginator;
 	}
 	
+	
+	
+	public function getPreEmployedList(){
+	
+		// create a new Select object for the table album
+		$select = new Select('user_profile');
+	
+		$select->join('employees', // table name,
+				'employees.users_id = user_profile.users_id', // expression to join on (will be quoted by platform object before insertion),
+				array('u_id'=>'id'),// (optional) list of columns, same requiremetns as columns() above
+				Select::JOIN_LEFT // (optional), one of inner, outer, left, right also represtned by constants in the API
+		);
+		
+		$select->where(array('employees.users_id IS NULL'));
+		
+		
+	
+		$paginatorAdapter = new DbSelect(
+				// our configured select object
+				$select,
+				// the adapter to run it against
+				$this->tableGateway->getAdapter(),
+				// the result set to hydrate
+				new ResultSet () );
+	
+		$paginator = new Paginator ( $paginatorAdapter );
+		return $paginator;
+	}
+	
+	
 	/**
 	 * get Empoyee details 
 	 * @param unknown $emp_id

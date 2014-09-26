@@ -115,7 +115,11 @@ class HrController extends AbstractActionController {
 	
 	
 	public function preEmploymentAction(){
-			return new viewModel();
+		$this->checkLogin();
+		
+		$paginator = $this->getHrTable()->getPreEmployedList();
+		
+	    return new viewModel(array('paginator'=>$paginator));
 	}
 	
 	public function employeeMemoAction(){
@@ -139,6 +143,19 @@ class HrController extends AbstractActionController {
 				'addMemoForm' => $form,
 				'id' => $employeeData ['users_id'] 
 		) );
+	}
+	
+	public function viewCandidateProfileAction(){
+		$this->checkLogin ();
+		
+		$profile_id = ( int ) $this->params ()->fromRoute ( 'id', 0 );
+		
+		if (! $profile_id) {
+			$this->flashMessenger()->addErrorMessage("invalid profile id");
+			return $this->redirect ()->toRoute ( 'hr',array('action'=>'pre-employment') );
+		}
+		
+		return new ViewModel();
 	}
 	
 	public function addEmployeeMemoAction(){
