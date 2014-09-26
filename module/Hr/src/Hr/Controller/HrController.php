@@ -131,7 +131,7 @@ class HrController extends AbstractActionController {
 			return $this->redirect ()->toRoute ( 'hr' );
 		}
 		
-		$employeeData = $this->getHrTable ()->getEmployeePersonal ( $emp_id );
+		$employeeData = $this->getHrTable()->getEmployeePersonal ( $emp_id );
 		$employeeMemos = $this->getEmployeeMemoTable()->getEmployeeMemo($emp_id);
 		
 		$form = new EmployeeMemoForm();

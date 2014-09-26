@@ -42,8 +42,22 @@ class EmployeeMemoTable {
 	
 
 	public function getEmployeeMemo($emp_id){
-	  $rowSet = $this->tableGateway->select(array('issued_to'=>$emp_id));
-	  return $rowSet->toArray();
+		$select = new Select('employee_memo');
+		$select->where(array('issued_to'=>$emp_id));
+			
+		$select->order(array('issue_date ASC',)); // produces 'name' ASC, 'age' DESC
+		
+		$paginatorAdapter = new DbSelect(
+				// our configured select object
+				$select,
+				// the adapter to run it against
+				$this->tableGateway->getAdapter(),
+				// the result set to hydrate
+				new ResultSet () );
+		
+		$paginator = new Paginator ( $paginatorAdapter );
+		$paginator->setItemCountPerPage(5);
+		return $paginator;
 	}
 	
 	/**
