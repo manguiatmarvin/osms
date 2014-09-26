@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Chicago');
 define('ROOT_PATH', dirname(__DIR__));
 /**
  * Display all errors when APPLICATION_ENV is development.
