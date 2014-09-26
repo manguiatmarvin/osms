@@ -321,18 +321,7 @@ class HrController extends AbstractActionController {
 		    exit;
 		}
 		
-		//download process start
-		$fileUtils = new FileUploadUtils($fileName);
-		$response = $this->getResponse();
-		$headers = $response->getHeaders();
-		$headers->clearHeaders()
-		->addHeaderLine('Content-type: ' . $fileUtils->getMemiType())
-		->addHeaderLine("Content-Disposition: attachment; filename=".rawurlencode($fileUtils->file_src_name).";");
-		$fileUtils->process();
-		if($fileUtils->processed){
-			$fileUtils->clear();
-			return $this->response;
-		}
+		return $this->downloadFile($fileName);
 	}
 	
 	
@@ -488,23 +477,10 @@ class HrController extends AbstractActionController {
 	   	exit;
 	   }
 	   
-	   
-	   //download process start
-	   $fileUtils = new FileUploadUtils($path);
-	   $response = $this->getResponse();
-	   $headers = $response->getHeaders();
-	   $headers->clearHeaders()
-	   ->addHeaderLine('Content-type: ' . $fileUtils->file_src_mime)
-	   ->addHeaderLine("Content-Disposition: attachment; filename=".rawurlencode($fileUtils->file_src_name).";");
-	   $fileUtils->process();
-	   
-	   if($fileUtils->processed){
-	   	$fileUtils->clear();
-	   	
-	   }
-	   return $this->response;
+	   return $this->downloadFile($path);
 	}
 	
+
 	/**
 	 * add 201 files
 	 */
@@ -579,6 +555,27 @@ class HrController extends AbstractActionController {
 	
 	}
 
+	
+	
+	private  function downloadFile($fileName) {
+		$fileUtils = new FileUploadUtils($fileName);
+	
+		$response = new \Zend\Http\Response\Stream();
+		$response->setStream(fopen($fileName, 'r'));
+		
+		if(!is_file($fileName)){
+			return 	$response->setStatusCode(404);
+		}
+		
+		$response->setStatusCode(200);
+		$headers = new \Zend\Http\Headers();
+		$headers->addHeaderLine('Content-Type',$fileUtils->file_src_mime)
+		->addHeaderLine('Content-Disposition', 'attachment; filename="' . $fileName . '"')
+		->addHeaderLine('Content-Length', filesize($fileName));
+	
+		$response->setHeaders($headers);
+		return $response;
+	}
 	
 	private function getLogger(){
 		if(!$this->logger){
