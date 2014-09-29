@@ -28,6 +28,24 @@ class EmployeeQuizTable {
 	public function getEmployeeQuiz($emp_id){
 		$rowSet = $this->tableGateway->select(array('employee_id'=>$emp_id));
 		return (array)$rowSet->toArray();
+		
+		
+		$select = new Select('employee_quiz');
+		$select->where(array('employee_id'=>$emp_id));
+			
+		$select->order(array('created ASC',)); // produces 'name' ASC, 'age' DESC
+		
+		$paginatorAdapter = new DbSelect(
+				// our configured select object
+				$select,
+				// the adapter to run it against
+				$this->tableGateway->getAdapter(),
+				// the result set to hydrate
+				new ResultSet () );
+		
+		$paginator = new Paginator ( $paginatorAdapter );
+		$paginator->setItemCountPerPage(5);
+		return $paginator;
 	}
 	
 	public function deleteEmployeeQuiz($id){

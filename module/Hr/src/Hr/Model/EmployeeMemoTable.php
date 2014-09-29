@@ -34,12 +34,10 @@ class EmployeeMemoTable {
 	public function test(){
 		return "Success!";
 	}
-	
 	/*
 	 * get list of employee memo using emp_id
 	 * 
 	 */
-	
 
 	public function getEmployeeMemo($emp_id){
 		$select = new Select('employee_memo');
