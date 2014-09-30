@@ -14,8 +14,13 @@ use Zend\Mvc\MvcEvent;
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
 use Zend\Permissions\Acl\Acl;
+//logging
+use Zend\Log\Logger;
+use Zend\Log\Writer\Stream;
 
 class Module{
+	
+	protected $logger;
 	
     public function onBootstrap(MvcEvent $e)
     {
@@ -40,6 +45,10 @@ class Module{
      * @param MvcEvent $e
      */
     public function loadCommonViewVars(MvcEvent $e) {
+    	// redirect to login
+ 
+        $this->getLogger()->debug($e->getRouteMatch()->getMatchedRouteName());
+    	
     	$auth = null;
 
     	if (! $this->isOpenRequest ( $e )) {
@@ -47,9 +56,10 @@ class Module{
     		$auth = $e->getApplication()->getServiceManager()->get('AuthService')->getStorage ()->read ();
 
     		if ("NULL" === $auth &&  null === $auth) {
-    			// redirect to login
+
     			$e->getRouteMatch ()->setParam ('controller', 'SanAuth\Controller\Auth' )->setParam ( 'action', 'index' );
-    		
+    		    
+    			
     		}else{
 
     			if($auth['users_id']!=null){
@@ -77,6 +87,7 @@ class Module{
     				
     				$results = $dbAdapter->query($sql)->execute();
     			    $auth = $results->current();
+    			    
     			}
     			
     			//acl
@@ -112,6 +123,24 @@ class Module{
     	}
     	
     
+	}
+	
+	
+	
+	private function getLogger(){
+		if(!$this->logger){
+			//build
+			if(!file_exists('/tmp/sourcefit/sms.log')){
+				@mkdir(dirname('/tmp/sourcefit'), 0777, true);
+				$logFile = fopen("/tmp/sourcefit/sms.log", "w");
+				fclose($logFile);
+				
+			}
+			$this->logger = new Logger();
+			$this->logger->addWriter(new Stream('/tmp/sourcefit/sms.log'));
+		}
+	
+		return $this->logger;
 	}
 	
 

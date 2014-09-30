@@ -21,6 +21,10 @@ use Hr\Model\EmployeeMemoTable;
 use Hr\Model\EmployeeQuiz;
 use Hr\Model\EmployeeQuizTable;
 
+//Employee logins
+use Hr\Model\EmployeeLogins;
+use Hr\Model\EmployeeLoginsTable;
+
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
@@ -92,6 +96,17 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 							$resultSetPrototype = new ResultSet ();
 							$resultSetPrototype->setArrayObjectPrototype ( new EmployeeQuiz() );
 							return new TableGateway ( 'employee_quiz', $dbAdapter, null, $resultSetPrototype );
+						},
+						'Hr\Model\EmployeeLoginsTable' => function ($sm) {
+							$tableGateway = $sm->get ( 'EmployeeLoginsTableGateway' );
+							$table = new EmployeeLoginsTable ( $tableGateway );
+							return $table;
+						},
+						'EmployeeLoginsTableGateway' => function ($sm) {
+							$dbAdapter = $sm->get ( 'Zend\Db\Adapter\Adapter' );
+							$resultSetPrototype = new ResultSet ();
+							$resultSetPrototype->setArrayObjectPrototype ( new EmployeeLogins() );
+							return new TableGateway ( 'employee_logins', $dbAdapter, null, $resultSetPrototype );
 						}
 				),
 		);
