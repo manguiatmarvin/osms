@@ -8,6 +8,8 @@ use SanAuth\Model\SanAuthTable;
 use SanAuth\Model\SanAuth;
 use SanAuth\Form\LoginForm;
 use SanAuth\Model\LoginFormFilter;
+use Hr\Model\HrTable;
+use Hr\Model\Hr;
 
 
 class AuthController extends AbstractActionController 
@@ -15,6 +17,7 @@ class AuthController extends AbstractActionController
 	protected $authTable;
     protected $storage;
     protected $authservice;
+    protected $empLoginsTable;
 
     public function getAuthService()
     {
@@ -98,6 +101,10 @@ class AuthController extends AbstractActionController
          
                     $loginDetails = $this->getAuthTable()->getProfileInfoByUserName($username);
                     $this->getAuthService()->getStorage()->write($loginDetails);
+        
+                    
+                    //login
+                     $this->getAuthTable()->logInLogOut($loginDetails["id"],1);
                 }
         }
 
@@ -107,9 +114,13 @@ class AuthController extends AbstractActionController
     public function logoutAction()
     {
         if ($this->getAuthService()->hasIdentity()) {
+        	
+        	$identity = $this->getAuthService()->getIdentity();
+        	
             $this->getSessionStorage()->forgetMe();
             $this->getAuthService()->clearIdentity();
             $this->flashmessenger()->addMessage("You've been logged out");
+            $this->getAuthTable()->logInLogOut($identity["id"],0);
         }
 
         return $this->redirect()->toRoute('login');

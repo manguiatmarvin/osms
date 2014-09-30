@@ -26,7 +26,7 @@ class HrController extends AbstractActionController {
 	protected $eFilesTable;
 	protected $eMemoTable;
 	protected $eQuizTable;
-	
+	protected $empLoginsTable;
     protected $logger;
 	
 	public function indexAction() {
@@ -51,6 +51,28 @@ class HrController extends AbstractActionController {
 
 	}
 	
+	public function employeeAttendanceAction(){
+		$this->checkLogin();
+		
+		$emp_id = (int) $this->params()->fromRoute('id', 0);
+		
+		if (!$emp_id) {
+			return $this->redirect()->toRoute('hr');
+		}
+		
+		try{
+			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
+			$emp_attendance = $this->getEmployeeLoginsTable()->getEmployeeAttendance($emp_id);
+		
+			
+		}catch (\Exception $ex){
+			
+		}
+		
+	 return new ViewModel(array('attendance'=>$emp_attendance,
+	 		                     'employeeData'=>$employeeData,
+	                              'id'=>$emp_id));	
+	}
 	
 	public function viewEmployeeAction(){
 		
@@ -662,6 +684,18 @@ class HrController extends AbstractActionController {
 		}
 		
 		return $this->eQuizTable;
+	}
+	
+	
+	public function getEmployeeLoginsTable(){
+		if (!$this->empLoginsTable) {
+			$sm = $this->getServiceLocator();
+			if($sm->has('Hr\Model\EmployeeLoginsTable')){
+				$this->empLoginsTable = $sm->get('Hr\Model\EmployeeLoginsTable');
+			}
+		}
+	
+		return $this->empLoginsTable;
 	}
 	
 }

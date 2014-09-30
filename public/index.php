@@ -1,5 +1,6 @@
 <?php
-date_default_timezone_set('America/Chicago');
+//date_default_timezone_set('America/Chicago');
+date_default_timezone_set('Asia/Manila');
 define('ROOT_PATH', dirname(__DIR__));
 /**
  * Display all errors when APPLICATION_ENV is development.
