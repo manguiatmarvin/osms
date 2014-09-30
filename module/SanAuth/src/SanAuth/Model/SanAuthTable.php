@@ -94,7 +94,8 @@ use Zend\Paginator\Paginator;
      
      private function get_client_ip() {
     $ipaddress = '';
-    if ($_SERVER['HTTP_CLIENT_IP'])
+    
+    if (isset($_SERVER['HTTP_CLIENT_IP']))
         $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
     else if($_SERVER['HTTP_X_FORWARDED_FOR'])
         $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
