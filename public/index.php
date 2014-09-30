@@ -5,9 +5,12 @@ define('ROOT_PATH', dirname(__DIR__));
 /**
  * Display all errors when APPLICATION_ENV is development.
  */
-if ($_SERVER['APPLICATION_ENV'] == 'development') {
- error_reporting(E_ALL);
- ini_set("display_errors", 1);
+if(!empty($_SERVER['APPLICATION_ENV'])){
+	if ($_SERVER['APPLICATION_ENV'] == 'development') {
+		error_reporting(E_ALL);
+		ini_set("display_errors", 1);
+	}
+	
 }
 
 /**
