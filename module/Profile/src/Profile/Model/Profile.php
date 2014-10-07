@@ -63,7 +63,7 @@ class Profile implements InputFilterAwareInterface
 			$inputFilter = new InputFilter();
 	
 			$inputFilter->add(array(
-					'name'     => 'id',
+					'name'     => 'users_id',
 					'required' => true,
 					'filters'  => array(
 							array('name' => 'Int'),

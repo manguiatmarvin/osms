@@ -132,7 +132,7 @@ class HrController extends AbstractActionController {
 				                     'employeeMemo'=>$employeeMemo,
 				                      'employeeQuiz'=>$employeeQuiz,
 		                             'viewEmployeeForm'=>$form,
-				                     'id'=>$employeeData['users_id']));
+				                     'id'=>$emp_id));
 	}
 	
 	
@@ -163,7 +163,7 @@ class HrController extends AbstractActionController {
 				'empMemos' => $employeeMemos,
 				'employeeData' => $employeeData,
 				'addMemoForm' => $form,
-				'id' => $employeeData ['users_id'] 
+				'id' =>$emp_id
 		) );
 	}
 	
@@ -262,7 +262,7 @@ class HrController extends AbstractActionController {
 				'empFiles' => $employeeFiles,
 				'employeeData' => $employeeData,
 				'addFileForm' => $form,
-				'id' => $employeeData ['users_id'] 
+				'id' => $emp_id 
 		) );
 	}
 	
@@ -324,7 +324,8 @@ class HrController extends AbstractActionController {
 		return array (
 				'id' => $id,
 				'memo' => $memoData,
-				'empData'=>$employeeData
+				'empData'=>$employeeData,
+				'emp_id'=>$emp_id
 		);
 	}
 	

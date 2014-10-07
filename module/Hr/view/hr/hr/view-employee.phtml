@@ -166,7 +166,14 @@
                                         <tr>
                                             <td><?php echo $equiz['title']?></td>
                                             <td><?php echo date("m/d/y g:i A", strtotime($equiz['created'])); ?></td>
-                                            <td><?php echo $equiz['score']?></td>
+                                            <td><?php echo $equiz['score']?>
+											
+											<div class="progress xs">
+												<div class="progress-bar <?php echo ($equiz['score'] > 75)? "progress-bar-green":"progress-bar-red" ?>"
+													style="width: <?php echo $equiz['score'].'%'?>;"></div>
+											</div>
+                                            
+                                            </td>
                                               
                                         </tr>
                                         <?php endforeach;?>

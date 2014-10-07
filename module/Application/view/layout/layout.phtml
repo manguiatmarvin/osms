@@ -29,8 +29,6 @@ if(null===$this->layout()->auth){
 	return;
 }
 
-//var_dump($this->layout()->auth);
-
 $loggedInUser = $this->layout()->auth["user_name"];
 $gender_id = $this->layout()->auth["gender_id"];
 $profile_pic = $this->layout()->auth["profile_pic_url"];

@@ -115,7 +115,7 @@ use Zend\Paginator\Paginator;
      	                FROM employees
      	           LEFT JOIN user_profile 
      			          ON employees.users_id = user_profile.users_id
-     			        WHERE employees.users_id = {$emp_id}";
+     			        WHERE employees.id = {$emp_id}";
      	$statement = $dbAdapter->query($sql);
      	$result    = $statement->execute();
      	return $result->current();

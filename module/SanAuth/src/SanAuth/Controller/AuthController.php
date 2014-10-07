@@ -100,11 +100,18 @@ class AuthController extends AbstractActionController
                     $this->getAuthService()->setStorage($this->getSessionStorage());
          
                     $loginDetails = $this->getAuthTable()->getProfileInfoByUserName($username);
+                    
                     $this->getAuthService()->getStorage()->write($loginDetails);
-        
                     
                     //login
-                     $this->getAuthTable()->logInLogOut($loginDetails["id"],1);
+                     $emp_id  = $this->getAuthTable()->getEmployeeId($loginDetails["id"]);
+                     $debug['id'] = $loginDetails["id"];
+                     $debug['emp_id'] = $emp_id;
+              
+                     if($emp_id!=null){
+                     	$this->getAuthTable()->logInLogOut($emp_id,1);
+                     }
+                                          
                 }
         }
 

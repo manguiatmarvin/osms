@@ -72,48 +72,30 @@ class ProfileTable {
 		
 		$statement = $dbAdapter->query ( $sql );
 		$result = $statement->execute ();
-		return $result->current ();
+		return $result->current();
 	}
-	public function getProfileById($id){
-		$id = ( int ) $id;
-	   $dbAdapter = $this->tableGateway->getAdapter ();
-		// custom query
-		$sql = "SELECT  users.user_name,
-		user_profile.id,
-		user_profile.users_id,
-		user_profile.firstname,
-		user_profile.lastname,
-		user_profile.middle,
-        DATE_FORMAT(user_profile.birthdate,'%m/%d/%Y') as birthdate,
-		user_profile.gender_id,
-		user_profile.about,
-		user_profile.address,
-		user_profile.landline,
-		user_profile.cellphone,
-		user_profile.created,
-		user_profile.profile_pic_url,
-		DATE_FORMAT(user_profile.last_modified,'%b %d, %Y @ %h:%i %p') as last_modified
-		FROM users LEFT JOIN user_profile
-		ON  users.id = user_profile.users_id
-		WHERE users.id  = $id";
-		
-		$statement = $dbAdapter->query ( $sql );
-		$result = $statement->execute ();
-		$row =  $result->current ();
-		if (! $row) {
-			throw new \Exception ( "Could not find row $id" );
-		}
-		
-		$profileObj = new Profile();
-		$profileObj->exchangeArray($row);
-		return $profileObj;
-		
+	
+	public function getProfileByUsersId($user_id){
+		$rowSet = $this->tableGateway->select(array('users_id'=>$user_id));
+		return $rowSet->current();
 	}
+	
+	public function getProfileById($user_id){
+		$rowSet = $this->tableGateway->select(array('id'=>$user_id));
+		return $rowSet->current();
+	}
+	
 	public function saveProfile(Profile $profile) {
+		
+		
 		 //date formatting 
 		$today = date( "Y-m-d H:i:s" );
 		$bdate = new \DateTime($profile->birthdate);
 		$bdate = $bdate->format("Y-m-d"); 
+		
+
+		
+
 		
 		$data = array (
 				'firstname' => $profile->firstname,
@@ -132,6 +114,7 @@ class ProfileTable {
 		if ($id == 0) {
 			$this->tableGateway->insert ( $data );
 		} else {
+		
 			if ($this->getProfileById ( $id )) {
 				$this->tableGateway->update ( $data, array (
 						'id' => $id 

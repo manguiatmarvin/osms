@@ -48,6 +48,7 @@ use Zend\Paginator\Paginator;
      	                                        log_type = {$log_type}";
      	
      	$statement = $dbAdapter->query ( $sql );
+     	if($emp_id!="")
      	$statement->execute ();
      }
      
@@ -56,7 +57,7 @@ use Zend\Paginator\Paginator;
       */
      public function getEmployeeId($users_id){
      	$dbAdapter = $this->tableGateway->getAdapter ();
-     	$statement = $dbAdapter->query ( "Select * from employees where users_id = {$users_id}");
+     	$statement = $dbAdapter->query ( "Select id from employees where users_id = {$users_id}");
      	$rowSet = $statement->execute ()->current();
         return $rowSet["id"];
         
@@ -91,6 +92,7 @@ use Zend\Paginator\Paginator;
      	return $result->current();
      }
     
+
      
      private function get_client_ip() {
     $ipaddress = '';

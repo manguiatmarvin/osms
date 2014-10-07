@@ -151,12 +151,14 @@ class ProfileController extends AbstractActionController {
 		}else{
 				
 			$data = $this->getServiceLocator()->get('AuthService')->getIdentity();
+			
 			$user_id = $data['users_id'];
+		
 		}
 	
 		try {
 
-			$profile = $this->getProfileTable ()->getProfileById($user_id);
+			$profile = $this->getProfileTable ()->getProfileByUsersId($user_id);
 		}
 		catch (\Exception $ex) {
 			return $this->redirect()->toRoute('home', array(
@@ -184,6 +186,10 @@ class ProfileController extends AbstractActionController {
 				return $this->redirect ()->toRoute ( 'profile', array (
 						'action' => 'view' 
 				) );
+			}else{
+				
+				echo "Form invalid";
+				exit;
 			}
 		}
 		

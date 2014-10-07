@@ -9,7 +9,7 @@ $empQuizzes= $this->empQuizzes;
 			<!-- main sub page content// -->
 
 			<div class="panel panel-default">
-				<div class="panel-heading"><a href="<?php echo $this->url('hr',array('action'=>'view-employee','id'=>$this->employeeData["users_id"]))?>"><i class="fa fa-angle-double-left"></i></a> <?php echo $this->employeeData["firstname"];?>'s Quizzes</div>
+				<div class="panel-heading"><a href="<?php echo $this->url('hr',array('action'=>'view-employee','id'=>$this->id))?>"><i class="fa fa-angle-double-left"></i></a> <?php echo $this->employeeData["firstname"];?>'s Quizzes</div>
 				<div class="panel-body">
 
 					<div class="box-body">
@@ -37,10 +37,17 @@ $empQuizzes= $this->empQuizzes;
 											
 										</tr>
                                        <?php foreach($empQuizzes as $q):?>
+                                 
                                         <tr>
 										  <td><?php echo $q['title']?></td>
 										  <td><?php echo date("m/d/y g:i A", strtotime($q['created'])); ?></td>
-										    <td><?php echo $q['score']?></td>
+										    <td><?php echo $q['score'].'%'?>
+										    		<div class="progress xs">
+												<div class="progress-bar <?php echo ($q['score'] > 75)? "progress-bar-green":"progress-bar-red" ?>"
+													style="width: <?php echo $q['score'].'%'?>;"></div>
+											</div>
+										    
+										    </td>
 										  <td>
 										  <a href="<?php echo $this->url('hr',array('action'=>'edit-employee-quiz','id'=>$q['id']))?>">edit</a> |
 										  <a href="<?php echo $this->url('hr',array('action'=>'delete-employee-quiz','id'=>$q['id']))?>">del</a>
