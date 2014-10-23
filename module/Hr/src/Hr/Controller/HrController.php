@@ -19,7 +19,15 @@ use Hr\Model\EmployeeMemo;
 
 use Hr\Model\EmployeeQuiz;
 use Hr\Form\EmployeeQuizzesForm;
+
+
+use Hr\Model\EmployeeEvaluations;
+use Hr\Form\EmployeeEvaluationsForm;
+
+use Hr\Model\EmployeeSalary;
+
 use Zend\Mvc\View\Console\ViewManager;
+
 
 class HrController extends AbstractActionController {
 	
@@ -29,8 +37,8 @@ class HrController extends AbstractActionController {
 	protected $eQuizTable;
 	protected $empLoginsTable;
 	protected $empEvaluationsTable;
+	protected $empSalaryTable;
     protected $logger;
-   
 	
 	public function indexAction() {
 		
@@ -66,14 +74,35 @@ class HrController extends AbstractActionController {
 		try{
 			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
 		    $employeeEval = $this->getEmployeeEvaluationsTable()->getEmployeeEvaluations($emp_id);
-		
+		    
 			
 		}catch (\Exception $ex){
 			
 		}
 		
+		
+		$employeeEvalForm = new EmployeeEvaluationsForm();
+		$employeeEvalForm->get('submit')->setValue("Add");
+		
+		
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$employeeEvaluations = new EmployeeEvaluations();
+			$employeeEvalForm->setInputFilter($employeeEvaluations->getInputFilter());
+			$employeeEvalForm->setData($request->getPost());
+			
+			if($employeeEvalForm->isValid()){
+				echo "Form valid";
+			}else{
+				echo "Form invalid";
+			}
+			exit;
+			
+		}
+		
 	 return new ViewModel(array('employeeData'=>$employeeData,
 	 		                    'employeeEval'=>$employeeEval,
+	 		                    'addEmployeeEvalForm'=>$employeeEvalForm,
 	                              'id'=>$emp_id));	
 		
 		
@@ -91,15 +120,16 @@ class HrController extends AbstractActionController {
 	
 		try{
 			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
-	
-	
+	        $employeeSalary = $this->getEmployeeSalaryTable()->getEmployeeSalary($emp_id);
+	  
 				
 		}catch (\Exception $ex){
 				
 		}
 	
 		return new ViewModel(array('employeeData'=>$employeeData,
-				'id'=>$emp_id));
+				                   'employeeSalary'=>$employeeSalary,
+				                   'id'=>$emp_id));
 	
 	
 	}
@@ -830,16 +860,26 @@ class HrController extends AbstractActionController {
 	
 	
 	public function getEmployeeEvaluationsTable(){
-	
-		
 		if (!$this->empEvaluationsTable) {
 			$sm = $this->getServiceLocator();
 			if($sm->has('Hr\Model\EmployeeEvaluationsTable')){
 				$this->empEvaluationsTable = $sm->get('Hr\Model\EmployeeEvaluationsTable');
 			}
-		}
+		}		
 	
 		return $this->empEvaluationsTable;
+	}
+	
+	
+	public function getEmployeeSalaryTable(){
+		if (!$this->empSalaryTable) {
+			$sm = $this->getServiceLocator();
+			if($sm->has('Hr\Model\EmployeeSalaryTable')){
+				$this->empSalaryTable = $sm->get('Hr\Model\EmployeeSalaryTable');
+			}
+		}
+	
+		return $this->empSalaryTable;
 	}
 	
 }

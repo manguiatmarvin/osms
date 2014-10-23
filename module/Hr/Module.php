@@ -27,7 +27,11 @@ use Hr\Model\EmployeeLoginsTable;
 
 //Employee evaluations
 use Hr\Model\EmployeeEvaluations;
-use Hr\Model\EmployeeEvaluationsTableTable;
+use Hr\Model\EmployeeEvaluationsTable;
+
+//Employee Salary
+use Hr\Model\EmployeeSalary;
+use Hr\Model\EmployeeSalaryTable;
 
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
@@ -112,12 +116,28 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 							$resultSetPrototype->setArrayObjectPrototype ( new EmployeeLogins() );
 							return new TableGateway ( 'employee_logins', $dbAdapter, null, $resultSetPrototype );
 						},
+						'Hr\Model\EmployeeEvaluationsTable' => function ($sm) {
+							$tableGateway = $sm->get ( 'EmployeeEvaluationsTableGateway' );
+							$table = new EmployeeEvaluationsTable ( $tableGateway );
+							return $table;
+						},
 						'EmployeeEvaluationsTableGateway' => function ($sm) {
 							$dbAdapter = $sm->get ( 'Zend\Db\Adapter\Adapter' );
 							$resultSetPrototype = new ResultSet ();
 							$resultSetPrototype->setArrayObjectPrototype ( new EmployeeEvaluations() );
 							return new TableGateway ( 'employee_evaluation', $dbAdapter, null, $resultSetPrototype );
-						}
+						},
+						'Hr\Model\EmployeeSalaryTable' => function ($sm) {
+							$tableGateway = $sm->get ( 'EmployeeSalaryTableGateway' );
+							$table = new EmployeeSalaryTable ( $tableGateway );
+							return $table;
+						},
+						'EmployeeSalaryTableGateway' => function ($sm) {
+							$dbAdapter = $sm->get ( 'Zend\Db\Adapter\Adapter' );
+							$resultSetPrototype = new ResultSet ();
+							$resultSetPrototype->setArrayObjectPrototype ( new EmployeeSalary() );
+							return new TableGateway ( 'employee_salary', $dbAdapter, null, $resultSetPrototype );
+						},
 				),
 		);
 	}

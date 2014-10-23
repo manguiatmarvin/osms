@@ -1,4 +1,5 @@
 <?php
+
 namespace Hr\Model;
 
 use Zend\Db\ResultSet\ResultSet;
@@ -9,7 +10,7 @@ use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 
 
-class EmployeeEvaluationsTable {
+class EmployeeSalaryTable {
 	protected $tableGateway;
 	
 	public function __construct(TableGateway $tableGateway) {
@@ -24,20 +25,14 @@ class EmployeeEvaluationsTable {
 		}
 	}
 	
-	
-	/**
-	 * testing
-	 * @return string
-	 */
-	public function test(){
-		return "Success!";
-	}
-	
-	public function getEmployeeEvaluations($emp_id){
+
+
+	public function getEmployeeSalary($emp_id){
 		
-		$select = new Select('employee_evaluation');	
-		$select->where(array('employee_evaluation.employee_id'=>$emp_id));
-		$select->order(array('created ASC','id ASC')); // produces 'name' ASC, 'age' DESC
+		$select = new Select('employee_salary');
+		$select->where(array('employee_id'=>$emp_id));
+			
+		$select->order(array('created DESC','id DESC')); // produces 'name' ASC, 'age' DESC
 		
 		$paginatorAdapter = new DbSelect(
 				// our configured select object
@@ -50,10 +45,8 @@ class EmployeeEvaluationsTable {
 		$paginator = new Paginator ( $paginatorAdapter );
 		$paginator->setItemCountPerPage(5);
 		return $paginator;
-		
 	}
 	
 	
-
 	
 }
