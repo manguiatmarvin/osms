@@ -38,7 +38,7 @@ $profile_pic = $this->layout()->auth["profile_pic_url"];
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Sourcefit Management System | Dashboard</title>
+ <?php echo $this->headTitle('Soucefit Philippines '. $this->translate('SMS'))->setSeparator(' - ')->setAutoEscape(false) ?>
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport'>

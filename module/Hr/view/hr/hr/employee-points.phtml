@@ -1,0 +1,38 @@
+<?php echo $this->render('flashmessenger/layout') ?>
+<div class="row">
+
+	<!-- Left col -->
+	<section class="col-lg-7 connectedSortable">
+		<div>
+			<!-- main sub page content// -->
+
+			<div class="panel panel-default">
+				<div class="panel-heading">Points</div>
+				<div class="panel-body">
+
+					<div class="box-body">
+					
+					</div>
+
+
+				</div>
+			</div>
+
+		</div>
+
+	</section>
+	<!-- /.Left col -->
+
+	<!-- right col (We are only adding the ID to make the widgets sortable)-->
+	<section class="col-lg-5 connectedSortable">
+
+		<div class="panel panel-default">
+			<div class="panel-heading">Profile Menu</div>
+				<div class="panel-body rightbar-menu">
+			<!-- right navigation //-->
+          <?php  echo $this->render('layout/hr-menu-update-e') ?>
+		</div>
+		</div>
+	</section>
+
+</div>

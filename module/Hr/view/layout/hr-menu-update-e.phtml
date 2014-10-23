@@ -241,11 +241,11 @@
 		href="<?php echo $this->url('hr',array('action'=>'employee-memo','id'=>$this->id)); ?>">Memos</a></li>
 	<li><i class="fa fa-check-square"></i> <a href="<?php echo $this->url('hr',array('action'=>'employee-quizzes','id'=>$this->id))?>">Quizzes</a></li>
 	<li><i class="fa fa-foursquare"></i> <a href="<?php echo $this->url('hr',array('action'=>'employee-attendance','id'=>$this->id));?>">Attendance</a></li>
-	<li><i class="fa fa-search"></i> <a href="#">Evaluations</a></li>
-	<li><i class="fa fa-dollar"></i> <a href="#">Salary</a></li>
-	<li><i class="fa fa-comments"></i> <a href="#">Feedback</a></li>
-	<li><i class="fa fa-ticket"></i> <a href="#">Clubs</a></li>
-	<li><i class="fa fa-bullseye"></i> <a href="#">Points</a></li>
+	<li><i class="fa fa-search"></i> <a href="<?php echo $this->url('hr',array('action'=>'employee-evaluation','id'=>$this->id));?>">Evaluations</a></li>
+	<li><i class="fa fa-dollar"></i> <a href="<?php echo $this->url('hr',array('action'=>'employee-salary','id'=>$this->id));?>">Salary</a></li>
+	<li><i class="fa fa-comments"></i> <a href="<?php echo $this->url('hr',array('action'=>'employee-feedback','id'=>$this->id));?>">Feedback</a></li>
+	<li><i class="fa fa-ticket"></i> <a href="<?php echo $this->url('hr',array('action'=>'employee-clubs','id'=>$this->id));?>">Clubs</a></li>
+	<li><i class="fa fa-bullseye"></i> <a href="<?php echo $this->url('hr',array('action'=>'employee-points','id'=>$this->id));?>">Points</a></li>
 
 	<li><i class="fa     fa-times-circle-o"></i> <a
 		href="<?php echo $this->url('login/process',array('action'=>'logout')); ?>">Logout</a></li>

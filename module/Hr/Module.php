@@ -25,6 +25,10 @@ use Hr\Model\EmployeeQuizTable;
 use Hr\Model\EmployeeLogins;
 use Hr\Model\EmployeeLoginsTable;
 
+//Employee evaluations
+use Hr\Model\EmployeeEvaluations;
+use Hr\Model\EmployeeEvaluationsTableTable;
+
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
@@ -107,6 +111,12 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 							$resultSetPrototype = new ResultSet ();
 							$resultSetPrototype->setArrayObjectPrototype ( new EmployeeLogins() );
 							return new TableGateway ( 'employee_logins', $dbAdapter, null, $resultSetPrototype );
+						},
+						'EmployeeEvaluationsTableGateway' => function ($sm) {
+							$dbAdapter = $sm->get ( 'Zend\Db\Adapter\Adapter' );
+							$resultSetPrototype = new ResultSet ();
+							$resultSetPrototype->setArrayObjectPrototype ( new EmployeeEvaluations() );
+							return new TableGateway ( 'employee_evaluation', $dbAdapter, null, $resultSetPrototype );
 						}
 				),
 		);

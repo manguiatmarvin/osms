@@ -19,6 +19,7 @@ use Hr\Model\EmployeeMemo;
 
 use Hr\Model\EmployeeQuiz;
 use Hr\Form\EmployeeQuizzesForm;
+use Zend\Mvc\View\Console\ViewManager;
 
 class HrController extends AbstractActionController {
 	
@@ -27,7 +28,9 @@ class HrController extends AbstractActionController {
 	protected $eMemoTable;
 	protected $eQuizTable;
 	protected $empLoginsTable;
+	protected $empEvaluationsTable;
     protected $logger;
+   
 	
 	public function indexAction() {
 		
@@ -49,6 +52,132 @@ class HrController extends AbstractActionController {
 				'paginator' => $paginator
 		));
 
+	}
+	
+	public function employeeEvaluationAction(){
+		$this->checkLogin();
+		
+		$emp_id = (int) $this->params()->fromRoute('id', 0);
+		
+		if (!$emp_id) {
+			return $this->redirect()->toRoute('hr');
+		}
+		
+		try{
+			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
+		    $employeeEval = $this->getEmployeeEvaluationsTable()->getEmployeeEvaluations($emp_id);
+		
+			
+		}catch (\Exception $ex){
+			
+		}
+		
+	 return new ViewModel(array('employeeData'=>$employeeData,
+	 		                    'employeeEval'=>$employeeEval,
+	                              'id'=>$emp_id));	
+		
+		
+	}
+	
+	
+	public function employeeSalaryAction(){
+		$this->checkLogin();
+	
+		$emp_id = (int) $this->params()->fromRoute('id', 0);
+	
+		if (!$emp_id) {
+			return $this->redirect()->toRoute('hr');
+		}
+	
+		try{
+			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
+	
+	
+				
+		}catch (\Exception $ex){
+				
+		}
+	
+		return new ViewModel(array('employeeData'=>$employeeData,
+				'id'=>$emp_id));
+	
+	
+	}
+	
+	
+	
+	public function employeeFeedbackAction(){
+		$this->checkLogin();
+	
+		$emp_id = (int) $this->params()->fromRoute('id', 0);
+	
+		if (!$emp_id) {
+			return $this->redirect()->toRoute('hr');
+		}
+	
+		try{
+			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
+	
+	
+	
+		}catch (\Exception $ex){
+	
+		}
+	
+		return new ViewModel(array('employeeData'=>$employeeData,
+				'id'=>$emp_id));
+	
+	
+	}
+	
+	
+	
+	public function employeeClubsAction(){
+		$this->checkLogin();
+	
+		$emp_id = (int) $this->params()->fromRoute('id', 0);
+	
+		if (!$emp_id) {
+			return $this->redirect()->toRoute('hr');
+		}
+	
+		try{
+			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
+	
+	
+	
+		}catch (\Exception $ex){
+	
+		}
+	
+		return new ViewModel(array('employeeData'=>$employeeData,
+				'id'=>$emp_id));
+	
+	
+	}
+	
+	public function employeePointsAction(){
+		$this->checkLogin();
+	
+		$emp_id = (int) $this->params()->fromRoute('id', 0);
+	
+		if (!$emp_id) {
+			return $this->redirect()->toRoute('hr');
+		}
+	
+		try{
+			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
+	
+	
+	
+		}catch (\Exception $ex){
+	
+		}
+	
+		return new ViewModel(array('employeeData'=>$employeeData,
+				'id'=>$emp_id));
+	
+	
 	}
 	
 	public function employeeAttendanceAction(){
@@ -697,6 +826,20 @@ class HrController extends AbstractActionController {
 		}
 	
 		return $this->empLoginsTable;
+	}
+	
+	
+	public function getEmployeeEvaluationsTable(){
+	
+		
+		if (!$this->empEvaluationsTable) {
+			$sm = $this->getServiceLocator();
+			if($sm->has('Hr\Model\EmployeeEvaluationsTable')){
+				$this->empEvaluationsTable = $sm->get('Hr\Model\EmployeeEvaluationsTable');
+			}
+		}
+	
+		return $this->empEvaluationsTable;
 	}
 	
 }
