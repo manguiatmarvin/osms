@@ -64,7 +64,9 @@ class HrController extends AbstractActionController {
 	
 	public function employeeEvaluationAction(){
 		$this->checkLogin();
+		$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
 		
+
 		$emp_id = (int) $this->params()->fromRoute('id', 0);
 		
 		if (!$emp_id) {
@@ -83,7 +85,8 @@ class HrController extends AbstractActionController {
 		
 		$employeeEvalForm = new EmployeeEvaluationsForm();
 		$employeeEvalForm->get('submit')->setValue("Add");
-		
+		$employeeEvalForm->get('id')->setValue(0); // for add only
+		$employeeEvalForm->get('employee_id')->setValue($emp_id); // for add only
 		
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -92,12 +95,14 @@ class HrController extends AbstractActionController {
 			$employeeEvalForm->setData($request->getPost());
 			
 			if($employeeEvalForm->isValid()){
-				echo "Form valid";
-			}else{
-				echo "Form invalid";
+				
+				$employeeEvaluations->exchangeArray($employeeEvalForm->getData());
+				$employeeEvaluations->evaluated_by = $identity['users_id'];
+				$employeeEvaluations->created = date("Y-m-d H:i:s");
+				$this->getEmployeeEvaluationsTable()->saveEmployeeEvaluation($employeeEvaluations);
+				// Redirect to list of albums
+				return $this->redirect()->toRoute('hr',array('action'=>'employee-evaluation','id'=>$emp_id));
 			}
-			exit;
-			
 		}
 		
 	 return new ViewModel(array('employeeData'=>$employeeData,
@@ -108,6 +113,52 @@ class HrController extends AbstractActionController {
 		
 	}
 	
+	
+	public function editEmployeeEvaluationAction(){
+		$this->checkLogin();
+		$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
+		$id = (int) $this->params()->fromRoute('id', 0);
+		
+		if (!$id) {
+			return $this->redirect()->toRoute('hr');
+		}
+		
+		try{
+			$eval = $this->getEmployeeEvaluationsTable()->getEmployeeEvaluationSingle($id);
+			$employeeData = $this->getHrTable()->getEmployeePersonal($eval->employee_id);
+			$employeeEval = $this->getEmployeeEvaluationsTable()->getEmployeeEvaluations($eval->employee_id);
+		    
+				
+		}catch (\Exception $ex){
+			return $this->redirect()->toRoute('hr');
+		}
+		
+		$employeeEvalForm = new EmployeeEvaluationsForm();
+		$employeeEvalForm->get('id')->setValue($id);
+		$employeeEvalForm->get('submit')->setAttribute('value', 'Edit');
+		$eval->evaluation_due = $eval->evaluation_due == "0000-00-00" ?  date("Y-m-d"): date("Y/m/d", strtotime($eval->evaluation_due)) ;
+		
+		$employeeEvalForm->bind($eval);
+		
+		$request = $this->getRequest();
+		if($request->isPost()){
+			$employeeEvalForm->setInputFilter($eval->getInputFilter());
+			$employeeEvalForm->setData($request->getPost());
+			
+			if ($employeeEvalForm->isValid()) {
+				
+				$this->getEmployeeEvaluationsTable()->saveEmployeeEvaluation($eval);
+				return $this->redirect()->toRoute('hr',array('action'=>'edit-employee-evaluation','id'=>$id));
+			}
+		}
+		
+		return new ViewModel(array('employeeData'=>$employeeData,
+				'employeeEval'=>$employeeEval,
+				'editEmployeeEvalForm'=>$employeeEvalForm,
+				'employee_id'=>$eval->employee_id,
+		        'id'=>$id));
+		
+	}
 	
 	public function employeeSalaryAction(){
 		$this->checkLogin();
@@ -793,6 +844,8 @@ class HrController extends AbstractActionController {
 			exit;
 		}
 	}
+	
+
 	
 	//services!!!!!!!
 	/**

@@ -12,7 +12,7 @@ class EmployeeEvaluations{
 	public $title;
 	public $notes;
 	public $score;
-	public $accepted;
+	public $status;
 	public $employee_id;
 	public $evaluated_by;
 	public $created;
@@ -27,7 +27,7 @@ class EmployeeEvaluations{
 		$this->title = (!empty($data['title'])) ? $data['title'] : null;
 		$this->notes = (!empty($data['notes'])) ? $data['notes'] : null;
 		$this->score = (!empty($data['score'])) ? $data['score'] : null;
-		$this->accepted  = (!empty($data['accepted'])) ? $data['accepted'] : null;
+		$this->status  = (!empty($data['status'])) ? $data['status'] : 0;
 		$this->employee_id = (!empty($data['employee_id'])) ? $data['employee_id'] : null;
 		$this->evaluated_by = (!empty($data['evaluated_by'])) ? $data['evaluated_by'] : null;
 		$this->created = (!empty($data['created'])) ? $data['created'] : null;
@@ -59,7 +59,36 @@ class EmployeeEvaluations{
 							array('name' => 'Int'),
 					),
 			));
-
+			
+			
+			$inputFilter->add(array(
+					'name'     => 'employee_id',
+					'required' => true,
+					'filters'  => array(
+							array('name' => 'Int'),
+					),
+			));
+			
+			
+			
+			$inputFilter->add(array(
+					'name'     => 'status',
+					'required' => false,
+					'filters'  => array(
+							array('name' => 'StripTags'),
+							array('name' => 'StringTrim'),
+					),
+					'validators' => array(
+							array(
+									'name'    => 'StringLength',
+									'options' => array(
+											'encoding' => 'UTF-8',
+											'min'      => 1,
+											'max'      => 100,
+									),
+							),
+					),
+			));
 			
 			$inputFilter->add(array(
 					'name'     => 'title',
@@ -79,6 +108,28 @@ class EmployeeEvaluations{
 							),
 					),
 			));
+			
+			
+			
+			$inputFilter->add(array(
+					'name'     => 'evaluation_due',
+					'required' => true,
+					'filters'  => array(
+							array('name' => 'StripTags'),
+							array('name' => 'StringTrim'),
+					),
+					'validators' => array(
+							array(
+									'name'    => 'StringLength',
+									'options' => array(
+											'encoding' => 'UTF-8',
+											'min'      => 1,
+											'max'      => 10,
+									),
+							),
+					),
+			));
+			
 			
 			$this->inputFilter = $inputFilter;
 			

@@ -32,6 +32,23 @@ class EmployeeEvaluationsForm extends Form{
 		));
 		
 		$this->add(array(
+				'name' => 'notes',
+				'type' => 'Zend\Form\Element\Textarea',
+				'attributes' => array(
+						'class'  => 'form-control',
+						'cols'=>'30',
+						'rows'=>'5',
+						'placeholder'=>'Enter description of file...',
+				),
+				'options' => array(
+						'label' => 'Notes',
+				),
+		));
+		
+		
+		
+		
+		$this->add(array(
 				'name' => 'evaluation_due',
 				'type' => 'Text',
 				'attributes' => array(
@@ -43,17 +60,6 @@ class EmployeeEvaluationsForm extends Form{
 		));
 		
 		
-		$this->add(array(
-				'name' => 'notes',
-				'type' => 'Text',
-				'options' => array(
-						'label' => 'Notes',
-				),
-				'attributes' => array(
-						'class'  => 'form-control',
-						'placeholder'=>'Enter title ...',
-				),
-		));
 		
 		$this->add(array(
 				'name' => 'score',

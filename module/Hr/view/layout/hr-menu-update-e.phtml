@@ -262,6 +262,73 @@
    
    <div class="form-group">
     <div class="input-group">
+    <?php echo $this->formRow($form->get('notes'));?>
+   </div>
+   </div>
+   
+   <div class="form-group">
+    <div class="input-group">
+    <?php echo $this->formRow($form->get('evaluation_due'));?>
+   </div>
+   </div>
+   
+   <div class="form-group">
+    <div class="input-group">
+    <?php echo $this->formRow($form->get('score'));?>
+   </div>
+   </div>
+  
+    
+    <div class="form-group">
+    <div class="input-group">
+	<?php echo $this->formSubmit($form->get('submit'));?>
+	</div>
+	</div>
+	
+	<?php echo $this->form()->closeTag();?>
+	   
+	</div>
+</div>
+<?php endif;?>
+
+
+
+
+<?php if($this->editEmployeeEvalForm):?>
+
+  <?php
+	$form = $this->editEmployeeEvalForm;
+	$form->setAttribute ( 'action', $this->url ( 'hr', array (
+			'action' => 'edit-employee-evaluation',
+			'id' => $this->id 
+	) ) );
+	
+	$form->prepare ();
+  ?>
+
+<div class="well box-body">
+	<div class="form-group">
+ 
+	<?php echo $this->form()->openTag($form);	?>
+    
+    <?php echo $this->formHidden($form->get('id')); ?>
+    <?php echo $this->formHidden($form->get('employee_id')); ?>
+    
+    <div class="form-group">
+    <div class="input-group">
+    <?php echo $this->formRow($form->get('title'));?>
+   </div>
+   </div>
+   
+      
+   <div class="form-group">
+    <div class="input-group">
+    <?php echo $this->formRow($form->get('notes'));?>
+   </div>
+   </div>
+   
+   <div class="form-group">
+    <div class="input-group">
     <?php echo $this->formRow($form->get('evaluation_due'));?>
    </div>
    </div>

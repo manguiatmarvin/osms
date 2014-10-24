@@ -33,6 +33,36 @@ class EmployeeEvaluationsTable {
 		return "Success!";
 	}
 	
+	
+	public function saveEmployeeEvaluation(EmployeeEvaluations $ea){
+		$data = array('id'=>$ea->id,
+		               'title'=>$ea->title,
+		               'notes'=>$ea->notes,
+		               'score'=>$ea->score,
+		               'employee_id'=>$ea->employee_id,
+		               'created'=>$ea->created,
+		               'evaluated_by'=>$ea->evaluated_by,
+		               'evaluation_due'=>$ea->evaluation_due,
+		               'modified'=>date("Y-m-d H:i:s"));
+		
+		$id = (int) $ea->id;
+		if($id==0){
+			//add
+			$this->tableGateway->insert($data);
+		}else{
+			//update
+			if($this->getEmployeeEvaluationSingle($id)){
+				$this->tableGateway->update($data, array('id'=>$id));
+			}
+			
+		}
+		
+	}
+	
+	public function getEmployeeEvaluationSingle($id){
+		$rowSet =  $this->tableGateway->select(array('id'=>$id));
+		return $rowSet->current();
+	}
 	public function getEmployeeEvaluations($emp_id){
 		
 		$select = new Select('employee_evaluation');	
@@ -52,6 +82,8 @@ class EmployeeEvaluationsTable {
 		return $paginator;
 		
 	}
+	
+
 	
 	
 
