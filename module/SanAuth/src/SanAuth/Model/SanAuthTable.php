@@ -69,6 +69,7 @@ use Zend\Paginator\Paginator;
      	$dbAdapter = $this->tableGateway->getAdapter ();
      	// custom query
      	$sql = "SELECT  users.user_name,
+     	users.role,
      	user_profile.id,
      	user_profile.users_id,
      	user_profile.firstname,

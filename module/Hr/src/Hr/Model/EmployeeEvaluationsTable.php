@@ -58,22 +58,27 @@ class EmployeeEvaluationsTable {
 		}
 		
 	}
-	
-	public function getEmployeeEvaluationSingle($id){
-		$rowSet =  $this->tableGateway->select(array('id'=>$id));
-		return $rowSet->current();
+	public function getEmployeeEvaluationSingle($id) {
+		$rowSet = $this->tableGateway->select ( array (
+				'id' => $id 
+		) );
+		return $rowSet->current ();
 	}
-	public function getEmployeeEvaluations($emp_id){
+	public function getEmployeeEvaluations($emp_id) {
+		$select = new Select ( 'employee_evaluation' );
+		$select->where ( array (
+				'employee_evaluation.employee_id' => $emp_id 
+		) );
+		$select->order ( array (
+				'created ASC',
+				'id ASC' 
+		) ); // produces 'name' ASC, 'age' DESC
 		
-		$select = new Select('employee_evaluation');	
-		$select->where(array('employee_evaluation.employee_id'=>$emp_id));
-		$select->order(array('created ASC','id ASC')); // produces 'name' ASC, 'age' DESC
-		
-		$paginatorAdapter = new DbSelect(
+		$paginatorAdapter = new DbSelect ( 
 				// our configured select object
-				$select,
+				$select, 
 				// the adapter to run it against
-				$this->tableGateway->getAdapter(),
+				$this->tableGateway->getAdapter (),
 				// the result set to hydrate
 				new ResultSet () );
 		

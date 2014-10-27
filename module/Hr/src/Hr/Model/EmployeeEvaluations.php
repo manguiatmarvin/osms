@@ -31,10 +31,10 @@ class EmployeeEvaluations{
 		$this->employee_id = (!empty($data['employee_id'])) ? $data['employee_id'] : null;
 		$this->evaluated_by = (!empty($data['evaluated_by'])) ? $data['evaluated_by'] : null;
 		$this->created = (!empty($data['created'])) ? $data['created'] : null;
-		$this->evaluation_due = (!empty($data['evaluation_due'])) ? $data['evaluation_due'] : null;
+		$this->evaluation_due = (!empty($data['evaluation_due'])) ? '04/08/2015'  : '04/12/2016';
 		$this->modfied = (!empty($data['modfied'])) ? $data['modfied'] : null;
 	}
-	
+
 	
 	// Add content to these methods:
 	public function setInputFilter(InputFilterInterface $inputFilter)

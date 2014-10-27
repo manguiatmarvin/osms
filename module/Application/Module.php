@@ -66,6 +66,7 @@ class Module{
     				$dbAdapter = $e->getApplication()->getServiceManager()->get('Zend\Db\Adapter\Adapter');
     				$sql = "SELECT 
     				users.user_name,
+    				users.role,
     				users.email,
     				user_profile.firstname,
     				user_profile.lastname,
@@ -93,7 +94,13 @@ class Module{
     			//acl
     			//http://ivangospodinow.com/zend-framework-2-acl-setup-in-5-minutes-tutorial/
     			$acl = new Acl();
-    			$roles = include __DIR__ . '/config/module.acl.roles.php';
+    			
+    			//$roles = include __DIR__ . '/config/module.acl.roles.php';
+    			
+    			$roles = $this->getAclDbRoles($e);
+    	 
+
+    			
     			$allResources = array();
     			
     			foreach ($roles as $role => $resources) {
@@ -109,22 +116,55 @@ class Module{
     						$acl -> addResource(new \Zend\Permissions\Acl\Resource\GenericResource($resource));
     				}
     				//adding restrictions
-    				foreach ($allResources as $resource) {
+    				//If access inheritance is needed just replace bellow code from-> foreach ($resources as $resource) { to -> foreach ($allResources as $resource) { 
+    				foreach ($resources as $resource) {
     					$acl -> allow($role, $resource);
     				}
     			}
-    			//testing
-    			//var_dump($acl->isAllowed('admin','home'));
-    			//true
+    	
     			$e->getViewModel()->setVariables(array('auth' => $auth,
     			                                        'acl'=>$acl));
     			
+    			
+    	        $resource = $e -> getRouteMatch()->getParam("action");
+    	        
+    	        if($auth['role']==null){
+    	        	$auth['role'] = 'guest';
+    	        }
+
+    	       
+    	        $allowed = (bool)$acl->isAllowed($auth['role'],$resource);
+    	        
+    	        $debug['role'] = $auth['role'];
+    	        $debug['resource'] = $resource;
+    	        $debug['allowed'] = $allowed;
+    	        //var_dump($debug);
+    	       
+    	        if(!$allowed){
+    	           //TODO:redirect to forbidden page error
+    	        	echo "your are not allowed to view this resource";
+    	           exit;
+    	        }
+    	        
     		}
     	}
     	
     
 	}
 	
+	
+	
+	
+ public function getAclDbRoles(MvcEvent $e){
+ 	$dbAdapter = $e->getApplication()->getServiceManager()->get('Zend\Db\Adapter\Adapter');
+ 	$results = $dbAdapter->query('SELECT * FROM acl_roles ORDER BY role ASC')->execute();
+ 	$roles = array();
+ 	foreach($results as $result){
+ 		$roles[$result['role']][] = $result['resource'];
+ 	}
+ 	
+ 	return $roles;
+ }
 	
 	
 	private function getLogger(){

@@ -29,6 +29,8 @@ $(function() {
 	      
 	 });
 	
+
+	
 	$( "button, input[type='submit']" ).addClass( "btn btn-primary" );
 	$('#image-file').addClass( "btn btn-primary" );
 

@@ -48,6 +48,10 @@ class HrController extends AbstractActionController {
 	public function employeeAction() {
 		
 	$this->checkLogin();
+	
+	$loginDetails = $this->getServiceLocator ()->get ( 'AuthService' )->getIdentity();
+	
+	//echo $this->acl;
 				
 		// grab the paginator from the AlbumTable
 		$paginator = $this->getHrTable()->fetchAll();
@@ -65,6 +69,9 @@ class HrController extends AbstractActionController {
 	public function employeeEvaluationAction(){
 		$this->checkLogin();
 		$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
+
+		
+		
 		
 
 		$emp_id = (int) $this->params()->fromRoute('id', 0);

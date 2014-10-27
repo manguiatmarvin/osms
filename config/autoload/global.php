@@ -133,6 +133,13 @@ return array (
 												'action' => 'employee-attendance',
 												'show_in_menu' => false,
 										
+										),
+										array (
+												'label' => 'Evaluation',
+												'route' => 'hr',
+												'action' => 'employee-evaluation',
+												'show_in_menu' => false,
+										
 										)
 										
 								)
