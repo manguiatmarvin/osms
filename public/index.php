@@ -1,7 +1,13 @@
 <?php
-//date_default_timezone_set('America/Chicago');
-date_default_timezone_set('Asia/Manila');
+date_default_timezone_set('America/Chicago');
+//date_default_timezone_set('Asia/Manila');
 define('ROOT_PATH', dirname(__DIR__));
+
+$protocol = ($_SERVER["SERVER_PROTOCOL"]=='HTTP/1.1') ? "http://":"https://";define('SERVER_PROTOCOL',$protocol);
+
+define('HOST',$protocol.$_SERVER["HTTP_HOST"]);
+
+
 /**
  * Display all errors when APPLICATION_ENV is development.
  */
@@ -19,10 +25,6 @@ if(!empty($_SERVER['APPLICATION_ENV'])){
  */
 chdir(dirname(__DIR__));
 
-// Decline static file requests back to the PHP built-in webserver
-if (php_sapi_name() === 'cli-server' && is_file(__DIR__ . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))) {
-    return false;
-}
 
 // Setup autoloading
 require 'init_autoloader.php';

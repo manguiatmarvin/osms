@@ -7,7 +7,7 @@
 			<!-- main sub page content// -->
 
 			<div class="panel panel-default">
-				<div class="panel-heading"><?php echo $this->employeeData["firstname"];?>'s  Evaluations</div>
+				<div class="panel-heading"><a href="<?php echo $this->url('hr',array('action'=>'view-employee','id'=>$this->employeeData["id"]))?>"><i class="fa fa-angle-double-left"></i></a> <?php echo $this->employeeData["firstname"];?>'s Evaluations</div>
 				<div class="panel-body">
 
 					<div class="box-body">

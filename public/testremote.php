@@ -1,26 +1,12 @@
 
 <?php
-$mysqli = new mysqli("71.6.135.69", "u_dw_shinebright", "harhar321", "dw_shinebright");
+mysql_pconnect("68.178.143.18", "sfitcrm", "mgmtSyst3Mdb@SF") or die('unable to connect');
+mysql_select_db('sfitcrm') or die ('unable to select database');
+$result = mysql_query("select * from users") or die("unable to query");
 
-/* check connection */
-if ($mysqli->connect_errno) {
-    printf("Connect failed: %s\n", $mysqli->connect_error);
-    exit();
+
+while ($row = mysql_fetch_assoc($result)) {
+    echo $row["id"];
+    echo $row["user_name"];
 }
-
-$query = "SELECT * from vcfo_users";
-
-if ($result = $mysqli->query($query)) {
-
-    /* fetch associative array */
-    while ($row = $result->fetch_assoc()) {
-       echo "sds<br/>";
-    }
-
-    /* free result set */
-    $result->free();
-}
-
-/* close connection */
-$mysqli->close();
 ?>
