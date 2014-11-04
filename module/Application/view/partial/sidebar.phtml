@@ -11,7 +11,8 @@
  */
 //var_dump($this->layout()->acl->isAllowed('admin','profile'));
 $acl = $this->layout()->acl;
-$role = "admin";
+$role = $this->layout()->auth['role'];
+
 
 ?>
      <?php foreach($this->container as $parent):?>
