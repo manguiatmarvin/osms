@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 27, 2014 at 07:31 PM
+-- Generation Time: Nov 04, 2014 at 05:10 PM
 -- Server version: 5.5.38-0ubuntu0.14.04.1-log
 -- PHP Version: 5.5.9-1ubuntu4.4
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `acl_roles` (
   `role` varchar(125) NOT NULL,
   `resource` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=69 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=75 ;
 
 --
 -- Dumping data for table `acl_roles`
@@ -94,7 +94,14 @@ INSERT INTO `acl_roles` (`id`, `role`, `resource`) VALUES
 (64, 'admin', 'profileLogout'),
 (65, 'admin', 'hr'),
 (66, 'guest', 'hr'),
-(67, 'admin', 'accounting');
+(67, 'admin', 'accounting'),
+(68, 'guest', 'login'),
+(69, 'guest', 'authenticate'),
+(70, 'employee', 'viewProfile'),
+(71, 'employee', 'logout'),
+(72, 'employee', 'profileLogout'),
+(73, 'admin', 'edit'),
+(74, 'admin', 'upload-profile-picture');
 
 -- --------------------------------------------------------
 
@@ -159,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `employees` (
   `date_hired` date NOT NULL,
   `status` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `employees`
@@ -167,7 +174,12 @@ CREATE TABLE IF NOT EXISTS `employees` (
 
 INSERT INTO `employees` (`id`, `users_id`, `date_hired`, `status`) VALUES
 (1, 11, '2014-10-03', 1),
-(2, 13, '2014-10-23', 1);
+(2, 13, '2014-10-23', 1),
+(3, 12, '2014-10-28', 1),
+(4, 14, '2014-10-28', 1),
+(5, 15, '2014-10-28', 1),
+(6, 16, '2014-10-28', 1),
+(7, 17, '2014-10-28', 1);
 
 -- --------------------------------------------------------
 
@@ -187,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `employee_evaluation` (
   `evaluation_due` date NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `employee_evaluation`
@@ -201,7 +213,9 @@ INSERT INTO `employee_evaluation` (`id`, `title`, `notes`, `score`, `status`, `e
 (5, 'evaluation3', 'ed eval3', NULL, 'pending', 2, 0, '0000-00-00 00:00:00', '2014-10-11', '2014-10-24 18:11:09'),
 (6, 'Evaluation3', 'Marvin''s evaluation updated to Feb 2 2015', NULL, 'pending', 1, 0, '0000-00-00 00:00:00', '0000-00-00', '2014-10-27 14:55:03'),
 (7, 'ed final evaluation', 'this is edgar final evaluation', NULL, 'pending', 2, 0, '0000-00-00 00:00:00', '0000-00-00', '2014-10-27 15:01:18'),
-(8, 'final and last evaluation', 'this will be the final and last evaluation to becoming a CEO of the compay', NULL, 'pending', 1, 0, '0000-00-00 00:00:00', '0000-00-00', '2014-10-27 14:55:59');
+(8, 'final and last evaluation', 'this will be the final and last evaluation to becoming a CEO of the compay', NULL, 'pending', 1, 0, '0000-00-00 00:00:00', '0000-00-00', '2014-10-27 14:55:59'),
+(9, 'java OOp', 'wewe', NULL, 'pending', 3, 11, '2014-10-28 14:59:42', '0000-00-00', '2014-10-28 14:59:42'),
+(10, 'First evaluation', 'this is Niks first evaluation after job offer\r\n', NULL, 'pending', 5, 11, '2014-11-04 11:13:38', '0000-00-00', '2014-11-04 11:13:38');
 
 -- --------------------------------------------------------
 
@@ -269,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `employee_logins` (
   `time` datetime NOT NULL,
   `ip_address` text NOT NULL COMMENT 'the machine IP address use to login and log out',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `employee_logins`
@@ -280,7 +294,20 @@ INSERT INTO `employee_logins` (`id`, `employee_id`, `log_type`, `time`, `ip_addr
 (2, 1, 0, '2014-10-27 18:07:25', '192.168.4.167'),
 (3, 1, 0, '2014-10-27 19:04:24', '192.168.4.167'),
 (4, 1, 0, '2014-10-27 19:23:25', '192.168.4.167'),
-(5, 1, 0, '2014-10-27 19:26:39', '192.168.4.167');
+(5, 1, 0, '2014-10-27 19:26:39', '192.168.4.167'),
+(6, 1, 0, '2014-10-28 14:46:22', '192.168.4.167'),
+(7, 1, 0, '2014-10-28 14:47:14', '192.168.4.167'),
+(8, 1, 0, '2014-10-28 14:48:40', '192.168.4.167'),
+(9, 1, 0, '2014-10-28 14:51:34', '192.168.4.167'),
+(10, 1, 0, '2014-10-28 14:53:16', '192.168.4.167'),
+(11, 1, 0, '2014-10-28 14:55:28', '192.168.4.167'),
+(12, 1, 0, '2014-10-28 14:56:12', '192.168.4.167'),
+(13, 1, 0, '2014-10-28 14:57:12', '192.168.4.167'),
+(14, 1, 0, '2014-10-28 15:07:01', '192.168.4.167'),
+(15, 2, 0, '2014-10-28 15:10:01', '192.168.4.167'),
+(16, 4, 0, '2014-10-28 15:13:24', '192.168.4.167'),
+(17, 5, 0, '2014-10-28 15:18:32', '192.168.4.167'),
+(18, 6, 0, '2014-10-28 15:26:02', '192.168.4.167');
 
 -- --------------------------------------------------------
 
@@ -296,14 +323,15 @@ CREATE TABLE IF NOT EXISTS `employee_memo` (
   `issued_to` int(11) NOT NULL,
   `issued_by` int(11) NOT NULL COMMENT 'user id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `employee_memo`
 --
 
 INSERT INTO `employee_memo` (`id`, `title`, `filename`, `issue_date`, `issued_to`, `issued_by`) VALUES
-(1, 'first written warning', 'memo_1_544613840ae41.pdf', '2014-10-21 16:04:20', 1, 11);
+(1, 'first written warning', 'memo_1_544613840ae41.pdf', '2014-10-21 16:04:20', 1, 11),
+(2, 'e', 'memo_3_544f3ec5add4f.ico', '2014-10-28 14:59:17', 3, 11);
 
 -- --------------------------------------------------------
 
@@ -341,7 +369,7 @@ CREATE TABLE IF NOT EXISTS `employee_position` (
 
 INSERT INTO `employee_position` (`id`, `employee_id`, `position_id`, `created`) VALUES
 (1, 1, 1, '2014-10-23 00:00:00'),
-(2, 2, 1, '2014-10-23 00:00:00');
+(2, 2, 1, '2014-10-24 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -357,7 +385,7 @@ CREATE TABLE IF NOT EXISTS `employee_quiz` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `employee_quiz`
@@ -365,7 +393,9 @@ CREATE TABLE IF NOT EXISTS `employee_quiz` (
 
 INSERT INTO `employee_quiz` (`id`, `title`, `score`, `employee_id`, `created`, `modified`) VALUES
 (1, 'basic brain test', 93, 1, '2014-10-13 17:32:50', '2014-10-13 17:32:50'),
-(2, 'java OOp', 98, 1, '2014-10-27 19:08:20', '2014-10-27 19:08:20');
+(2, 'java OOp', 98, 1, '2014-10-27 19:08:20', '2014-10-27 19:08:20'),
+(4, 'reb', 90, 3, '2014-11-04 16:56:15', '2014-11-04 16:56:15'),
+(5, 'designs', 90, 3, '2014-11-04 16:56:23', '2014-11-04 16:56:23');
 
 -- --------------------------------------------------------
 
@@ -452,7 +482,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `role` varchar(150) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `users`
@@ -461,7 +491,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `user_name`, `pass_word`, `email`, `role`) VALUES
 (11, 'mmanguiat', 'secret123', 'marvin.manguiat@sourcefit.com', 'admin'),
 (12, 'jsalillas', 'secret123', 'jayson.salillas@sourcefit.com', 'employee'),
-(13, 'edelacruz', 'secret123', 'edgar.delacruz@sourcefit.com', 'guest');
+(13, 'edelacruz', 'secret123', 'edgar.delacruz@sourcefit.com', 'guest'),
+(14, 'peterdinklage', 'secret123', 'peterdinklage@yahoo.com', 'employee'),
+(15, 'nikolacosterwaldau', 'secret123', 'nikolacosterwaldau@yahoo.com', 'employee'),
+(16, 'lenaheadey', 'secret123', 'lenaheadey@gmail.com', 'employee'),
+(17, 'isaachempstead', 'secret123', 'isaachempstead@gmail.com', 'employee');
 
 -- --------------------------------------------------------
 
@@ -485,7 +519,7 @@ CREATE TABLE IF NOT EXISTS `user_profile` (
   `last_modified` datetime NOT NULL,
   `profile_pic_url` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `user_profile`
@@ -494,7 +528,11 @@ CREATE TABLE IF NOT EXISTS `user_profile` (
 INSERT INTO `user_profile` (`id`, `users_id`, `firstname`, `lastname`, `middle`, `birthdate`, `gender_id`, `address`, `landline`, `cellphone`, `about`, `created`, `last_modified`, `profile_pic_url`) VALUES
 (10, 11, 'Marvin', 'Manguiat', 'U', '1981-07-07', 1, '#64 dela rosa st. makati city', '123456', '901223221', 'Programming since 2006, i can handle medium to large complex system.', '0000-00-00', '2014-10-03 12:30:48', '/img/avatar/user11.png'),
 (11, 12, 'Jayson', 'Salillas', 'x', '1981-07-08', 1, 'Bulacan Philippines', '36985212', '09178858475', 'I''m Jason Salillias, From Bulacan MM.', '0000-00-00', '2014-10-27 19:30:34', '/img/avatar/user12.png'),
-(12, 13, 'Edgar', 'Delacruz', 'Pugi', '1900-04-27', 1, 'sfdsfdf', '435454545', '23434343434', 'ed', '0000-00-00', '2014-10-03 12:36:18', '/img/avatar/user13.png');
+(12, 13, 'Edgar', 'Delacruz', 'Pugi', '1900-04-27', 1, 'sfdsfdf', '435454545', '23434343434', 'ed', '0000-00-00', '2014-10-03 12:36:18', '/img/avatar/user13.png'),
+(13, 14, 'Peter ', 'Dinklage', 'M', '1969-10-15', 1, 'Morristown, New Jersey', '4512125', '09198852124', ' Emmy Award and Golden Globe winner', '2014-10-28', '2014-10-28 00:00:00', '/img/avatar/user14.png'),
+(14, 15, 'Nikolaj', 'Waldau', 'Coster', '1970-07-27', 1, 'Rudkøbing, Denmark', '5623251', '09184547', 'Danish actor, producer, and screenwriter. He attended Statens Teaterskole in Copenhagen in 1993. In the United States, he played Detective John Amsterdam on the short-lived Fox television series New Amsterdam, as well as appearing as Frank Pike in the 2009 Fox television film Virtuality, originally intended as a pilot. Since April 2011, he became known to a broad audience by playing the role of Jaime Lannister in the HBO series Game of Thrones', '0000-00-00', '2014-10-28 15:13:19', '/img/avatar/user15.png'),
+(15, 16, 'Lena', 'Headey', 'M', '1973-10-03', 2, 'Hamilton, Bermuda', '5625214', '0919852514', 'British actress, she was born in Bermuda, to parents from Yorkshire, England, where she was also raised. She is the daughter of Sue and John Headey, a police officer. Headey is best known for her appearances in The Brothers Grimm (2005), Possession (2002), and The Remains of the Day (1993). Headey stars as Queen Gorgo, a heroic Spartan woman in the period film 300 (2006), by director Zack Snyder.', '0000-00-00', '2014-10-28 15:18:20', '/img/avatar/user16.png'),
+(16, 17, 'Isaac', 'Wright', 'Hempstead', '1999-04-09', 1, 'England, UK', '5623528', '09184517', 'Isaac Hempstead-Wright is an English actor. He began his professional acting career at the age of eleven, Hempstead-Wright is best known for his role as Bran Stark on the HBO series Game of Thrones, which earned him a Young Artist Award nomination as Best Young Supporting Actor in a TV Series', '0000-00-00', '2014-10-28 15:25:58', '/img/avatar/user17.png');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
