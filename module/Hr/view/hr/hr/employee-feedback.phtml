@@ -7,12 +7,133 @@
 			<!-- main sub page content// -->
 
 			<div class="panel panel-default">
-				<div class="panel-heading">Feedback</div>
+				<div class="panel-heading">Feedback Summary (Month to date)</div>
 				<div class="panel-body">
 
-					<div class="box-body">
-					
+					<div class="row">
+						<h3>Peer Reviews</h3>
+
+						<section
+							style="width: 65%; float: left; padding: 3px 3px 3px 10px">
+
+							<p>
+								<span class="glyphicon glyphicon-thumbs-up bg-green"></span>
+								8/10/14: "Marvin lifted the toilet seat"
+							</p>
+							<p>
+								<span class="glyphicon glyphicon-thumbs-up bg-green"></span>
+								8/10/14: "Marvin gave me a raise"
+							</p>
+							<p>
+								<span class="glyphicon glyphicon-thumbs-up bg-green"></span>
+								8/10/14: "Marvin taught me how to debug usign zend debugger"
+							</p>
+
+							<p>
+								<span class="glyphicon glyphicon-thumbs-down bg-red"></span>
+								8/10/14: "Marvin did not lift the toilet seat"
+							</p>
+							<p>
+								<span class="glyphicon glyphicon-thumbs-down bg-red"></span>
+								8/10/14: "Marvin showed negative feelings in the meeting"
+							</p>
+						</section>
+						<section style="width: 35%; height:auto; text-align:center; float:left">
+                        
+                                    <p>MTD</p>
+                                    <div class="progress   vertical" style="width:45px">
+                                        <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="height:60%">
+                                           <b>+</b> 
+                                        </div>
+                                    </div>
+                                    <div class="progress  vertical" style="width:45px">
+                                        <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="height: 40%">
+                                           <b>-</b>
+                                        </div>
+                                    </div>
+                               
+                                            
+						</section>
 					</div>
+
+          
+					<div class="row">
+						<h3>Managers Comments</h3>
+
+						<section
+							style="width: 65%; float: left; padding: 3px 3px 3px 10px">
+
+							<p>
+								<span class="glyphicon glyphicon-thumbs-up bg-green"></span>
+								8/10/14: "Marvin stayed late to fix down server"
+							</p>
+							<p>
+								<span class="glyphicon glyphicon-thumbs-up bg-green"></span>
+								8/10/14: "Marvin supassed his quota this month"
+							</p>
+						
+
+							<p>
+								<span class="glyphicon glyphicon-thumbs-down bg-red"></span>
+								8/10/14: "Marvin had a despute with another employee"
+							</p>
+							<p>
+								<span class="glyphicon glyphicon-thumbs-down bg-red"></span>
+								8/10/14: "Marvin was late with his propossal"
+							</p>
+						</section>
+						<section style="width: 35%; height:auto; text-align:center; float:left">
+                        
+                                    <p>MTD</p>
+                                    <div class="progress   vertical" style="width:45px">
+                                        <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height:50%">
+                                           <b>+</b> 
+                                        </div>
+                                    </div>
+                                    <div class="progress  vertical" style="width:45px">
+                                        <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height: 50%">
+                                           <b>-</b>
+                                        </div>
+                                    </div>
+                               
+                                            
+						</section>
+					</div>
+
+
+
+					<div class="row">
+						<h3>Client Comments</h3>
+
+					<section
+							style="width: 65%; float: left; padding: 3px 3px 3px 10px">
+
+							<p>
+								<span class="glyphicon glyphicon-thumbs-up bg-green"></span>
+								8/10/14: "Marvin is doing a great job and are an equally great guy"
+							</p>
+							
+							<p>
+								<span class="glyphicon glyphicon-thumbs-up bg-red"></span>
+								8/10/14: "Marvin knows what is he doing, he's a pro"
+							</p>
+						</section>
+						<section style="width: 35%; height:auto; text-align:center; float:left">
+                        
+                                    <p>MTD</p>
+                                    <div class="progress   vertical" style="width:45px">
+                                        <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height:100%">
+                                           <b>+</b> 
+                                        </div>
+                                    </div>
+                                    <div class="progress  vertical" style="width:45px">
+                                        <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="height:0%">
+                                           <b>-</b>
+                                        </div>
+                                    </div>
+                               
+                                            
+						</section>
 
 
 				</div>
@@ -28,8 +149,8 @@
 
 		<div class="panel panel-default">
 			<div class="panel-heading">Profile Menu</div>
-				<div class="panel-body rightbar-menu">
-			<!-- right navigation //-->
+			<div class="panel-body rightbar-menu">
+				<!-- right navigation //-->
           <?php  echo $this->render('layout/hr-menu-update-e') ?>
 		</div>
 		</div>

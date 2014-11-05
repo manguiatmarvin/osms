@@ -33,6 +33,10 @@ use Hr\Model\EmployeeEvaluationsTable;
 use Hr\Model\EmployeeSalary;
 use Hr\Model\EmployeeSalaryTable;
 
+//Employee Feedback
+use Hr\Model\EmployeeFeedback;
+use Hr\Model\EmployeeFeedbackTable;
+
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
@@ -137,6 +141,18 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 							$resultSetPrototype = new ResultSet ();
 							$resultSetPrototype->setArrayObjectPrototype ( new EmployeeSalary() );
 							return new TableGateway ( 'employee_salary', $dbAdapter, null, $resultSetPrototype );
+						},
+
+						'Hr\Model\EmployeeFeedbackTable' => function ($sm) {
+							$tableGateway = $sm->get ( 'EmployeeFeedbackTableGateway');
+							$table = new EmployeeFeedbackTable( $tableGateway );
+							return $table;
+						},
+						'EmployeeFeedbackTableGateway' => function ($sm) {
+							$dbAdapter = $sm->get ( 'Zend\Db\Adapter\Adapter' );
+							$resultSetPrototype = new ResultSet ();
+							$resultSetPrototype->setArrayObjectPrototype ( new EmployeeFeedback() );
+							return new TableGateway ( 'employee_feedback', $dbAdapter, null, $resultSetPrototype );
 						},
 				),
 		);

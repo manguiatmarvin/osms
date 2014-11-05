@@ -25,6 +25,8 @@ use Hr\Model\EmployeeEvaluations;
 use Hr\Form\EmployeeEvaluationsForm;
 
 use Hr\Model\EmployeeSalary;
+use Hr\Model\EmployeeFeedback;
+use Hr\Form\EmployeeFeedbackForm;
 
 use Zend\Mvc\View\Console\ViewManager;
 
@@ -38,6 +40,8 @@ class HrController extends AbstractActionController {
 	protected $empLoginsTable;
 	protected $empEvaluationsTable;
 	protected $empSalaryTable;
+	protected $eFeedbackTable;
+	
     protected $logger;
 	
 	public function indexAction() {
@@ -205,6 +209,7 @@ class HrController extends AbstractActionController {
 	
 		try{
 			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
+	        $employeeFeedbackPeerReview  = $this->getEmployeeFeedbackTable()->getEmployeeFeedBack($emp_id);
 	
 	
 	
@@ -868,6 +873,15 @@ class HrController extends AbstractActionController {
 		return $this->hrTable;
 	}
 	
+	
+	public function getEmployeeFeedbackTable() {
+		if (! $this->eFeedbackTable) {
+			$sm = $this->getServiceLocator ();
+			$this->eFeedbackTable = $sm->get('Hr\Model\EmployeeFeedbackTable' );
+		}
+	
+		return $this->eFeedbackTable;
+	}
 	
 	
 	public function getEmployeeFileTable(){
