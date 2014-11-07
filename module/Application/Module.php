@@ -17,6 +17,8 @@ use Zend\Permissions\Acl\Acl;
 //logging
 use Zend\Log\Logger;
 use Zend\Log\Writer\Stream;
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
 class Module{
 	
@@ -47,7 +49,7 @@ class Module{
     public function loadCommonViewVars(MvcEvent $e) {
     	// redirect to login
  
-        $this->getLogger()->debug($e->getRouteMatch()->getMatchedRouteName());
+        //$this->getLogger()->debug($e->getRouteMatch()->getMatchedRouteName());
     	
     	$auth = null;
 

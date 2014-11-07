@@ -74,10 +74,6 @@ class HrController extends AbstractActionController {
 		$this->checkLogin();
 		$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
 
-		
-		
-		
-
 		$emp_id = (int) $this->params()->fromRoute('id', 0);
 		
 		if (!$emp_id) {
@@ -209,16 +205,17 @@ class HrController extends AbstractActionController {
 	
 		try{
 			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
-	        $employeeFeedbackPeerReview  = $this->getEmployeeFeedbackTable()->getEmployeeFeedBack($emp_id);
+	        $employeeFeedback  = $this->getEmployeeFeedbackTable()->getEmployeeFeedBack($emp_id);
 	
-	
+	    
 	
 		}catch (\Exception $ex){
 	
 		}
 	
 		return new ViewModel(array('employeeData'=>$employeeData,
-				'id'=>$emp_id));
+				                   'employeeFeedback'=>$employeeFeedback,
+				                   'id'=>$emp_id));
 	
 	
 	}
