@@ -46,6 +46,10 @@ order by users.role DESC,
 				      'employee_feedback.from_user_id = users.id', 
 				      array('users_id'=>'id','role'),
 				      $select::JOIN_LEFT);
+		$select->join('user_profile',
+		              'users.id = user_profile.users_id',
+		               array('firstname','lastname'),$select::JOIN_LEFT);
+		
 		$select->where('employee_feedback.create_date  >= DATE_ADD(LAST_DAY(DATE_SUB(NOW(), INTERVAL 2 MONTH)), INTERVAL 1 DAY)');
 		$select->where('employee_feedback.to_employee_id = '.$emp_id);
 		$paginatorAdapter = new DbSelect(

@@ -60,7 +60,7 @@ class HrController extends AbstractActionController {
 		// grab the paginator from the AlbumTable
 		$paginator = $this->getHrTable()->fetchAll();
 		// set the current page to what has been passed in query string, or to 1 if none set
-		$paginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
+		$paginator->setCurrentPageNumber($this->params()->fromRoute('page', 0));
 		// set the number of items per page to 10
 		$paginator->setItemCountPerPage(5);
 		
@@ -206,9 +206,7 @@ class HrController extends AbstractActionController {
 		try{
 			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
 	        $employeeFeedback  = $this->getEmployeeFeedbackTable()->getEmployeeFeedBack($emp_id);
-	
 	    
-	
 		}catch (\Exception $ex){
 	
 		}
@@ -235,7 +233,6 @@ class HrController extends AbstractActionController {
 			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
 	
 	
-	
 		}catch (\Exception $ex){
 	
 		}
@@ -257,8 +254,6 @@ class HrController extends AbstractActionController {
 	
 		try{
 			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
-	
-	
 	
 		}catch (\Exception $ex){
 	

@@ -12,10 +12,11 @@ return array(
              'hr' => array(
                  'type'    => 'segment',
                  'options' => array(
-                     'route'    => '/hr[/][:action][/:id][/:emp_id]',
+                     'route'    => '/hr[/][:action][/:id][/:emp_id][/page/:page]',
                      'constraints' => array(
                          'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                          'id'     => '[0-9]+',
+                     	'page' => '[0-9]+',
                      ),
                      'defaults' => array(
                          'controller' => 'Hr\Controller\Hr',

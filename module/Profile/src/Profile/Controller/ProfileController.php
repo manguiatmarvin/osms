@@ -248,8 +248,10 @@ class ProfileController extends AbstractActionController {
             //process file  make it 150px in width            
             $uploadUtils->file_new_name_body = 'user'.$profileData['users_id'];
             $uploadUtils->image_resize = true;
-            $uploadUtils->image_x = 150;
-            $uploadUtils->image_ratio_y = true;
+            $uploadUtils->image_ratio_fill      = 'C';
+            $uploadUtils->image_y               = 150;
+            $uploadUtils->image_x               = 150;
+            $uploadUtils->image_background_color = '#FFFFFF';
             $uploadUtils->file_overwrite = true; 
             $uploadUtils->process(ROOT_PATH.'/public/img/avatar/');
             

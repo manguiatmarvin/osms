@@ -1200,7 +1200,7 @@ body > .header .logo .icon {
 .progress.vertical {
   position: relative;
   width: 30px;
-  height: 200px;
+  height: 100px;
   display: inline-block;
   margin-right: 10px;
 }

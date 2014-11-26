@@ -29,22 +29,13 @@ if($f->role=="employee"){
  		$peer_negatives ++;
  	}
  	
- }else if(($f->role=="manager") && ($f->role=="admin")){
+ }else if($f->role=="manager"){
  	$manager[] = $f;
  	if($f->type ==='1'){
  		$manager_positives ++;
  	}else if($f->type ==='0'){
  		$manager_negatives ++;
  	}
- 	
- }else if($f->role=="admin"){
- 	$admin[] = $f;
- 	if($f->type ==='1'){
- 		$admin_positives ++;
- 	}else if($f->type ==='0'){
- 		$admin_negatives ++;
- 	}
- 	
  	
  }else if($f->role=="client"){
  	$client[] = $f;
@@ -67,6 +58,11 @@ $positiveManagerRates = @($manager_positives / ($manager_negatives + $manager_po
 $negativeManagerRates = 100 - $positiveManagerRates;
 if($negativeManagerRates == 100)$negativeManagerRates = 0;
 
+
+$positiveClientRates = @($client_positives / ($client_negatives + $client_positives) * 100);
+$negativeClientRates = 100 - $positiveClientRates;
+if($negativeClientRates == 100)$negativeClientRates = 0;
+
 ?>
 <div class="row">
 
@@ -76,13 +72,13 @@ if($negativeManagerRates == 100)$negativeManagerRates = 0;
 			<!-- main sub page content// -->
 
 			<div class="panel panel-default">
-				<div class="panel-heading">Feedback Summary (Month to date)</div>
+				<div class="panel-heading"> <i class="fa  fa-comments"></i> Feedback Summary (Month to date)</div>
 				<div class="panel-body">
 
-					<div class="row">
-						<h3>Peer Reviews</h3>
+					<div class="row" style="border-bottom: 1px solid #E8E8E8">
 
 						<section style="width: 65%; float: left; padding: 3px 3px 3px 10px">
+						<h3> Peer Reviews</h3>
                            <?php foreach ($peer as $p):?>
                            <?php 
                            //computation logic
@@ -97,29 +93,30 @@ if($negativeManagerRates == 100)$negativeManagerRates = 0;
                            ?>
 							<p>
 								<span class="glyphicon glyphicon-thumbs-<?php echo $downUp." ".$color?>"></span>
-								<?php echo date("m/d/y g:i A", strtotime($p->create_date)); ?>: "<?php echo $p->feedback?>"
+								<?php echo date("m/d/y g:i A", strtotime($p->create_date)); ?>: <i>"<?php echo $p->feedback?>" - <b><?php echo $p->firstname.", ".$p->lastname ?></b></i>
 							</p>
 							<?php endforeach;?>
 						</section>
-						<section style="width: 35%; height:auto; text-align:center; float:left">
+						<section  style="width: 35%; height:auto; text-align:center; float:left">
                         
-                                    <p>MTD  + <?php echo number_format( $positivePeerRates ) ?>  - <?php echo number_format( $negativePeerRates ) ?> </p>
+                                    <p>MTD</p>
                                     <div class="progress   vertical" style="width:45px">
                                         <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="height:<?php echo number_format( $positivePeerRates )?>%">
-                                           <b>+</b> 
+                                           <b>+<?php echo  $peer_positives?></b> 
                                         </div>
                                     </div>
                                     <div class="progress  vertical" style="width:45px">
                                         <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="height:<?php echo number_format( $negativePeerRates )?>%">
-                                           <b>-</b>
+                                           <b>-<?php echo  $peer_negatives?></b>
                                         </div>
-                                    </div>     
+                                    </div>   
+                                    <h3>Total: <span class="text-green"><?php echo  $peer_positives - $peer_negatives ?></span></h3>  
 						</section>
 					</div>
 
           
-					<div class="row">
-						<h3>Managers Comments</h3>
+					<div class="row" style="border-bottom: 1px solid #E8E8E8">
+						<h3>Manager's Comments</h3>
 
 						<section style="width: 65%; float: left; padding: 3px 3px 3px 10px">
                            <?php foreach ($manager as $m):?>
@@ -136,30 +133,65 @@ if($negativeManagerRates == 100)$negativeManagerRates = 0;
                            ?>
 							<p>
 								<span class="glyphicon glyphicon-thumbs-<?php echo $downUp." ".$color?>"></span>
-								<?php echo date("m/d/y g:i A", strtotime($m->create_date)); ?>: "<?php echo $m->feedback?>"
+								<?php echo date("m/d/y g:i A", strtotime($m->create_date)); ?>: <i>"<?php echo $m->feedback?>" - <b><?php echo $m->firstname.", ".$m->lastname ?></b></i>
 							</p>
 							<?php endforeach;?>
 						</section>
-						<section style="width: 35%; height:auto; text-align:center; float:left">
+							<section  style="width: 35%; height:auto; text-align:center; float:left">
                         
-                                    <p>MTD  + <?php echo number_format( $positiveManagerRates ) ?>  - <?php echo number_format( $negativeManagerRates ) ?> </p>
+                                    <p>MTD</p>
                                     <div class="progress   vertical" style="width:45px">
                                         <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="height:<?php echo number_format( $positiveManagerRates )?>%">
-                                           <b>+</b> 
+                                           <b>+<?php echo  $manager_positives?></b> 
                                         </div>
                                     </div>
                                     <div class="progress  vertical" style="width:45px">
                                         <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="height:<?php echo number_format( $negativeManagerRates )?>%">
-                                           <b>-</b>
+                                           <b>-<?php echo  $manager_negatives?></b>
                                         </div>
-                                    </div>     
+                                    </div>   
+                                    <h3>Total: <span class="text-green"><?php echo  $manager_positives - $manager_negatives ?></span></h3>  
 						</section>
 					</div>
 
+					<div class="row" style="border-bottom: 1px solid #E8E8E8">
+						<h3>Client's Comments</h3>
 
-
-					<div class="row">
-						<h3>Client Comments</h3>
+						<section style="width: 65%; float: left; padding: 3px 3px 3px 10px">
+                           <?php foreach ($client as $c):?>
+                           <?php 
+                           //computation logic
+                           if($c->type){
+                             $downUp =  "up";
+		                     $color = "bg-green";
+                            }else{
+		                     $downUp =  "down";
+		                     $color = "bg-red";
+		                   } 
+                           
+                           ?>
+							<p>
+								<span class="glyphicon glyphicon-thumbs-<?php echo $downUp." ".$color?>"></span>
+								<?php echo date("m/d/y g:i A", strtotime($c->create_date)); ?>: <i>"<?php echo $c->feedback?>" - <b><?php echo $c->firstname.", ".$c->lastname ?></b></i>
+							</p>
+							<?php endforeach;?>
+						</section>
+							<section  style="width: 35%; height:auto; text-align:center; float:left">
+                        
+                                    <p>MTD</p>
+                                    <div class="progress   vertical" style="width:45px">
+                                        <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="height:<?php echo number_format( $positiveClientRates )?>%">
+                                           <b>+<?php echo  $client_positives?></b> 
+                                        </div>
+                                    </div>
+                                    <div class="progress  vertical" style="width:45px">
+                                        <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="height:<?php echo number_format( $negativeClientRates )?>%">
+                                           <b>-<?php echo  $client_negatives?></b>
+                                        </div>
+                                    </div>   
+                                    <h3>Total: <span class="text-green"><?php echo  $client_positives - $client_negatives ?></span></h3>  
+						</section>
+					</div>
 
 				</div>
 			</div>

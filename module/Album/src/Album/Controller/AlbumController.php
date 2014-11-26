@@ -13,16 +13,12 @@ class AlbumController extends AbstractActionController
 	
 	
 	public function indexAction(){
-		if (! $this->getServiceLocator()
-		->get('AuthService')->hasIdentity()){
-			return $this->redirect()->toRoute('login');
-		}
-		
-		
 	// grab the paginator from the AlbumTable
     $paginator = $this->getAlbumTable()->fetchAll(true);
     // set the current page to what has been passed in query string, or to 1 if none set
-    $paginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
+   // $paginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
+    
+    $paginator->setCurrentPageNumber($this->params()->fromRoute('page', 0));
     // set the number of items per page to 10
     $paginator->setItemCountPerPage(3);
 

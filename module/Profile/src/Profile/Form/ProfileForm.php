@@ -89,18 +89,6 @@ class ProfileForm extends Form implements ElementInterface{
 				)
 		));
 		
-		$this->add(array(
-				'name' => 'gender_id',
-				'type' => 'Zend\Form\Element\Select',
-				'attributes' => array(
-						'class'  => 'form-control',
-				),
-				'options' => array(
-						'label'         => 'Gender',
-						'value_options' => $this->getGenderOptionSelect(),
-						'empty_option'  => '--- please choose ---'
-				)
-		));
 		
 		$this->add(array(
 				'name' => 'address',
