@@ -354,9 +354,14 @@ class HrController extends AbstractActionController {
 		$this->checkLogin();
 		
 		$paginator = $this->getHrTable()->getPreEmployedList();
+		// set the current page to what has been passed in query string, or to 1 if none set
+		$paginator->setCurrentPageNumber($this->params()->fromRoute('page', 0));
+		// set the number of items per page to 10
+		$paginator->setItemCountPerPage(15);
 		
 	    return new viewModel(array('paginator'=>$paginator));
 	}
+	
 	
 	public function employeeMemoAction(){
 		$this->checkLogin ();
