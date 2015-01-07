@@ -5,7 +5,8 @@ return array(
          'SanAuth',
          'Dashboard',
          'Profile',
-     	 'Hr'
+     	 'Hr',
+         'Settings'
    
      ),
      'module_listener_options' => array(
