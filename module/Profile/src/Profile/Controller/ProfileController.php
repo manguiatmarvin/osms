@@ -230,13 +230,6 @@ class ProfileController extends AbstractActionController {
             $file = $data["image-file"]["tmp_name"];
             $uploadUtils = new FileUploadUtils($file);
             
-            //check if image
-            if(!$uploadUtils->file_is_image()){
-            	@unlink($file);
-            	$uploadUtils->clear();
-            	$this->flashMessenger ()->addErrorMessage( "Please upload image file only ");
-            	return $this->redirect()->toRoute('profile',array('action'=>'upload-profile-picture'));
-            }
             //check file size
             if($uploadUtils->isFileTooBig()){
             	@unlink($file);
@@ -246,14 +239,14 @@ class ProfileController extends AbstractActionController {
             }
             
             //process file  make it 150px in width            
-            $uploadUtils->file_new_name_body = 'user'.$profileData['users_id'];
+            $uploadUtils->file_new_name_body = "user".$profileData["users_id"];
             $uploadUtils->image_resize = true;
             $uploadUtils->image_ratio_fill      = 'C';
             $uploadUtils->image_y               = 150;
             $uploadUtils->image_x               = 150;
             $uploadUtils->image_background_color = '#FFFFFF';
             $uploadUtils->file_overwrite = true; 
-            $uploadUtils->process(ROOT_PATH.'/public/img/avatar/');
+            $uploadUtils->process(ROOT_PATH.'/public/img/avatar');
             
             if ($uploadUtils->processed) {
             	$uploadUtils->clear();
