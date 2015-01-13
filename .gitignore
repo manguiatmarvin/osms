@@ -8,3 +8,8 @@ nbproject
 .settings
 composer.lock
 vendor/bin
+data/uploads
+data/employee_files
+data/employee_files/
+public/img/avatar/
+
