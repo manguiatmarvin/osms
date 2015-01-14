@@ -304,6 +304,10 @@ class HrController extends AbstractActionController {
 			$employeeFiles = $this->getHrTable()->getEmployeeFiles($emp_id);
 			$employeeMemo = $this->getHrTable()->getEmployeeMemo($emp_id);
 			$employeeQuiz = $this->getHrTable()->getEmployeeQuiz($emp_id);
+			$employeeSalaryHistory  = $this->getHrTable()->getEmployeeSalaryHistory($emp_id);
+			$evaluationDue = $this->getHrTable()->getEmployeeEvaluationDue($emp_id);
+			$employeeLatestPosition = $this->getHrTable()->getEmployeeLatestPosition($emp_id);
+			$evaluationDue = $this->getHrTable()->getEmployeeEvaluationDue($emp_id);
 			
 		    $empObj = new Hr();
 		    $empObj->users_id = $employeeData['users_id'];
@@ -346,6 +350,9 @@ class HrController extends AbstractActionController {
 				                     'employeeMemo'=>$employeeMemo,
 				                      'employeeQuiz'=>$employeeQuiz,
 		                             'viewEmployeeForm'=>$form,
+				                      'employeeSalaryHistory'=>$employeeSalaryHistory,
+				                      'employeeLatestPosition'=>$employeeLatestPosition,
+				                         'evaluationDue'=>$evaluationDue,
 				                     'id'=>$emp_id));
 	}
 	

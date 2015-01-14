@@ -189,13 +189,92 @@ use Zend\Paginator\Paginator;
      			LEFT JOIN employee_filetypes
      			ON  employee_files.file_type_id = employee_filetypes.id
      			WHERE employee_files.employee_id = {$emp_id}";
-     			$statement = $dbAdapter->query($sql);
-     			$result    = $statement->execute();
-     			return $result;
-     		}
-     		return null;
-     		}
+     			$statement = $dbAdapter->query ( $sql);
+			$result = $statement->execute ();
+			return $result;
+		}
+		return null;
+	}
+	
+	/**
+	 *
+	 * @param unknown $emp_id        	
+	 * @return unknown|NULL
+	 */
+	public function getEmployeeSalaryHistory($emp_id) {
+		$emp_id = ( int ) $emp_id;
+		
+		$salary = array ();
+		$salary ['current'] = null;
+		$salary ['previous'] = null;
+		$salary ['last_race_date'] = null;
+		
+	    if (!$emp_id) {
+             throw new \Exception("Invalid employee Id  $emp_id");
+         }
+			
+			$dbAdapter = $this->tableGateway->getAdapter ();
+			
+			$sql = "SELECT * FROM employee_salary 
+                    WHERE employee_salary.employee_id = $emp_id 
+                    ORDER BY employee_salary.created 
+			        DESC LIMIT 2";
+			
+     				$statement = $dbAdapter->query($sql);
+     				$result    = $statement->execute();
+     				
+     				
+     				$current =  $result->current();
+     				$previous = $result->next();
+     				
+     				$salary ['current'] = $current["salary"];
+     				$salary ['previous'] = $previous["salary"];
+     				$salary ['last_race_date'] = $previous["created"];
+     			
+     			return $salary;
+     }
      
+     public function getEmployeeEvaluationDue($emp_id){
+     	$emp_id = ( int ) $emp_id;
+     	if (!$emp_id) {
+     		throw new \Exception("Invalid employee Id  $emp_id");
+     	}
+     	
+     	$dbAdapter = $this->tableGateway->getAdapter();
+     		
+     	$sql = "SELECT * FROM zend_tut1.employee_evaluation
+                WHERE employee_evaluation.status = 'pending' 
+                AND employee_evaluation.employee_id = $emp_id
+                ORDER BY employee_evaluation.evaluation_due DESC
+     			LIMIT 1";
+     		
+     	$statement = $dbAdapter->query($sql);
+     	$result    = $statement->execute();
+     	return $result->current();
+     }
+     
+     
+     public function getEmployeeLatestPosition($emp_id){
+     	$emp_id = ( int ) $emp_id;
+     	if (!$emp_id) {
+     		throw new \Exception("Invalid employee Id  $emp_id");
+     	}
+     
+     	$dbAdapter = $this->tableGateway->getAdapter();
+     	 
+     	$sql = "SELECT employee_position.created,
+                       positions.position_name,
+                       positions.id
+                  FROM employee_position
+                  LEFT JOIN positions
+                  ON positions.id = employee_position.position_id
+                WHERE employee_position.employee_id = $emp_id
+              ORDER BY employee_position.created DESC LIMIT 1";
+     	 
+     	$statement = $dbAdapter->query($sql);
+     	$result    = $statement->execute();
+     	return $result->current();
+     }
      
      /**
       * Send Email

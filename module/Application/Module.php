@@ -149,13 +149,9 @@ class Module{
     	        }
     	        
     		}
-    	}
-    	
-    
+    	}    
 	}
-	
-	
-	
+
 	
  public function getAclDbRoles(MvcEvent $e){
  	$dbAdapter = $e->getApplication()->getServiceManager()->get('Zend\Db\Adapter\Adapter');
@@ -229,6 +225,7 @@ class Module{
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                  'MarvinFileUploadUtils' => __DIR__ . '/../../vendor/MarvinFileUploadUtils',
+                 
                 ),
             ),
         );

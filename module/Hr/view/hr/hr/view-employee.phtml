@@ -60,15 +60,15 @@
                                 <div class="box-body">
                                     <dl class="dl-horizontal">
                                        <dt>Current Position</dt>
-                                        <dd>PHP developer</dd>
+                                        <dd><?php echo $this->employeeLatestPosition['position_name']?></dd>
                                         <dt>Current Salary</dt>
-                                        <dd>5000.00</dd>
+                                        <dd><?php echo $this->employeeSalaryHistory['current']?></dd>
                                         <dt>Last Raise Date</dt>
-                                        <dd>Dec 25, 2013</dd>
+                                        <dd><?php echo date("M d, Y", strtotime($this->employeeSalaryHistory['last_race_date'])); ?></dd>
                                           <dt>Last Raise Amount</dt>
-                                        <dd>2000.00</dd>
+                                        <dd><?php echo $this->employeeSalaryHistory['previous']?></dd>
                                          <dt>Evaluation Due</dt>
-                                        <dd>6/11/2015</dd>
+                                        <dd><?php echo date("M d, Y", strtotime($evaluationDue['evaluation_due'])); ?></dd>
                                        
                                     </dl>
                                 </div><!-- /.box-body -->
