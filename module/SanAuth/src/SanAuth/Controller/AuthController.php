@@ -10,6 +10,7 @@ use SanAuth\Form\LoginForm;
 use SanAuth\Model\LoginFormFilter;
 use Hr\Model\HrTable;
 use Hr\Model\Hr;
+use Zend\View\Helper\ViewModel;
 
 
 class AuthController extends AbstractActionController 
@@ -51,9 +52,12 @@ class AuthController extends AbstractActionController
        $form = new LoginForm();
        
         return array(
-            'form'      => $form,
-            'messages'  => $this->flashmessenger()->getMessages()
+            'form'      => $form
         );
+    }
+    
+    public function registerAction(){
+    	
     }
 
     /**

@@ -18,34 +18,36 @@ $client_positives= 0;
 $admin_negatives = 0;
 $admin_positives= 0;
 
-
-foreach ($this->employeeFeedback as $f){
- 
-if($f->role=="employee"){
- 	$peer[] = $f;
- 	if($f->type ==='1'){
- 		$peer_positives ++;
- 	}else if($f->type ==='0'){
- 		$peer_negatives ++;
- 	}
- 	
- }else if($f->role=="manager"){
- 	$manager[] = $f;
- 	if($f->type ==='1'){
- 		$manager_positives ++;
- 	}else if($f->type ==='0'){
- 		$manager_negatives ++;
- 	}
- 	
- }else if($f->role=="client"){
- 	$client[] = $f;
- 	if($f->type ==='1'){
- 		$client_positives ++;
- 	}else if($f->type ==='0'){
- 		$client_negatives ++;
- 	}
- }
+if (is_array($employeeFeedback)){
+	foreach ($this->employeeFeedback as $f){
+	
+		if($f->role=="employee"){
+			$peer[] = $f;
+			if($f->type ==='1'){
+				$peer_positives ++;
+			}else if($f->type ==='0'){
+				$peer_negatives ++;
+			}
+	
+		}else if($f->role=="manager"){
+			$manager[] = $f;
+			if($f->type ==='1'){
+				$manager_positives ++;
+			}else if($f->type ==='0'){
+				$manager_negatives ++;
+			}
+	
+		}else if($f->role=="client"){
+			$client[] = $f;
+			if($f->type ==='1'){
+				$client_positives ++;
+			}else if($f->type ==='0'){
+				$client_negatives ++;
+			}
+		}
+	}
 }
+
 
 //Total Feedbacks Computation
 //rate = (likes / ( dislikes + likes)) * 100')

@@ -193,12 +193,16 @@ class HrController extends AbstractActionController {
 	}
 	
 	
-	
+	/*
+	 * action for employee-feedback
+	 */
 	public function employeeFeedbackAction(){
 		$this->checkLogin();
 	
 		$emp_id = (int) $this->params()->fromRoute('id', 0);
-	
+		$employeeFeedback = null;
+		$employeeData = null;
+		
 		if (!$emp_id) {
 			return $this->redirect()->toRoute('hr');
 		}
