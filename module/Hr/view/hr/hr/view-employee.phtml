@@ -59,17 +59,20 @@
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <dl class="dl-horizontal">
-                                       <dt>Current Position</dt>
+                                       <dt>Current Position:</dt>
                                         <dd><?php echo $this->employeeLatestPosition['position_name']?></dd>
-                                        <dt>Current Salary</dt>
+                                        <dt>Current Salary:</dt>
                                         <dd><?php echo $this->employeeSalaryHistory['current']?></dd>
-                                        <dt>Last Raise Date</dt>
+                                        <dt>Last Raise Date:</dt>
                                         <dd><?php echo date("M d, Y", strtotime($this->employeeSalaryHistory['last_race_date'])); ?></dd>
-                                          <dt>Last Raise Amount</dt>
+                                          <dt>Last Raise Amount:</dt>
                                         <dd><?php echo $this->employeeSalaryHistory['previous']?></dd>
-                                         <dt>Evaluation Due</dt>
-                                        <dd><?php echo date("M d, Y", strtotime($evaluationDue['evaluation_due'])); ?></dd>
-                                       
+                                         <dt>Evaluation Due:</dt>
+                                        <dd><?php echo date("M d, Y", strtotime($evaluationDue['evaluation_due'])); ?></dd>                                 <dt>Date Hired:</dt>
+                                        <dd><?php echo date("M d, Y", strtotime($this->dateHired)); ?></dd>
+                                          <dt>Years of Service:</dt>
+                                        <dd><?php echo round($this->employee_data['years_of_service']);?></dd>
+                                        
                                     </dl>
                                 </div><!-- /.box-body -->
                             </div><!-- /.box -->

@@ -111,7 +111,8 @@ use Zend\Paginator\Paginator;
      			             user_profile.profile_pic_url,
      			             user_profile.about,
      			             DATE_FORMAT(user_profile.created,'%b %d, %Y') as created,
-     			             DATE_FORMAT(user_profile.last_modified,'%b %d, %Y @ %h:%i %p') as last_modified
+     			             DATE_FORMAT(user_profile.last_modified,'%b %d, %Y @ %h:%i %p') as last_modified,
+     			             DATEDIFF(CURRENT_DATE, employees.date_hired)/365 AS years_of_service
      	                FROM employees
      	           LEFT JOIN user_profile 
      			          ON employees.users_id = user_profile.users_id

@@ -358,8 +358,9 @@ class HrController extends AbstractActionController {
 		                             'viewEmployeeForm'=>$form,
 				                      'employeeSalaryHistory'=>$employeeSalaryHistory,
 				                      'employeeLatestPosition'=>$employeeLatestPosition,
-				                         'evaluationDue'=>$evaluationDue,
-				                     'id'=>$emp_id));
+				                       'evaluationDue'=>$evaluationDue,
+				                       'dateHired'=>$empObj->date_hired,
+				                       'id'=>$emp_id));
 	}
 	
 	
