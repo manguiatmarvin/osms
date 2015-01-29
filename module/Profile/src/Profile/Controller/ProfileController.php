@@ -242,8 +242,8 @@ class ProfileController extends AbstractActionController {
             $uploadUtils->file_new_name_body = "user".$profileData["users_id"];
             $uploadUtils->image_resize = true;
             $uploadUtils->image_ratio_fill      = 'C';
-            $uploadUtils->image_y               = 150;
-            $uploadUtils->image_x               = 150;
+            $uploadUtils->image_y               = 112;
+            $uploadUtils->image_x               = 92;
             $uploadUtils->image_background_color = '#FFFFFF';
             $uploadUtils->file_overwrite = true; 
             $uploadUtils->process(ROOT_PATH.'/public/img/avatar');

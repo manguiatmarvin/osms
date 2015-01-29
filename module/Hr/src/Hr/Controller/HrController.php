@@ -179,14 +179,16 @@ class HrController extends AbstractActionController {
 		try{
 			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
 	        $employeeSalary = $this->getEmployeeSalaryTable()->getEmployeeSalary($emp_id);
+	        $employeeSalaryHistory  = $this->getHrTable()->getEmployeeSalaryHistory($emp_id);
 	  
-				
+			
 		}catch (\Exception $ex){
 				
 		}
 	
 		return new ViewModel(array('employeeData'=>$employeeData,
 				                   'employeeSalary'=>$employeeSalary,
+				                   'employeeSalaryHistory'=>$employeeSalaryHistory,
 				                   'id'=>$emp_id));
 	
 	
