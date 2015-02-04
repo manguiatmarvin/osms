@@ -302,18 +302,18 @@ class HrController extends AbstractActionController {
 		
 		if (!$emp_id) {
 			return $this->redirect()->toRoute('hr');
+			$this->flashMessenger()->addErrorMessage("Id not found!");
 		}
 		
 		try {
 			
 			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
-			$employeeFiles = $this->getHrTable()->getEmployeeFiles($emp_id);
-			$employeeMemo = $this->getHrTable()->getEmployeeMemo($emp_id);
-			$employeeQuiz = $this->getHrTable()->getEmployeeQuiz($emp_id);
-			$employeeSalaryHistory  = $this->getHrTable()->getEmployeeSalaryHistory($emp_id);
+			$employeeFiles = $this->getHrTable()->getEmployeeFiles($emp_id);			
+ 			$employeeMemo = $this->getHrTable()->getEmployeeMemo($emp_id); 			
+ 			$employeeQuiz = $this->getHrTable()->getEmployeeQuiz($emp_id); 			
+ 			$employeeSalaryHistory  = $this->getHrTable()->getEmployeeSalaryHistory($emp_id); 			
 			$evaluationDue = $this->getHrTable()->getEmployeeEvaluationDue($emp_id);
 			$employeeLatestPosition = $this->getHrTable()->getEmployeeLatestPosition($emp_id);
-			$evaluationDue = $this->getHrTable()->getEmployeeEvaluationDue($emp_id);
 			
 		    $empObj = new Hr();
 		    $empObj->users_id = $employeeData['users_id'];
@@ -322,8 +322,11 @@ class HrController extends AbstractActionController {
 		
 		}
 		catch (\Exception $ex) {
+			
+			$this->flashMessenger()->addErrorMessage("Error! Id not found!".$ex);
+			
 			return $this->redirect()->toRoute('hr', array(
-					'action' => 'index'
+					'action' => 'employee'
 			));
 		}
 		

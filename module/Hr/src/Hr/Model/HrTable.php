@@ -243,11 +243,12 @@ use Zend\Paginator\Paginator;
      	
      	$dbAdapter = $this->tableGateway->getAdapter();
      		
-     	$sql = "SELECT * FROM zend_tut1.employee_evaluation
+     	$sql = "SELECT * FROM employee_evaluation
                 WHERE employee_evaluation.status = 'pending' 
                 AND employee_evaluation.employee_id = $emp_id
                 ORDER BY employee_evaluation.evaluation_due DESC
      			LIMIT 1";
+     
      		
      	$statement = $dbAdapter->query($sql);
      	$result    = $statement->execute();
