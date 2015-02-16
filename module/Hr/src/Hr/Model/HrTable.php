@@ -59,6 +59,38 @@ use Zend\Paginator\Paginator;
 	
 	
 	
+	public function fetchAllStaffsByClientId($client_id){
+	
+	
+		//      	SELECT employees.id, employees.date_hired, employees.status, user_profile.firstname, user_profile.lastname, user_profile.middle, user_profile.birthdate, user_profile.address, user_profile.landline, user_profile.cellphone, user_profile.birthdate, user_profile.profile_pic_url
+		//      	FROM employees
+		//      	LEFT JOIN user_profile ON employees.users_id = user_profile.users_id
+	
+	
+		// create a new Select object for the table album
+		$select = new Select('employees');
+	
+		$select->join('user_profile', // table name,
+				'employees.users_id = user_profile.users_id', // expression to join on (will be quoted by platform object before insertion),
+				array('firstname',
+						'lastname','middle','birthdate','address','landline','cellphone','about','created','last_modified','profile_pic_url'), // (optional) list of columns, same requiremetns as columns() above
+				Select::JOIN_LEFT // (optional), one of inner, outer, left, right also represtned by constants in the API
+		);
+	
+		$paginatorAdapter = new DbSelect(
+				// our configured select object
+				$select,
+				// the adapter to run it against
+				$this->tableGateway->getAdapter(),
+				// the result set to hydrate
+				new ResultSet () );
+	
+		$paginator = new Paginator ( $paginatorAdapter );
+		return $paginator;
+	}
+	
+	
+	
 	public function getPreEmployedList(){
 	
 		// create a new Select object for the table album
@@ -296,19 +328,7 @@ use Zend\Paginator\Paginator;
      
      	$transport->send($message);
      }
-      
      
-
-     public function getAlbum($id){
-         $id  = (int) $id;
-         $rowset = $this->tableGateway->select(array('id' => $id));
-         $row = $rowset->current();
-         if (!$row) {
-             throw new \Exception("Could not find row $id");
-         }
-         return $row;
-     }
-
 
      
    /**
@@ -318,7 +338,9 @@ use Zend\Paginator\Paginator;
     public function getEmployee($id){
 
     	$id  = (int) $id;
-    	$rowset = $this->tableGateway->select(array('users_id' => $id));
+    	
+    	$rowset = $this->tableGateway->select(array('id' => $id));
+    	
 		$row = $rowset->current ();
 		
 		if (! $row) {
@@ -326,6 +348,26 @@ use Zend\Paginator\Paginator;
 		}
 		return $row;
 	}
+	
+	public function getEmployeeByEmpId($id){
+		
+		$dbAdapter = $this->tableGateway->getAdapter();
+		 
+		$sql = "SELECT employees.id,
+                       user_profile.firstname,
+                       user_profile.lastname,
+                       user_profile.id as profileId
+                  FROM employees LEFT JOIN user_profile
+                    ON employees.users_id = user_profile.users_id
+                 WHERE employees.id = {$id} LIMIT 1";
+		 
+		$statement = $dbAdapter->query($sql);
+		$result    = $statement->execute();
+		return $result->current();
+		
+	}
+
+	
 	
 	public function saveEmployee($empObj) {
 	

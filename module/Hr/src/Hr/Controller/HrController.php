@@ -212,6 +212,8 @@ class HrController extends AbstractActionController {
 		try{
 			$employeeData = $this->getHrTable()->getEmployeePersonal($emp_id);
 	        $employeeFeedback  = $this->getEmployeeFeedbackTable()->getEmployeeFeedBack($emp_id);
+	       
+	       
 	    
 		}catch (\Exception $ex){
 	
@@ -531,7 +533,9 @@ class HrController extends AbstractActionController {
 		
 		$id = (int) $this->params()->fromRoute('id', 0);
 		$memoData = $this->getEmployeeMemoTable()->getEmployeeMemoSingle( $id );
-		$employeeData = $this->getHrTable()->getEmployee($memoData->issued_to);
+		//issued_to is id from employees table
+		$employeeData = $this->getHrTable()->getEmployeeByEmpId($memoData->issued_to);
+		
 		
 		if (!$id) {
 			$this->flashMessenger()->addErrorMessage("fatal!: id not found");
@@ -561,7 +565,7 @@ class HrController extends AbstractActionController {
 				'id' => $id,
 				'memo' => $memoData,
 				'empData'=>$employeeData,
-				'emp_id'=>$emp_id
+				'emp_id'=>$memoData->issued_to
 		);
 	}
 	

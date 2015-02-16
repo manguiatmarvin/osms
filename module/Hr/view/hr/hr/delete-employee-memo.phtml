@@ -14,7 +14,7 @@
 					
 					
 					 <p>Are you sure that you want to delete
-     <b>"<?php echo $this->escapeHtml($memo->title); ?>"</b> from <?php echo $empData->firstname; ?> 
+     <b>"<?php echo $this->escapeHtml($memo->title); ?>"</b> from <?php echo $empData['firstname']; ?> 
  </p>
  <?php
  $url = $this->url('hr', array(
