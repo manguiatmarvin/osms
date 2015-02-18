@@ -1,13 +1,22 @@
 <?php echo $this->render('flashmessenger/layout') ?>
 <div class="row">
+	<!-- right col (We are only adding the ID to make the widgets sortable)-->
+	<section class="col-lg-5 connectedSortable">
 
+		
+			
+				<!-- right navigation //-->
+             <?php echo $this->render('layout/hr-menu-update-e') ?>
+			
+		
+	</section>
 	<!-- Left col -->
 	<section class="col-lg-7 connectedSortable">
 		<div>
 			<!-- main sub page content// -->
 
 			<div class="panel panel-default">
-				<div class="panel-heading"><a href="<?php echo $this->url('hr',array('action'=>'view-employee','id'=>$this->employeeData["id"]))?>"><i class="fa fa-angle-double-left"></i></a> <?php echo $this->employeeData["firstname"];?>'s Evaluations</div>
+				<div class="panel-heading"><a href="<?php echo $this->url('hr',array('action'=>'view-employee','id'=>$this->employee_data["id"]))?>"><i class="fa fa-angle-double-left"></i></a> <?php echo $this->employee_data["firstname"];?>'s Evaluations</div>
 				<div class="panel-body">
 
 					<div class="box-body">
@@ -86,16 +95,6 @@
 	</section>
 	<!-- /.Left col -->
 
-	<!-- right col (We are only adding the ID to make the widgets sortable)-->
-	<section class="col-lg-5 connectedSortable">
 
-		<div class="panel panel-default">
-			<div class="panel-heading">Evaluation Menu</div>
-				<div class="panel-body rightbar-menu">
-			<!-- right navigation //-->
-          <?php  echo $this->render('layout/hr-menu-update-e') ?>
-		</div>
-		</div>
-	</section>
 
 </div>

@@ -4,13 +4,23 @@ $addForm = $this->addFileForm;
  ?>
 <div class="row">
 
+	<section class="col-lg-5 connectedSortable">
+
+		
+			
+				<!-- right navigation //-->
+             <?php echo $this->render('layout/hr-menu-update-e') ?>
+			
+		
+	</section>
+	
 	<!-- Left col -->
 	<section class="col-lg-7 connectedSortable">
 		<div>
 			<!-- main sub page content// -->
 
 			<div class="panel panel-default">
-				<div class="panel-heading"><a href="<?php echo $this->url('hr',array('action'=>'view-employee','id'=>$this->id))?>"><i class="fa fa-angle-double-left"></i></a> <?php echo $this->employeeData["firstname"];?>'s Memo</div>
+				<div class="panel-heading"><a class="btn btn-info" href="<?php echo $this->url('hr',array('action'=>'view-employee','id'=>$this->id))?>"><i class="fa fa-angle-double-left"></i> <?php echo $this->employeeData["firstname"];?></a> Memo</div>
 				<div class="panel-body">
 
 					<div class="box-body">
@@ -82,18 +92,6 @@ $addForm = $this->addFileForm;
 		</div>
 
 	</section>
-	<!-- /.Left col -->
 
-	<!-- right col (We are only adding the ID to make the widgets sortable)-->
-	<section class="col-lg-5 connectedSortable">
-
-		<div class="panel panel-default">
-			<div class="panel-heading">201 Files Menu</div>
-			<div class="panel-body rightbar-menu">
-				<!-- right navigation //-->
-                      <?php  echo $this->render('layout/hr-menu-update-e') ?>
-		</div>
-		</div>
-	</section>
 
 </div>

@@ -61,6 +61,47 @@ class ProfileController extends AbstractActionController {
 		)); 
 	}
 	
+	public function myProfileAction(){
+		return new ViewModel();
+	}
+	
+	public function myLeavesAction(){
+		return new ViewModel();
+	}
+	
+	public function myMemosAction(){
+		return new ViewModel();
+	}
+	
+	public function myQuizzesAction(){
+		return new ViewModel();
+	}
+
+	public function myAttendanceAction(){
+		return new ViewModel();
+	}
+	
+	public function myEvaluationsAction(){
+		return new ViewModel();
+	}
+	
+	public function mySalaryAction(){
+		return new ViewModel();
+	}
+	
+
+	
+	public function myFeedbackAction(){
+		return new ViewModel();
+	}
+	
+	public function myClubsAction(){
+		return new ViewModel();
+	}
+	public function myPointsAction(){
+		return new ViewModel();
+	}
+	
 	
 	/**
 	 * settings Module
@@ -242,8 +283,8 @@ class ProfileController extends AbstractActionController {
             $uploadUtils->file_new_name_body = "user".$profileData["users_id"];
             $uploadUtils->image_resize = true;
             $uploadUtils->image_ratio_fill      = 'C';
-            $uploadUtils->image_y               = 112;
-            $uploadUtils->image_x               = 92;
+            $uploadUtils->image_y               = 90;
+            $uploadUtils->image_x               = 130;
             $uploadUtils->image_background_color = '#FFFFFF';
             $uploadUtils->file_overwrite = true; 
             $uploadUtils->process(ROOT_PATH.'/public/img/avatar');

@@ -112,7 +112,7 @@ class HrController extends AbstractActionController {
 			}
 		}
 		
-	 return new ViewModel(array('employeeData'=>$employeeData,
+	 return new ViewModel(array('employee_data'=>$employeeData,
 	 		                    'employeeEval'=>$employeeEval,
 	 		                    'addEmployeeEvalForm'=>$employeeEvalForm,
 	                              'id'=>$emp_id));	
@@ -186,7 +186,7 @@ class HrController extends AbstractActionController {
 				
 		}
 	
-		return new ViewModel(array('employeeData'=>$employeeData,
+		return new ViewModel(array('employee_data'=>$employeeData,
 				                   'employeeSalary'=>$employeeSalary,
 				                   'employeeSalaryHistory'=>$employeeSalaryHistory,
 				                   'id'=>$emp_id));
@@ -219,7 +219,7 @@ class HrController extends AbstractActionController {
 	
 		}
 	
-		return new ViewModel(array('employeeData'=>$employeeData,
+		return new ViewModel(array('employee_data'=>$employeeData,
 				                   'employeeFeedback'=>$employeeFeedback,
 				                   'id'=>$emp_id));
 	
@@ -245,7 +245,7 @@ class HrController extends AbstractActionController {
 	
 		}
 	
-		return new ViewModel(array('employeeData'=>$employeeData,
+		return new ViewModel(array('employee_data'=>$employeeData,
 				'id'=>$emp_id));
 	
 	
@@ -267,7 +267,7 @@ class HrController extends AbstractActionController {
 	
 		}
 	
-		return new ViewModel(array('employeeData'=>$employeeData,
+		return new ViewModel(array('employee_data'=>$employeeData,
 				'id'=>$emp_id));
 	
 	
@@ -292,7 +292,7 @@ class HrController extends AbstractActionController {
 		}
 		
 	 return new ViewModel(array('attendance'=>$emp_attendance,
-	 		                     'employeeData'=>$employeeData,
+	 		                     'employee_data'=>$employeeData,
 	                              'id'=>$emp_id));	
 	}
 	
@@ -325,7 +325,7 @@ class HrController extends AbstractActionController {
 		}
 		catch (\Exception $ex) {
 			
-			$this->flashMessenger()->addErrorMessage("Error! Id not found!".$ex);
+			$this->flashMessenger()->addErrorMessage("Error! Id not found!".$ex->getMessage());
 			
 			return $this->redirect()->toRoute('hr', array(
 					'action' => 'employee'
@@ -399,7 +399,7 @@ class HrController extends AbstractActionController {
 		
 		return new ViewModel ( array (
 				'empMemos' => $employeeMemos,
-				'employeeData' => $employeeData,
+				'employee_data' => $employeeData,
 				'addMemoForm' => $form,
 				'id' =>$emp_id
 		) );
@@ -419,6 +419,7 @@ class HrController extends AbstractActionController {
 	}
 	
 	public function addEmployeeMemoAction(){
+
 		$this->checkLogin ();
 		$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
 		
@@ -490,15 +491,28 @@ class HrController extends AbstractActionController {
 			return $this->redirect ()->toRoute ( 'hr' );
 		}
 		
+		try{
 		$employeeData = $this->getHrTable ()->getEmployeePersonal ( $emp_id );
+		
 		$employeeFiles = $this->getEmployeeFileTable ()->getEmployeeFiles ( $emp_id );
+		
+		}
+		catch (\Exception $ex) {
+				
+			$this->flashMessenger()->addErrorMessage("Error!".$ex->getMessage());
+				
+			return $this->redirect()->toRoute('hr', array(
+					'action' => 'employee'
+			));
+		}
+		
 		
 		$form = new EmployeeFileUploadForm ();
 		$form->get ( 'submit' )->setValue ( 'Add' );
 		
 		return new ViewModel ( array (
 				'empFiles' => $employeeFiles,
-				'employeeData' => $employeeData,
+				'employee_data' => $employeeData,
 				'addFileForm' => $form,
 				'id' => $emp_id 
 		) );
@@ -565,6 +579,7 @@ class HrController extends AbstractActionController {
 				'id' => $id,
 				'memo' => $memoData,
 				'empData'=>$employeeData,
+				'employee_data'=>$employeeData,
 				'emp_id'=>$memoData->issued_to
 		);
 	}
@@ -638,7 +653,7 @@ class HrController extends AbstractActionController {
 		
 		return new ViewModel ( array (
 				'empQuizzes' => $employeeQuizzes,
-				'employeeData' => $employeeData,
+				'employee_data' => $employeeData,
 				'addQuizForm' =>$employeeQuizForm,
 				'id' => $emp_id, 
 		) );

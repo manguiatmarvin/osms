@@ -125,8 +125,9 @@ use Zend\Paginator\Paginator;
 	 * @return mixed|NULL
 	 */
 	public function getEmployeePersonal($emp_id) {
-		if ($emp_id != "") {
-			
+
+		if ($emp_id != "" 
+				&& $this->checkEmployeeId($emp_id)) {
 			$dbAdapter = $this->tableGateway->getAdapter ();
 			$sql = "SELECT   employees.id, 
 			                 employees.users_id,
@@ -153,7 +154,8 @@ use Zend\Paginator\Paginator;
      	$result    = $statement->execute();
      	return $result->current();
      	}
-       return null;
+     	
+       throw new \Exception("Invalid employee Id  $emp_id");
      }
      
      
@@ -348,6 +350,32 @@ use Zend\Paginator\Paginator;
 		}
 		return $row;
 	}
+	
+	
+	/**
+	 * id is the id from employee table not the employee id
+	 * @param unknown $id
+	 * @ return 1 or false
+	 */
+	public function checkEmployeeId($id){
+		$dbAdapter = $this->tableGateway->getAdapter();
+			
+		$sql = "SELECT employees.id FROM employees
+		WHERE employees.id = {$id} LIMIT 1";
+			
+		$statement = $dbAdapter->query($sql);
+		$result    = $statement->execute()->current();
+		
+	     if(!$result){
+	     	
+	       return $result;
+	     	exit;
+	     }
+
+		
+		return true;
+	}
+	
 	
 	public function getEmployeeByEmpId($id){
 		

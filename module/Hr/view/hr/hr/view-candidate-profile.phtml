@@ -1,5 +1,20 @@
 <?php echo $this->render('flashmessenger/layout')?>
 <div class="row">
+
+
+	<!-- right col (We are only adding the ID to make the widgets sortable)-->
+	<section class="col-lg-5 connectedSortable">
+
+		<div class="panel panel-default">
+			<div class="panel-heading">Profile Menu</div>
+			<div class="panel-body rightbar-menu">
+				<!-- right navigation //-->
+              <?php //echo $this->render('layout/menu') ?>
+			</div>
+		</div>
+	</section>
+	
+	
 	<!-- Left col -->
 	<section class="col-lg-7 connectedSortable">
 		<div>
@@ -50,16 +65,5 @@
 	</section>
 	<!-- /.Left col -->
 
-	<!-- right col (We are only adding the ID to make the widgets sortable)-->
-	<section class="col-lg-5 connectedSortable">
-
-		<div class="panel panel-default">
-			<div class="panel-heading">Profile Menu</div>
-			<div class="panel-body rightbar-menu">
-				<!-- right navigation //-->
-              <?php //echo $this->render('layout/menu') ?>
-			</div>
-		</div>
-	</section>
 
 </div>

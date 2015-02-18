@@ -1,65 +1,80 @@
 <?php echo $this->render('flashmessenger/layout')?>
-<div class="row">
-	<!-- Left col -->
-	<section class="col-lg-7 connectedSortable">
-		<div>
-			<!-- main sub page content// -->
+<?php
 
-			<div class="panel panel-default">
-				<div class="panel-heading">Profile</div>
-				<div class="panel-body">
+$dt = new DateTime ();
+?>
 
-					<div class="box-body">
 
-						<div class="well">
-							<img src="<?php echo $this->profile['profile_pic_url']?>"
-								alt="User Image" />
-							<h3><?php echo $this->profile['firstname']." ".$this->profile['middle'].". ".$this->profile['lastname']?></h3>
-						</div>
+<!-- right col (We are only adding the ID to make the widgets sortable)-->
+<section class="col-lg-5 connectedSortable">
 
-						<dl class="dl-horizontal">
-							<dt><?php echo $this->translate('Address')?>:</dt>
-							<dd><?php echo $this->profile['address']?></dd>
+	<h3>Notifications:</h3>
+     
+</section>
 
-							<dt><?php echo $this->translate('Landline')?>:</dt>
-							<dd><?php echo $this->profile['landline']?></dd>
 
-							<dt><?php echo $this->translate('Cellphone')?>:</dt>
-							<dd><?php echo $this->profile['cellphone']?></dd>
+<div class="col-md-6">
+	<div class="box box-solid" style="padding: 5px">
 
-							<dt><?php echo $this->translate('Joined Date')?>:</dt>
-							<dd><?php echo $this->profile['created']?></dd>
+		<h1>Welcome <?php echo $this->layout()->auth["firstname"]?> <?php echo $this->layout()->auth["middle"]?> <?php echo $this->layout()->auth["lastname"]?></h1>
+		<p>Welcome back to the wonderful world of Sourcefit!</p>
 
-							<dt><?php echo $this->translate('Last Update')?>:</dt>
-							<dd><?php echo $this->profile['last_modified']?></dd>
+		<div class="well">
+			<h4>Attendance for <?php echo $dt->format('l, M j, Y  (T) '); ?></h4>
 
-							<dt></dt>
-							<dd></dd>
+			<div class="box">
+				<p>Schedule</p>
+			</div>
+			<!--  buttons  -->
+			<div class="row">
 
-							<dt><?php echo $this->translate('About')?>:</dt>
-							<dd><?php echo $this->profile['about']?></dd>
-						</dl>
+				<!-- ./col -->
+				<div class="col-lg-3 col-xs-6">
+					<p>Work</p>
+					<div class="btn-group-vertical">
+						<button type="button" class="btn btn-default">Work</button>
+		
 					</div>
 
-
 				</div>
+
+				<div class="col-lg-3 col-xs-6">
+					<p>Non Work</p>
+
+					<div class="btn-group-vertical" role="group-non-work"
+						aria-label="...">
+						<button type="button" class="btn btn-default">Break</button>
+						<button type="button" class="btn btn-default">Other</button>
+						
+					</div>
+				</div>
+
+				<!-- ./col -->
+				<div class="col-lg-3 col-xs-6">
+					<div class="btn-group-vertical" role="group-non-work"
+						aria-label="...">
+						<button type="button" class="btn btn-default">End Shift</button>
+					</div>
+				</div>
+				<!-- ./col -->
 			</div>
+
 
 		</div>
 
-	</section>
-	<!-- /.Left col -->
 
-	<!-- right col (We are only adding the ID to make the widgets sortable)-->
-	<section class="col-lg-5 connectedSortable">
+	</div>
+</div>
 
-		<div class="panel panel-default">
-			<div class="panel-heading">Profile Menu</div>
-			<div class="panel-body rightbar-menu">
-				<!-- right navigation //-->
-              <?php echo $this->render('layout/profile-menu') ?>
-			</div>
-		</div>
-	</section>
+<section class="col-lg-5 connectedSortable">
+<div class="box" style="padding: 5px">
+<h3>Whats New?</h3>
 
 </div>
+	
+<div class="box" style="padding: 5px">
+<h3>Question of the Day:</h3>
+<p>How did you feel at the end of your work?</p>
+
+</div>
+</section>
