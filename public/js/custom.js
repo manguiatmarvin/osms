@@ -31,8 +31,11 @@ $(function() {
 	
 
 	
-	$( "button, input[type='submit']" ).addClass( "btn btn-primary" );
+	$( "button, input[type='submit']" ).addClass( "btn btn-flat" );
 	$('#image-file').addClass( "btn btn-primary" );
+   
+    $("body").toggleClass("fixed");
+    fix_sidebar();
 
-	
+	    
 });// end function

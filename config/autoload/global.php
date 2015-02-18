@@ -2,7 +2,7 @@
 return array (
 		'db' => array (
 				'driver' => 'Pdo',
-				'dsn' => 'mysql:dbname=zend_tut1;host=localhost',
+				'dsn' => 'mysql:dbname=osms;host=localhost',
 				'driver_options' => array (
 						PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\'' 
 				) 
@@ -35,18 +35,88 @@ return array (
 								'class' => 'fa-user',
 								'resource'=> 'profile',
 								'pages' => array (
+										
 										array (
-												'label' => 'Overview',
+												'label' => 'Home',
 												'route' => 'profile',
 												'action' => 'view',
 												'resource'=> 'viewProfile',
 												'show_in_menu' => true,
 										),
+
+										array (
+												'label' => 'My Profile',
+												'route' => 'profile',
+												'action' => 'my-profile',
+												'resource'=> 'my-profile',
+												'show_in_menu' => true,
+										),
+										array (
+												'label' => 'Leaves',
+												'route' => 'profile',
+												'action' => 'my-leaves',
+												'resource'=> 'my-leaves',
+												'show_in_menu' => true,
+										),
+										
+										array (
+												'label' => 'Memos',
+												'route' => 'profile',
+												'action' => 'my-memos',
+												'resource'=> 'my-memos',
+												'show_in_menu' => true,
+										),
+
+										array (
+												'label' => 'Attendance',
+												'route' => 'profile',
+												'action' => 'my-attendance',
+												'resource'=> 'my-attendance',
+												'show_in_menu' => true,
+										),
+
+										array (
+												'label' => 'Evaluations',
+												'route' => 'profile',
+												'action' => 'my-evaluations',
+												'resource'=> 'my-evaluations',
+												'show_in_menu' => true,
+										),
+										array (
+												'label' => 'Quizzes',
+												'route' => 'profile',
+												'action' => 'my-quizzes',
+												'resource'=> 'my-quizzes',
+												'show_in_menu' => true,
+										),
+										array (
+												'label' => 'Feedback',
+												'route' => 'profile',
+												'action' => 'my-feedback',
+												'resource'=> 'my-feedback',
+												'show_in_menu' => true,
+										),
+
+										array (
+												'label' => 'Points',
+												'route' => 'profile',
+												'action' => 'my-points',
+												'resource'=> 'my-points',
+												'show_in_menu' => true,
+										),
+										array (
+												'label' => 'Clubs',
+												'route' => 'profile',
+												'action' => 'my-clubs',
+												'resource'=> 'my-clubs',
+												'show_in_menu' => true,
+										),
+										
 										array (
 												'label' => 'Edit Profile',
 												'route' => 'profile',
 												'action' => 'edit',
-												'show_in_menu' => false,
+												'show_in_menu' => true,
 										),
 										array (
 												'label' => 'Update Password',
@@ -87,7 +157,12 @@ return array (
 												'label' => 'Employee',
 												'route' => 'hr',
 												'action' => 'employee', 
-												'resource'=>'employee'
+												'resource'=>'employee',
+												'pages'=> array(array('label'=>'View Employee',
+														               'route'=>'hr',
+														                'resource'=>'view-employe',
+														                'show_in_menu' => true,
+												))
 										),
 										array (
 												'label' => 'Pre-Employment',
@@ -104,7 +179,7 @@ return array (
 												'label' => 'Employee Details',
 												'route' => 'hr',
 												'action' => 'view-employee',
-												'show_in_menu' => false,
+												'show_in_menu' => true,
 										
 										),
 										
@@ -147,45 +222,38 @@ return array (
 						),
 						
 						array (
-								'label' => 'Accounting',
-								'route' => 'hr',
-								'class' => 'fa-book',
-								'resource'=> 'accounting',
+								'label' => 'Client',
+								'route' => 'client',
+								'class' => ' fa-money',
+								'resource' => 'client',
 								'pages' => array (
 										array (
-												'label' => 'View Album',
-												'route' => 'album',
+												'label' => 'client',
+												'route' => 'client',
 												'action' => 'index',
-												'show_in_menu' => false,
-												 
+												'resource'=>'client-index',
+												'show_in_menu' => true 
+										) 
+								),
+								'pages' => array (
+										array (
+												'label' => 'My Staff',
+												'route' => 'client',
+												'action' => 'mystaff',
+												'resource'=>'mystaff',
+												'show_in_menu' => true
 										),
 										array (
-												'label' => 'Add',
-												'route' => 'album',
-												'action' => 'add' 
-										),
-										array (
-												'label' => 'Edit',
-												'route' => 'album',
-												'action' => 'edit',
-												'show_in_menu' => false,
-										),
-										array (
-												'label' => 'Delete',
-												'route' => 'album',
-												'action' => 'delete', 
-												'show_in_menu' => false,
-										),
-										array (
-												'label' => 'Search Results',
-												'route' => 'album',
-												'action' => 'searchresult',
-												'show_in_menu' => false,
+												'label' => 'My Projects',
+												'route' => 'client',
+												'action' => 'client-projects',
+												'resource'=>'client-projects',
+												'show_in_menu' => true
 										)
-										
-										
-								) 
-						) 
+								),
+							
+								
+						),
 				) 
 		) 
 );

@@ -150,6 +150,7 @@ function fix_sidebar() {
         height: ($(window).height() - $(".header").height()) + "px",
         color: "rgba(0,0,0,0.2)"
     });
+   
 }
 
 /*END DEMO*/

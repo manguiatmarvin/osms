@@ -1,12 +1,11 @@
 <?php
-date_default_timezone_set('America/Chicago');
-//date_default_timezone_set('Asia/Manila');
+//date_default_timezone_set('America/Chicago');
+
+date_default_timezone_set('Asia/Manila'); 
 define('ROOT_PATH', dirname(__DIR__));
-
-$protocol = ($_SERVER["SERVER_PROTOCOL"]=='HTTP/1.1') ? "http://":"https://";define('SERVER_PROTOCOL',$protocol);
-
+$protocol = ($_SERVER["SERVER_PROTOCOL"]=='HTTP/1.1') ? "http://":"https://";
+define('SERVER_PROTOCOL',$protocol);
 define('HOST',$protocol.$_SERVER["HTTP_HOST"]);
-
 
 /**
  * Display all errors when APPLICATION_ENV is development.
@@ -24,7 +23,6 @@ if(!empty($_SERVER['APPLICATION_ENV'])){
  * to the application root now.
  */
 chdir(dirname(__DIR__));
-
 
 // Setup autoloading
 require 'init_autoloader.php';

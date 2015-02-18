@@ -94,6 +94,7 @@ class AuthController extends AbstractActionController
 
                 if ($result->isValid()) {
                     $redirect = 'home';
+                    $action = "index";
                     //check if it has rememberMe :
                     if ($remember_me == 1 ) {
                         $this->getSessionStorage()
@@ -105,10 +106,24 @@ class AuthController extends AbstractActionController
          
                     $loginDetails = $this->getAuthTable()->getProfileInfoByUserName($username);
                     
+              
+                     if($loginDetails["role"]=="manager"){
+                     	$redirect = "hr";
+                     	$action = "employee";
+                     }else if($loginDetails["role"]=="client"){
+                     	$redirect = "client";
+                     	$action = "mystaff";
+                     }else if($loginDetails["role"]=="employee"){
+                     	$redirect = "profile";
+                     	$action = "view";
+                     }
+                    
                     $this->getAuthService()->getStorage()->write($loginDetails);
+        
                     
                     //login
                      $emp_id  = $this->getAuthTable()->getEmployeeId($loginDetails["id"]);
+               
                      $debug['id'] = $loginDetails["id"];
                      $debug['emp_id'] = $emp_id;
               
@@ -119,7 +134,7 @@ class AuthController extends AbstractActionController
                 }
         }
 
-        return $this->redirect()->toRoute($redirect);
+        return $this->redirect()->toRoute($redirect,array('action'=>$action));
     }
 
     public function logoutAction()

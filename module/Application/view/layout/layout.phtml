@@ -75,19 +75,19 @@ $profile_pic = $this->layout()->auth["profile_pic_url"];
 <body class="skin-x">
 	<!-- header logo: style can be found in header.less -->
 	<header class="header">
-        
-        <?php  $url = $this->url('home');
-         ?>
-            <a href="<?php echo $url ?>" class="logo"> <!-- Add the class icon to your logo image or logo icon to add the margining -->
-		
+        <a href="<?php echo $this->url('home') ?>" class="logo"> <!-- Add the class icon to your logo image or logo icon to add the margining -->
+		<img src="/img/logoSmall.png" height="17px" width="145px">
 		</a>
+		
+		
 		<!-- Header Navbar: style can be found in header.less -->
 		<nav class="navbar navbar-static-top" role="navigation">
 			<!-- Sidebar toggle button-->
 			<a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas"
-				role="button"> <span class="sr-only">Toggle navigation</span> <span
-				class="icon-bar"></span> <span class="icon-bar"></span> <span
-				class="icon-bar"></span>
+				role="button"> <span class="sr-only">Toggle navigation</span> 
+				<span class="icon-bar"></span> 
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
 			</a>
 			<div class="navbar-right">
 				<ul class="nav navbar-nav">
@@ -267,7 +267,9 @@ $profile_pic = $this->layout()->auth["profile_pic_url"];
 							<li class="footer"><a href="#">View all tasks</a></li>
 						</ul></li>
 					<!-- User Account: style can be found in dropdown.less -->
-					<li class="dropdown user user-menu"><a href="#"
+					<li class="dropdown user user-menu">
+					
+					<a href="#"
 						class="dropdown-toggle" data-toggle="dropdown"> <i
 							class="glyphicon glyphicon-user"></i> <span><?php echo $loggedInUser ?> <i
 								class="caret"></i></span>
@@ -302,17 +304,20 @@ $profile_pic = $this->layout()->auth["profile_pic_url"];
 		<aside class="left-side sidebar-offcanvas">
 			<!-- sidebar: style can be found in sidebar.less -->
 			<section class="sidebar">
+				
+				<div class= "user-box">
 				<!-- Sidebar user panel -->
-				<div class="user-panel">
-					<div class="pull-left image">
+				<div class="user-panel" style="text-align:center">
+					<div class="image">
 						<img src="<?php echo HOST.$profile_pic;?>" class="img-circle"
 							alt="<?php echo  $loggedInUser?>"
 							title="<?php echo  $loggedInUser?>" />
 					</div>
-					<div class="pull-left info">
-						<p title="<?php echo  $loggedInUser?>"> Hello, <?php echo $this->layout()->auth['firstname']; ?></p>
-
-						<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+					<div class="info">
+						<p title="<?php echo  $loggedInUser?>" style="text-transform: uppercase; font-weight:normal"><?php echo $this->layout()->auth['firstname']?> <span style="font-weight:bold"><?php echo $this->layout()->auth['lastname'] ?></span></p>
+						<p style="text-transform:capitalize;text-decoration:underline;font-weight:normal"><?php echo $this->layout()->position["position_name"];
+						 ?></p>
+						<p style="font-style: italic">"Never gonna give you up Never gonna let you down Never gonna run around and desert you"</p>
 					</div>
 				</div>
 				<!-- search form -->
@@ -327,6 +332,7 @@ $profile_pic = $this->layout()->auth["profile_pic_url"];
 						</span>
 					</div>
 				</form>
+				</div>
 				<!-- /.search form -->
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 				<ul class="sidebar-menu">
@@ -349,15 +355,7 @@ $profile_pic = $this->layout()->auth["profile_pic_url"];
 
 		<!-- Right side column. Contains the navbar and content of the page -->
 		<aside class="right-side">
-			<!-- Content Header (Page header) -->
-	        <?php echo $this->navigation('navigation')->breadcrumbs()
-                                                      ->setMinDepth(0)
-                                                      ->setMaxDepth(2)
-                                                      ->setPartial('partial/breadcrumb');
-	        
-	        
-	        
-            ?>
+
 
 			<!-- Main content -->
 			<section class="content">

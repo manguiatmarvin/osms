@@ -90,7 +90,8 @@ use Zend\Paginator\Paginator;
      
      	$statement = $dbAdapter->query ( $sql );
      	$result = $statement->execute ();
-     	return $result->current();
+     	$ret = $result->current();
+     	return $ret;
      }
     
 

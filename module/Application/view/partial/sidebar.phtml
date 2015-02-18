@@ -42,7 +42,7 @@ $role = $this->layout()->auth['role'];
                             <?php foreach ($parent as $child):?>
                             <?php if($child->get('resource')!="" && $acl->isAllowed($role,$child->get('resource'))):?>
                             <?php if($child->get('show_in_menu') === false) continue ?>
-                            <li><a href="<?php echo $child->getHref()?>"><i class="fa fa-angle-double-right"></i><?php echo $child->getLabel()?> </a></li>
+                            <li class="<?php echo $child->isActive() ? "active":"inactive"?>"><a href="<?php echo $child->getHref()?>"><i class="fa fa fa-stop"></i><?php echo $child->getLabel()?> </a></li>
                            <?php endif;?>
                             <?php endforeach;?>
                             </ul>
