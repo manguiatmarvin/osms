@@ -44,9 +44,92 @@ class HrController extends AbstractActionController {
 	
     protected $logger;
 	
+	//Hr Manager Home
 	public function indexAction() {
 		
 		$this->checkLogin();
+	}
+	
+	/**
+	 * Add Customer client Account
+	 */
+	public function addCustomerAction(){
+	   return new ViewModel();
+	}
+	
+	/**
+	 * 
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	public function createMemoAction(){
+		return new ViewModel();
+	}
+	
+	/**
+	 * 
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	public function attendanceMonitorAction(){
+		return new ViewModel();
+	}
+	
+	/**
+	 * 
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	public function schedulingAction(){
+		return new ViewModel();
+	}
+	
+	
+	/**
+	 *
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	public function leaveMonitorAction(){
+		return new ViewModel();
+	}
+	
+	/**
+	 *
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	public function evaluationAction(){
+		return new ViewModel();
+	}
+	
+
+	/**
+	 *
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	public function createQuizAction(){
+		return new ViewModel();
+	}
+	
+	
+	/**
+	 *
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	public function createNewsAction(){
+		return new ViewModel();
+	}
+	
+	/**
+	 *
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	public function clubsAction(){
+		return new ViewModel();
+	}
+	
+	/**
+	 *
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	public function pointsAction(){
+		return new ViewModel();
 	}
 	
 	public function employeeAction() {

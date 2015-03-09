@@ -54,7 +54,10 @@ return array(
     ),
     'service_manager' => array(
          'factories' => array(
-    		'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory', // <-- add this
+    		'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory', 
+         	'employee' => 'Application\Navigation\Service\EmployeeNavigationFactory',
+         	'hr-manager' => 'Application\Navigation\Service\HrManagerNavigationFactory',
+         	'client' => 'Application\Navigation\Service\ClientNavigationFactory'
          ),
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',

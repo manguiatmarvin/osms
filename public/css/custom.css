@@ -16,11 +16,9 @@
 .skin-x .content{
 padding:0px;
 overflow: hidden;
-
 }
 
 .skin-x .panel_center{
-
 margin-bottom: 20px;
 background-color: #B5B5B5;
 border: 1px solid transparent;
@@ -266,8 +264,6 @@ border-bottom: 1px solid transparent;
 border-top-right-radius: 3px;
 border-top-left-radius: 3px;
 }
-
-
 
 
 .thumbnail{

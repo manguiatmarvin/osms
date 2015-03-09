@@ -17,7 +17,7 @@ class ClientController extends AbstractActionController {
 		}
 		
 		
-		public function mystaffAction(){
+		public function myTeamAction(){
 			$this->checkLogin();
 			
 			$loginDetails = $this->getServiceLocator ()->get ( 'AuthService' )->getIdentity();

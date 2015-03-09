@@ -1,0 +1,106 @@
+<?php
+/**
+ * Sidebar Content
+ * -Dynamic Sidebar for Zend Framework 2
+ *
+ * Author: Marvin Manguiat U.
+ * Sourcefit Philippines Inc
+ * Aug. 28, 2014
+ */
+// var_dump($this->layout()->acl->isAllowed('admin','profile'));
+$acl = $this->layout ()->acl;
+$role = $this->layout ()->auth ['role'];
+
+// parent
+$parentNode = array ();
+$parentNodeLabel = array ();
+$parentNodeHref = array ();
+
+// child
+$childNode = array ();
+$childNodeLabel = array ();
+$childNodeHref = array ();
+
+foreach ( $this->container as $parent ) {
+	$p ['link'] = $this->navigation ()->menu ()->htmlify ( $parent ) . PHP_EOL;
+	$p ['label'] = $parent->getLabel ();
+	$p ['href'] = $parent->getHref ();
+	$p['isActive'] = $parent->isActive() ? "active":"";
+	$p['showInMenu'] = $parent->get('show_in_menu');
+	
+	$parentNode [] = $p;
+	
+	if ($parent->hasPages () && $parent->isActive ()) {
+		
+		foreach ( $parent as $child ) {
+			
+			$c ['link'] = $this->navigation ()->menu ()->htmlify ( $child ) . PHP_EOL;
+			$c ['label'] = $child->getLabel ();
+			$c ['href'] = $child->getHref ();
+			$c['isActive'] = $child->isActive() ? "active":"";
+			$c['showInMenu'] = $child->get('show_in_menu');
+			$childNode [] = $c;
+		}
+	}
+}
+?>
+<section class="sidebar">
+
+	<div class="profile-container-main" style="background-color: #DD6D1C">
+		<!-- Sidebar user panel -->
+		<div class="user-panel">
+
+			<div class="image" style="text-align: center;">
+				<img
+					src="<?php echo HOST. $this->layout()->auth["profile_pic_url"];?>"
+					class="img-circle" alt="User Image"
+					style="width: 80px; height: 85px; border: none; margin-bottom: 5px">
+			</div>
+
+			<div class="info">
+				<p style="text-align: center; text-transform: uppercase">
+					<span class="p_fname"><?php echo $this->layout()->auth["firstname"] ?></span><span
+						class="p_lname"><?php echo $this->layout()->auth["lastname"] ?></span>
+				</p>
+
+				<p class="p_position">Manager</p>
+
+
+				<small style="font-style: italic; color: #FCD0A6"><i
+					class="fa  fa-quote-left"></i> Never gonna give you up Never gonna
+					let you down Never gonna run around and desert you <i
+					class="fa  fa-quote-right "></i> </small>
+			</div>
+
+
+			<div class="loggedin-as btn-group" style="width: 100%">
+				<p class="p_position">Logged in As</p>
+
+	<?php foreach ($parentNode as $parentt):?>
+	
+	 <?php if($parentt['showInMenu'] === false) continue ?>
+		<a href="<?php echo  $parentt['href']?>"
+					class="teamsize btn  bg-orange btn-flat btn-sm <?php echo $parentt['isActive']?>" style=""> <i
+					class="fa fa-users"></i> <b><?php echo $parentt['label']?></b> <br>
+				</a> 
+
+    <?php endforeach;?>
+
+</div>
+
+		</div>
+
+	</div>
+
+	<ul class="sidebar-menu">
+		 <?php foreach ($childNode as $childd):?>
+		 <li class="<?php echo $childd['isActive']?>">
+		 <a href="<?php echo $childd['href']; ?>">
+		  <i class="fa   fa-home"></i><span><?php echo $childd['label']; ?></span>
+		 </a>
+		</li>
+		<?php endforeach;?>
+		
+		
+	</ul>
+</section>

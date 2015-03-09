@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Sidebar Content 
@@ -13,8 +14,36 @@
 $acl = $this->layout()->acl;
 $role = $this->layout()->auth['role'];
 
-
 ?>
+
+   
+        <section class="sidebar">
+        
+          <div class="profile-container-main" style="background-color:#DD6D1C">
+					<!-- Sidebar user panel -->
+					<div class="user-panel">
+
+						<div class="image" style="text-align: center;">
+							<img src="<?php echo HOST. $this->layout()->auth["profile_pic_url"];?>" class="img-circle"
+								alt="User Image"
+								style="width: 80px; height: 85px; border: none; margin-bottom: 5px">
+						</div>
+
+						<div class="info">
+							<p style="text-align: center">
+								<span class="p_fname"><?php echo $this->layout()->auth["firstname"] ?></span><span class="p_lname"><?php echo $this->layout()->auth["lastname"] ?></span>
+							</p>
+
+							<p class="p_position">Manager</p>
+							<small style="font-style: italic; color: #FCD0A6"><i
+								class="fa  fa-quote-left"></i> Never gonna give you up Never
+								gonna let you down Never gonna run around and desert you <i
+								class="fa  fa-quote-right "></i> </small>
+						</div>
+
+					</div>
+					</div>
+					
      <?php foreach($this->container as $parent):?>
                       <?php if($parent->get('show_in_menu') === false) continue ?>
                        <?php if(!$parent->hasPages()):?>
@@ -50,3 +79,8 @@ $role = $this->layout()->auth['role'];
                         <?php endif;?>
                        <?php endif;?>
                      <?php endforeach;?>
+                     
+                     
+                     
+                     
+                             </section>

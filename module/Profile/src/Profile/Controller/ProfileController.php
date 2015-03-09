@@ -14,6 +14,13 @@ class ProfileController extends AbstractActionController {
 	protected $profileTable;
 	protected $usersId;
 	
+	
+	 /**
+	  * Home Contains the attendance form 
+	  * 
+	  * (non-PHPdoc)
+	  * @see \Zend\Mvc\Controller\AbstractActionController::indexAction()
+	  */
 	public function indexAction() {
 		if (! $this->getServiceLocator()
 				->get('AuthService')->hasIdentity()){
@@ -25,13 +32,58 @@ class ProfileController extends AbstractActionController {
 			
 		}
 				
-	 $profile = $this->getProfileTable ()->getProfileInfoByUserName($identity);
+	     $profile = $this->getProfileTable ()->getProfileInfoByUserName($identity);
 		
 		return new ViewModel(array(
 			'profile'=>$profile
 		));
 	
 	}
+	
+	/**
+	 * My Profile
+	 * Contains the employee information 
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	public function MyProfileAction(){
+	   return new ViewModel();
+	}
+
+	public function myAttendanceAction(){
+		return new ViewModel();
+	}
+	
+
+	public function myMemosAction(){
+		return new ViewModel();
+	}
+	
+	public function myLeavesAction(){
+		return new ViewModel();
+	}
+
+	public function myEvaluationsAction(){
+		return new ViewModel();
+	}
+	
+	public function myQuizzesAction(){
+		return new ViewModel();
+	}
+
+
+	public function myFeedbacksAction(){
+		return new ViewModel();
+	}
+
+	public function myClubsAction(){
+		return new ViewModel();
+	}
+
+	public function myPointsAction(){
+		return new ViewModel();
+	}
+	
+
 	
 	public function viewAction(){
 		$identity = null;
@@ -59,47 +111,6 @@ class ProfileController extends AbstractActionController {
 		return new ViewModel(array(
 				'profile' => $profile,
 		)); 
-	}
-	
-	public function myProfileAction(){
-		return new ViewModel();
-	}
-	
-	public function myLeavesAction(){
-		return new ViewModel();
-	}
-	
-	public function myMemosAction(){
-		return new ViewModel();
-	}
-	
-	public function myQuizzesAction(){
-		return new ViewModel();
-	}
-
-	public function myAttendanceAction(){
-		return new ViewModel();
-	}
-	
-	public function myEvaluationsAction(){
-		return new ViewModel();
-	}
-	
-	public function mySalaryAction(){
-		return new ViewModel();
-	}
-	
-
-	
-	public function myFeedbackAction(){
-		return new ViewModel();
-	}
-	
-	public function myClubsAction(){
-		return new ViewModel();
-	}
-	public function myPointsAction(){
-		return new ViewModel();
 	}
 	
 	

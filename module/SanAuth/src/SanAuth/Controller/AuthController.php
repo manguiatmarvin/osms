@@ -107,9 +107,13 @@ class AuthController extends AbstractActionController
                     $loginDetails = $this->getAuthTable()->getProfileInfoByUserName($username);
                     
               
-                     if($loginDetails["role"]=="manager"){
-                     	$redirect = "hr";
-                     	$action = "employee";
+                     if($loginDetails["role"]=="hr-manager"){
+                     	$redirect = "profile";
+                     	$action = "index";
+                     	$subRole = array('subRole'=>'hr-manager');
+                     	$loginDetails = array_merge($subRole,$loginDetails);
+            
+                     	
                      }else if($loginDetails["role"]=="client"){
                      	$redirect = "client";
                      	$action = "mystaff";
@@ -118,6 +122,7 @@ class AuthController extends AbstractActionController
                      	$action = "view";
                      }
                     
+      
                     $this->getAuthService()->getStorage()->write($loginDetails);
         
                     

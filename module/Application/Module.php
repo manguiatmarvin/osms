@@ -19,8 +19,14 @@ use Zend\Log\Logger;
 use Zend\Log\Writer\Stream;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Zend\ModuleManager\Feature\ViewHelperProviderInterface;
 
-class Module{
+use Zend\Session\Config\SessionConfig;
+use Zend\Session\Container;
+use Zend\Session\SessionManager;
+
+
+class Module implements ViewHelperProviderInterface{
 	
 	protected $logger;
 	
@@ -53,6 +59,8 @@ class Module{
     	
     	$auth 		= null;
 		$position 	= null;
+		$route = $e->getRouteMatch()->getMatchedRouteName();
+		
     	if (! $this->isOpenRequest ( $e )) {
     		
     		$auth = $e->getApplication()->getServiceManager()->get('AuthService')->getStorage ()->read ();
@@ -67,6 +75,14 @@ class Module{
     			if($auth['users_id']!=null){
     				
     				$userid = $auth['users_id'];
+    				$mainRole  = $auth['role'];
+    			
+    				
+    				if(!empty($subRole)){
+    				   	
+    					
+    				}
+    				
     				
     				$dbAdapter = $e->getApplication()->getServiceManager()->get('Zend\Db\Adapter\Adapter');
     				$sql = "SELECT 
@@ -117,36 +133,37 @@ class Module{
     			//$roles = include __DIR__ . '/config/module.acl.roles.php';
     			
     			$roles = $this->getAclDbRoles($e);
-    	 
-
     			
     			$allResources = array();
+				foreach ( $roles as $role => $resources ) {
+					
+					$role = new \Zend\Permissions\Acl\Role\GenericRole ( $role );
+					$acl->addRole ( $role );
+					
+					$allResources = array_merge ( $resources, $allResources );
+					
+					// adding resources
+					foreach ( $resources as $resource ) {
+						if (! $acl->hasResource ( $resource ))
+							$acl->addResource ( new \Zend\Permissions\Acl\Resource\GenericResource ( $resource ) );
+					}
+					// adding restrictions
+					// If access inheritance is needed just replace bellow code from-> foreach ($resources as $resource) { to -> foreach ($allResources as $resource) {
+					foreach ( $resources as $resource ) {
+						$acl->allow ( $role, $resource );
+					}
+				}
     			
-    			foreach ($roles as $role => $resources) {
-    			
-    				$role = new \Zend\Permissions\Acl\Role\GenericRole($role);
-    				$acl -> addRole($role);
-    			
-    				$allResources = array_merge($resources, $allResources);
-    			
-    				//adding resources
-    				foreach ($resources as $resource) {
-    					if(!$acl ->hasResource($resource))
-    						$acl -> addResource(new \Zend\Permissions\Acl\Resource\GenericResource($resource));
-    				}
-    				//adding restrictions
-    				//If access inheritance is needed just replace bellow code from-> foreach ($resources as $resource) { to -> foreach ($allResources as $resource) { 
-    				foreach ($resources as $resource) {
-    					$acl -> allow($role, $resource);
-    				}
-    			}
-    	
-    			$e->getViewModel()->setVariables(array('auth' 		=> $auth,
-    													'position'	=> $position,
-    			                                        'acl'		=> $acl));
+				$e->getViewModel ()->setVariables ( array (
+						'auth' => $auth,
+						'position' => $position,
+						'acl' => $acl,
+						'route' => $route 
+				) );
     			
     			
-    	        $resource = $e -> getRouteMatch()->getParam("action");
+    	        $resource = $e -> getRouteMatch()->getParam('action', 'index');
+ 
     	        
     	        if($auth['role']==null){
     	        	$auth['role'] = 'guest';
@@ -247,5 +264,17 @@ class Module{
                 ),
             ),
         );
+    }
+    
+    public function getViewHelperConfig()
+    {
+    	return array(
+    			'factories' => array(
+    					'nav_helper' => function($sm) {
+    						$helper = new View\Helper\Navigationhelper;
+    						return $helper;
+    					}
+    			)
+    	);
     }
 }
