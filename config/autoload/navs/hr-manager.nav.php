@@ -126,6 +126,14 @@ return array (
 								'show_in_menu' => true,
 						),
 						array (
+								'label' => 'Add Employee',
+								'route' => 'hr',
+								'action' => 'add-employee',
+								'resource' => 'Hr.add-employee',
+								'class' => 'fa-plus-square',
+								'show_in_menu' => true,
+						),
+						array (
 								'label' => 'Create Memo',
 								'route' => 'hr',
 								'action' => 'create-memo',
@@ -145,7 +153,21 @@ return array (
 								'action' => 'scheduling',
 								'resource' => 'Hr.scheduling',
 								'class' => 'fa-clock-o',
-								'show_in_menu' => true
+								'show_in_menu' => true,
+						 		
+						 ),array('label' => 'Assign Schedule To Employee',
+								'route' => 'hr',
+								'action' => 'assign-schedule-employee',
+								'resource' => 'Hr.assign-schedule-employee',
+								'class' => 'fa-clock-o',
+								'show_in_menu' => false
+						 		
+						 ),array('label' => 'Assign Schedule To Team',
+								'route' => 'hr',
+								'action' => 'assign-schedule-team',
+								'resource' => 'Hr.assign-schedule-team',
+								'class' => 'fa-clock-o',
+								'show_in_menu' => false
 						 		
 						 ),array('label' => 'Leave Monitor',
 								'route' => 'hr',
