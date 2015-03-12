@@ -1,0 +1,365 @@
+
+<style>
+.ui-autocomplete {
+	background:#ffffff;
+            font-weight: bold;
+            border-color: #2e2e2e;
+            border-style: solid;
+            border-width: 2px 2px 2px 2px;
+            outline: none;
+            padding: 10px 20px 10px 20px;
+            width: 250px;
+}
+
+.ui-autocomplete { height: 200px; overflow-y: scroll; overflow-x: hidden;}
+#project-label {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 1em;
+}
+
+#project-icon {
+	float: left;
+	height: 32px;
+	width: 32px;
+}
+
+#project-description {
+	margin: 0;
+	padding: 0;
+}
+
+.ui-autocomplete
+{
+z-index:15000;
+}
+.ui-autocomplete {
+
+  width:200px;
+}
+</style>
+
+<!-- Main row -->
+<div class="row">
+
+
+	<div class="modal hide" id="addBookDialog">
+		<div class="modal-header">
+			<button class="close" data-dismiss="modal">×</button>
+			<h3>Modal header</h3>
+		</div>
+		<div class="modal-body">
+			<p>some content</p>
+			<input type="text" name="bookId" id="bookId" value="" />
+		</div>
+	</div>
+
+
+	<!-- Left col -->
+	<section class="col-lg-7 connectedSortable ui-sortable">
+		<!-- /.ATTENDACE box -->
+		<div class="panel panel-default sfit">
+			<div class="panel-heading">
+				<h3 class="panel-title">ASSIGN SCHEDULE TO TEAM</h3>
+			</div>
+			<div class="panel-body">
+				<!--// Attendance alert panel content -->
+				<div class="box-body chat" id="chat-box"
+					style="overflow: auto; width: auto; height: auto;">
+
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<th style="width: 10px">Id</th>
+								<th>Schedule</th>
+								<th>Mon</th>
+								<th>Tue</th>
+								<th>Wed</th>
+								<th>Thu</th>
+								<th>Fri</th>
+								<th>Sat</th>
+								<th>Sun</th>
+							</tr>
+							<tr class="small">
+								<td>1.</td>
+								<td><span class="badge bg-blue">
+										<div role="presentation" class="dropdown">
+											<a class="dropdown-toggle" data-toggle="dropdown" href="#"
+												role="button" aria-expanded="false"> MF7am-10pm <span
+												class="caret"></span>
+											</a>
+											<ul class="dropdown-menu" role="menu">
+
+												<li><a href="#myModal" data-toggle="modal" id="1"
+													data-target="#edit-modal">Assign to Employee</a></li>
+												<li><a href="#">Assign to Team</a></li>
+												<li class="divider"></li>
+												<li><a href="#">Edit</a></li>
+												<li><a href="#">Delete</a></li>
+											</ul>
+										</div>
+								</span></td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+							</tr>
+							<tr class="small">
+								<td>1.</td>
+								<td><span class="badge bg-blue">
+										<div role="presentation" class="dropdown">
+											<a class="dropdown-toggle" data-toggle="dropdown" href="#"
+												role="button" aria-expanded="false"> MF7am-10pm <span
+												class="caret"></span>
+											</a>
+											<ul class="dropdown-menu" role="menu">
+
+												<li><a href="#myModal" data-toggle="modal" id="2"
+													data-target="#edit-modal">Assign to Employee</a></li>
+												<li><a href="#">Assign to Team</a></li>
+												<li class="divider"></li>
+												<li><a href="#">Edit</a></li>
+												<li><a href="#">Delete</a></li>
+											</ul>
+										</div>
+								</span></td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+							</tr>
+
+							<tr class="small">
+								<td>1.</td>
+								<td><span class="badge bg-blue">
+										<div role="presentation" class="dropdown">
+											<a class="dropdown-toggle" data-toggle="dropdown" href="#"
+												role="button" aria-expanded="false"> MF7am-10pm <span
+												class="caret"></span>
+											</a>
+											<ul class="dropdown-menu" role="menu">
+
+												<li><a href="#myModal" data-toggle="modal" id="3"
+													data-target="#edit-modal">Assign to Employee</a></li>
+												<li><a href="#">Assign to Team</a></li>
+												<li class="divider"></li>
+												<li><a href="#">Edit</a></li>
+												<li><a href="#">Delete</a></li>
+											</ul>
+										</div>
+								</span></td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+							</tr>
+
+							<tr class="small">
+								<td>1.</td>
+								<td><span class="badge bg-blue">
+										<div role="presentation" class="dropdown">
+											<a class="dropdown-toggle" data-toggle="dropdown" href="#"
+												role="button" aria-expanded="false"> MF7am-10pm <span
+												class="caret"></span>
+											</a>
+											<ul class="dropdown-menu" role="menu">
+
+												<li><a href="#">Assign to Employee</a></li>
+												<li><a href="#">Assign to Team</a></li>
+												<li class="divider"></li>
+												<li><a href="#">Edit</a></li>
+												<li><a href="#">Delete</a></li>
+											</ul>
+										</div>
+								</span></td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+							</tr class="small">
+
+							<tr class="small">
+								<td>1.</td>
+								<td><span class="badge bg-blue">
+										<div role="presentation" class="dropdown">
+											<a class="dropdown-toggle" data-toggle="dropdown" href="#"
+												role="button" aria-expanded="false"> MF7am-10pm <span
+												class="caret"></span>
+											</a>
+											<ul class="dropdown-menu" role="menu">
+
+												<li><a href="#">Assign to Employee</a></li>
+												<li><a href="#">Assign to Team</a></li>
+												<li class="divider"></li>
+												<li><a href="#">Edit</a></li>
+												<li><a href="#">Delete</a></li>
+											</ul>
+										</div>
+								</span></td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+							</tr>
+
+							<tr class="small">
+								<td>1.</td>
+								<td><span class="badge bg-blue">
+										<div role="presentation" class="dropdown">
+											<a class="dropdown-toggle" data-toggle="dropdown" href="#"
+												role="button" aria-expanded="false"> MF7am-10pm <span
+												class="caret"></span>
+											</a>
+											<ul class="dropdown-menu" role="menu">
+
+												<li><a href="#">Assign to Employee</a></li>
+												<li><a href="#">Assign to Team</a></li>
+												<li class="divider"></li>
+												<li><a href="#">Edit</a></li>
+												<li><a href="#">Delete</a></li>
+											</ul>
+										</div>
+								</span></td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+							</tr>
+
+							<tr class="small">
+								<td>1.</td>
+								<td><span class="badge bg-blue">
+										<div role="presentation" class="dropdown">
+											<a class="dropdown-toggle" data-toggle="dropdown" href="#"
+												role="button" aria-expanded="false"> MF7am-10pm <span
+												class="caret"></span>
+											</a>
+											<ul class="dropdown-menu" role="menu">
+
+												<li><a href="#">Assign to Employee</a></li>
+												<li><a href="#">Assign to Team</a></li>
+												<li class="divider"></li>
+												<li><a href="#">Edit</a></li>
+												<li><a href="#">Delete</a></li>
+											</ul>
+										</div>
+								</span></td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+								<td>7am-10pm</td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- /.box-body -->
+					<div class="clearfix">
+						<ul class="pagination pagination-sm no-margin pull-right">
+							<li><a href="#">«</a></li>
+							<li><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">»</a></li>
+						</ul>
+					</div>
+
+
+				</div>
+
+
+
+			</div>
+		</div>
+		<!-- /.box -->
+
+		<!-- QUestiosn of the Day box -->
+		<div class="panel panel-default sfit">
+			<div class="panel-heading">
+				<h3 class="panel-title">QUESTIONS OF THE DAY</h3>
+			</div>
+			<div class="panel-body">
+				<!-- // Questionsof the day panel contet -->
+				<p>How do you feel at the end of the day
+			
+			</div>
+		</div>
+		<!-- /.box -->
+	</section>
+	<!-- /.Left col -->
+
+	<!-- right col (We are only adding the ID to make the widgets sortable)-->
+	<section class="col-lg-5 connectedSortable ui-sortable">
+
+		<!-- BULLETIN BOARD box -->
+		<div class="panel panel-default sfit">
+			<div class="panel-heading">
+				<h3 class="panel-title">QUICK ADD SCHEDULE</h3>
+			</div>
+			<div class="panel-body navbar-custom-menu">
+				<!-- / panel content -->
+
+
+			</div>
+		</div>
+		<!-- /.box -->
+
+
+		<!-- Notifications box -->
+                            <?php echo $this->render('layout/hr-notification');?>
+						<!-- /.box -->
+
+	</section>
+	<!-- right col -->
+</div>
+<!-- /.row (main row) -->
+
+<!-- Modal // -->
+
+<div id="edit-modal" class="modal fade" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:2000">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Assign Schedule to Employee</h4>
+			</div>
+			<div class="modal-body">
+				<div class="ui-widget">
+
+						<div id="project-label">Select employee by typing name:</div>
+					
+							<input id="e-names"> 
+							<input type="hidden" id="project-id">
+						    <p id="project-description"></p>
+				
+				</div>
+				<div class="edit-content">...</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>

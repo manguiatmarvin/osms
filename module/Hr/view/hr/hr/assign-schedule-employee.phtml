@@ -1,0 +1,248 @@
+
+<style>
+.ui-autocomplete {
+	background: #ffffff;
+	font-weight: bold;
+	border-color: #ffffff;
+	border-style: solid;
+	border-width: 2px 2px 2px 2px;
+	outline: none;
+	padding: 10px 20px 10px 20px;
+	width: 250px;
+}
+
+.ui-autocomplete {
+	height: 200px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+#project-label {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 1em;
+}
+
+#project-icon {
+	float: left;
+	height: 32px;
+	width: 32px;
+}
+
+#project-description {
+	margin: 0;
+	padding: 0;
+}
+
+.ui-autocomplete {
+	z-index: 15000;
+}
+
+.ui-autocomplete {
+	width: 250px;
+}
+</style>
+
+<!-- Main row -->
+<div class="row">
+
+
+	<div class="modal hide" id="addBookDialog">
+		<div class="modal-header">
+			<button class="close" data-dismiss="modal">×</button>
+			<h3>Modal header</h3>
+		</div>
+		<div class="modal-body">
+			<p>some content</p>
+			<input type="text" name="bookId" id="bookId" value="" />
+		</div>
+	</div>
+
+
+	<!-- Left col -->
+	<section class="col-lg-7 connectedSortable ui-sortable">
+		<!-- /.ATTENDACE box -->
+		<div class="panel panel-default sfit">
+			<div class="panel-heading">
+				<h3 class="panel-title">ASSIGN SCHEDULE TO EMPLOYEE</h3>
+			</div>
+			<div class="panel-body">
+				<!--// Attendance alert panel content -->
+				<div class="box-body chat" id="chat-box"
+					style="overflow: auto; width: auto; height: auto;">
+
+
+					<table class="table table-bordered small">
+						<tbody>
+							<tr>
+								<th style="width: 10px">Id</th>
+								<th>Schedule</th>
+								<th>Mon</th>
+								<th>Tue</th>
+								<th>Wed</th>
+								<th>Thu</th>
+								<th>Fri</th>
+								<th>Sat</th>
+								<th>Sun</th>
+							</tr>
+							<tr class="small">
+								<td><?php echo $this->schedule['id']?></td>
+								<td><span class="badge bg-blue">
+										<?php echo $this->schedule['schedule_name']?>
+								</span></td>
+								<td><?php echo $this->schedule['mon']?></td>
+								<td><?php echo $this->schedule['tue']?></td>
+								<td><?php echo $this->schedule['wed']?></td>
+								<td><?php echo $this->schedule['thur']?></td>
+								<td><?php echo $this->schedule['fri']?></td>
+								<td><?php echo $this->schedule['sat']?></td>
+								<td><?php echo $this->schedule['sun']?></td>
+							</tr>
+
+						</tbody>
+					</table>
+					<br />
+
+
+					<div class="input-group margin col-xs-5 pull-right">
+						<input id="e-names"  type="text" class="form-control"> 
+						<input type="hidden" id="project-id">
+						<input type="hidden" id="sched-id" value="<?php echo $this->schedule['id']?>">
+						<span
+							class="input-group-btn">
+							<button id="assign-employee-schedule" class="btn  btn-flat" type="button">Add</button>
+						</span>
+					</div>
+					<br />
+					
+
+					<div class="row">
+
+
+						<div class="news-box" style="margin-top:50px">
+							<div class="box-body">
+								<div class="news-list news-list-in-box">
+                                 <?php foreach ($this->employees as $e):?>
+									<div class="item">
+										<div class="news-img">
+											<img src="<?php echo $e->profile_pic_url ?>"
+												alt="News Image" class="img-circle">
+										</div>
+										<div class="news-info">
+
+											<p>
+												<a href="#"><?php echo $e->firstname." ".$e->lastname ?></a>
+												
+											</p>
+
+											<span class="news-description"> <small>Feb 25, 2015</small>
+											</span>
+
+										</div>
+									</div>
+									<!-- /.item -->
+									<?php endforeach;?>
+								</div>
+							</div>
+
+							<div style="margin: 0 auto 0 auto">
+								<small><a class="pull-right" href="#">View All</a></small>
+							</div>
+						</div>
+
+
+
+					</div>
+					<!-- /.row -->
+
+					<!-- /.box-body -->
+					<div class="clearfix">
+						<ul class="pagination pagination-sm no-margin pull-right">
+							<li><a href="#">«</a></li>
+							<li><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">»</a></li>
+						</ul>
+					</div>
+
+
+				</div>
+
+
+
+			</div>
+		</div>
+		<!-- /.box -->
+
+		<!-- QUestiosn of the Day box -->
+		<div class="panel panel-default sfit">
+			<div class="panel-heading">
+				<h3 class="panel-title">QUESTIONS OF THE DAY</h3>
+			</div>
+			<div class="panel-body">
+				<!-- // Questionsof the day panel contet -->
+				<p>How do you feel at the end of the day
+			
+			</div>
+		</div>
+		<!-- /.box -->
+	</section>
+	<!-- /.Left col -->
+
+	<!-- right col (We are only adding the ID to make the widgets sortable)-->
+	<section class="col-lg-5 connectedSortable ui-sortable">
+
+		<!-- BULLETIN BOARD box -->
+		<div class="panel panel-default sfit">
+			<div class="panel-heading">
+				<h3 class="panel-title">QUICK ADD SCHEDULE</h3>
+			</div>
+			<div class="panel-body navbar-custom-menu">
+				<!-- / panel content -->
+
+
+			</div>
+		</div>
+		<!-- /.box -->
+
+
+		<!-- Notifications box -->
+                            <?php echo $this->render('layout/hr-notification');?>
+						<!-- /.box -->
+
+	</section>
+	<!-- right col -->
+</div>
+<!-- /.row (main row) -->
+
+<!-- Modal // -->
+
+<div id="edit-modal" class="modal fade" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 2000">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Assign Schedule to
+					Employee</h4>
+			</div>
+			<div class="modal-body">
+				<div class="ui-widget">
+
+					<div id="project-label">Select employee by typing name:</div>
+
+					<input id="e-names"> <input type="hidden" id="project-id">
+					<p id="project-description"></p>
+
+				</div>
+				<div class="edit-content">...</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>

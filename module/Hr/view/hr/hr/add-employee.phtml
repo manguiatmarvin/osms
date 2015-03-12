@@ -1,0 +1,66 @@
+
+<!-- Main row -->
+<div class="row">
+	<!-- Left col -->
+	<section class="col-lg-7 connectedSortable ui-sortable">
+		<!-- /.ATTENDACE box -->
+		<div class="panel panel-default sfit">
+			<div class="panel-heading">
+				<h3 class="panel-title">ADD NEW EMPLOYEE</h3>
+			</div>
+			<div class="panel-body">
+				<!--// Attendance alert panel content -->
+				<div class="box-body chat" id="chat-box"
+					style="overflow: auto; height: auto;">
+					<!-- chat item -->
+	             <form role="form">
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Password</label>
+                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputFile">File input</label>
+                      <input type="file" id="exampleInputFile">
+                      <p class="help-block">Example block-level help text here.</p>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox"> Check me out
+                      </label>
+                    </div>
+                  </div><!-- /.box-body -->
+
+                  <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form>
+					<!-- /.item -->
+				</div>
+
+			</div>
+		</div>
+		<!-- /.box -->
+	</section>
+	<!-- /.Left col -->
+
+	<!-- right col (We are only adding the ID to make the widgets sortable)-->
+	<section class="col-lg-5 connectedSortable ui-sortable">
+
+		<!-- BULLETIN BOARD box -->
+		                   <?php echo $this->render('layout/hr-bulletin-board');?>
+						<!-- /.box -->
+
+
+		<!-- Notifications box -->
+                            <?php echo $this->render('layout/hr-notification');?>
+						<!-- /.box -->
+
+	</section>
+	<!-- right col -->
+</div>
+<!-- /.row (main row) -->

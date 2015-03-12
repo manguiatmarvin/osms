@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 5.5.41, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: zend_tut1
+-- Host: localhost    Database: osms
 -- ------------------------------------------------------
--- Server version	5.5.41-0ubuntu0.14.04.1
+-- Server version	5.5.41-0ubuntu0.14.04.1-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,7 +27,7 @@ CREATE TABLE `acl_roles` (
   `role` varchar(125) NOT NULL,
   `resource` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=293 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `acl_roles` (
 
 LOCK TABLES `acl_roles` WRITE;
 /*!40000 ALTER TABLE `acl_roles` DISABLE KEYS */;
-INSERT INTO `acl_roles` VALUES (10,'guest','home'),(11,'guest','viewProfile'),(12,'guest','auth'),(13,'guest','index'),(14,'employee','home'),(15,'employee','profile'),(16,'employee','view'),(17,'employee','view-profile'),(18,'employee','edit-profile'),(19,'employee','edit'),(20,'employee','settings'),(21,'employee','settings'),(22,'employee','upload-profile-picture'),(23,'employee','change-password'),(24,'employee','logout'),(25,'employee','login'),(26,'employee','auth'),(27,'employee','index'),(28,'admin','home'),(29,'admin','profile'),(30,'admin','view'),(31,'admin','change-password'),(32,'admin','employee'),(33,'admin','pre-employment'),(34,'admin','view-employee'),(35,'admin','employee-memo'),(36,'admin','employee-file'),(37,'admin','download-employee-file'),(38,'admin','delete-employee-file'),(39,'admin','add-employee-file'),(40,'admin','employee-memo'),(41,'admin','add-employee-memo'),(42,'admin','delete-employee-memo'),(43,'admin','delete-employee-memo'),(44,'admin','employee-quizzes'),(45,'admin','edit-employee-quiz'),(46,'admin','delete-employee-quiz'),(47,'admin','employee-attendance'),(48,'admin','view'),(49,'admin','settings'),(50,'admin','employee-evaluation'),(51,'admin','edit-employee-evaluation'),(52,'admin','view-candidate-profile'),(53,'admin','employee-salary'),(54,'admin','employee-clubs'),(55,'admin','employee-points'),(56,'admin','employee-feedback'),(57,'admin','logout'),(58,'admin','login'),(59,'admin','authenticate'),(60,'admin','index'),(61,'admin','viewProfile'),(63,'guest','profileLogout'),(64,'admin','profileLogout'),(65,'admin','hr'),(67,'admin','accounting'),(68,'guest','login'),(69,'guest','authenticate'),(70,'employee','viewProfile'),(71,'employee','logout'),(72,'employee','profileLogout'),(73,'admin','edit'),(74,'admin','upload-profile-picture'),(75,'guest','profile'),(76,'guest','view'),(77,'guest','edit'),(78,'guest','logout'),(79,'admin','download-employee-memo'),(80,'guest','register'),(81,'admin','register'),(82,'admin','smtp');
+INSERT INTO `acl_roles` VALUES (221,'guest','index'),(222,'guest','login'),(223,'guest','authenticate'),(224,'hr-manager','authenticate'),(225,'hr-manager','index'),(227,'hr-manager','logout'),(228,'hr-manager','view'),(230,'hr-manager','Profile.index'),(231,'hr-manager','Profile.view'),(232,'hr-manager','my-attendance'),(233,'hr-manager','Profile.my-attendance'),(234,'hr-manager','my-memos'),(235,'hr-manager','Profile.my-memos'),(236,'hr-manager','my-leaves'),(237,'hr-manager','Profile.my-leaves'),(238,'hr-manager','my-evaluations'),(239,'hr-manager','Profile.my-evaluations'),(240,'hr-manager','my-quizzes'),(241,'hr-manager','Profile.my-quizzes'),(242,'hr-manager','my-feedbacks'),(243,'hr-manager','Profile.my-feedbacks'),(244,'hr-manager','my-clubs'),(245,'hr-manager','Profile.my-clubs'),(246,'hr-manager','my-points'),(247,'hr-manager','Profile.my-points'),(248,'employee','authenticate'),(249,'employee','index'),(250,'employee','logout'),(251,'employee','view'),(252,'employee','Profile.index'),(253,'employee','Profile.view'),(254,'employee','my-attendance'),(255,'employee','Profile.my-attendance'),(256,'employee','my-memos'),(257,'employee','Profile.my-memos'),(258,'employee','my-leaves'),(259,'employee','Profile.my-leaves'),(260,'employee','my-evaluations'),(261,'employee','Profile.my-evaluations'),(262,'employee','my-quizzes'),(263,'employee','Profile.my-quizzes'),(264,'employee','my-feedbacks'),(265,'employee','Profile.my-feedbacks'),(266,'employee','my-clubs'),(267,'employee','Profile.my-clubs'),(268,'employee','my-points'),(269,'employee','Profile.my-points'),(270,'hr-manager','Hr.index'),(271,'hr-manager','Hr.employee'),(272,'hr-manager','employee'),(273,'hr-manager','add-customer'),(274,'hr-manager','Hr.add-customer'),(275,'hr-manager','create-memo'),(276,'hr-manager','attendance-monitor'),(277,'hr-manager','Hr.create-memo'),(278,'hr-manager','Hr.attendance-monitor'),(279,'hr-manager','scheduling'),(280,'hr-manager','Hr.scheduling'),(281,'hr-manager','evaluation'),(282,'hr-manager','Hr.evaluation'),(283,'hr-manager','leave-monitor'),(284,'hr-manager','Hr.leave-monitor'),(285,'hr-manager','create-quiz'),(286,'hr-manager','Hr.create-quiz'),(287,'hr-manager','create-news'),(288,'hr-manager','Hr.create-news'),(289,'hr-manager','points'),(290,'hr-manager','Hr.points'),(291,'hr-manager','clubs'),(292,'hr-manager','Hr.clubs');
 /*!40000 ALTER TABLE `acl_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,8 +120,36 @@ CREATE TABLE `employee_evaluation` (
 
 LOCK TABLES `employee_evaluation` WRITE;
 /*!40000 ALTER TABLE `employee_evaluation` DISABLE KEYS */;
-INSERT INTO `employee_evaluation` VALUES (1,'Evaluation1',NULL,90,'pending',1,0,'0000-00-00 00:00:00','2015-02-28','2015-01-13 01:57:44'),(2,'Evaluation2XX',NULL,NULL,'approved',1,0,'2014-10-02 00:00:00','0000-00-00','2014-10-24 16:14:07'),(3,'Evaluation1',NULL,NULL,'pending',2,0,'0000-00-00 00:00:00','0000-00-00','2014-10-27 15:01:27'),(4,'asdsXXX','sd',NULL,'pending',2,0,'0000-00-00 00:00:00','0000-00-00','2014-10-27 15:01:22'),(5,'evaluation3','ed eval3',NULL,'pending',2,0,'0000-00-00 00:00:00','2014-10-11','2014-10-24 18:11:09'),(6,'Evaluation3','Marvin\'s evaluation updated to Feb 2 2015',NULL,'pending',1,0,'0000-00-00 00:00:00','2015-05-30','2014-10-27 14:55:03'),(7,'ed final evaluation','this is edgar final evaluation',NULL,'pending',2,0,'0000-00-00 00:00:00','0000-00-00','2014-10-27 15:01:18'),(8,'final and last evaluation','this will be the final and last evaluation to becoming a CEO of the compay',NULL,'pending',1,0,'0000-00-00 00:00:00','2015-03-30','2014-10-27 14:55:59'),(9,'java OOp','wewe',NULL,'pending',3,11,'2014-10-28 14:59:42','0000-00-00','2014-10-28 14:59:42'),(10,'First evaluation','this is Niks first evaluation after job offer\r\n',NULL,'pending',5,11,'2014-11-04 11:13:38','0000-00-00','2014-11-04 11:13:38');
+INSERT INTO `employee_evaluation` VALUES (1,'Evaluation1',NULL,90,'pending',1,0,'0000-00-00 00:00:00','2015-02-28','2015-01-13 01:57:44'),(2,'Evaluation2XX',NULL,NULL,'approved',1,0,'2014-10-02 00:00:00','0000-00-00','2014-10-24 16:14:07'),(3,'Evaluation13',NULL,NULL,'pending',2,0,'0000-00-00 00:00:00','0000-00-00','2015-02-13 03:37:22'),(4,'asdsXXX','sd',NULL,'pending',2,0,'0000-00-00 00:00:00','0000-00-00','2014-10-27 15:01:22'),(5,'evaluation3','ed eval3',NULL,'pending',2,0,'0000-00-00 00:00:00','2014-10-11','2014-10-24 18:11:09'),(6,'Evaluation3','Marvin\'s evaluation updated to Feb 2 2015',56,'pending',1,0,'0000-00-00 00:00:00','0000-00-00','2015-02-16 07:06:51'),(7,'ed final evaluation','this is edgar final evaluation',NULL,'pending',2,0,'0000-00-00 00:00:00','0000-00-00','2014-10-27 15:01:18'),(8,'final and last evaluation','this will be the final and last evaluation to becoming a CEO of the compay',56,'pending',1,0,'0000-00-00 00:00:00','0000-00-00','2015-02-16 07:06:44'),(9,'java OOp','wewe',NULL,'pending',3,11,'2014-10-28 14:59:42','0000-00-00','2014-10-28 14:59:42'),(10,'First evaluation','this is Niks first evaluation after job offer\r\n',NULL,'pending',5,11,'2014-11-04 11:13:38','0000-00-00','2014-11-04 11:13:38');
 /*!40000 ALTER TABLE `employee_evaluation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `employee_feedback`
+--
+
+DROP TABLE IF EXISTS `employee_feedback`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `employee_feedback` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `feedback` text,
+  `create_date` datetime DEFAULT NULL,
+  `from_user_id` varchar(45) DEFAULT NULL,
+  `to_employee_id` varchar(45) DEFAULT NULL,
+  `type` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `employee_feedback`
+--
+
+LOCK TABLES `employee_feedback` WRITE;
+/*!40000 ALTER TABLE `employee_feedback` DISABLE KEYS */;
+INSERT INTO `employee_feedback` VALUES (1,'Edgar help me setup new virtual host ','2015-02-10 14:51:14','12','2','1'),(2,'Edgar Lifted the toilet seat','2015-02-12 14:51:14','12','2','1'),(3,'Edgar Stayed late to finish his work','2015-02-10 14:51:14','19','2','1'),(4,'Edgar introduced a bug on our CRM','2015-02-10 14:51:14','14','2','0');
+/*!40000 ALTER TABLE `employee_feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -139,7 +167,7 @@ CREATE TABLE `employee_files` (
   `added` datetime NOT NULL,
   `employee_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,7 +176,7 @@ CREATE TABLE `employee_files` (
 
 LOCK TABLES `employee_files` WRITE;
 /*!40000 ALTER TABLE `employee_files` DISABLE KEYS */;
-INSERT INTO `employee_files` VALUES (49,'2','userfile4_2_5422c873eb0a1.doc','resume','2014-09-24 21:34:43',4),(50,'3','userfile7_3_5422c88bb459e.doc','Jo','2014-09-24 21:35:07',7),(51,'2','userfile7_2_5422c894147c4.doc','res','2014-09-24 21:35:16',7),(53,'2','userfile8_2_5423c910d2400.doc','res','2014-09-25 15:49:36',8),(54,'2','userfile3_2_5424ed5c3892f.doc','resume','2014-09-26 12:36:44',3),(55,'1','userfile3_1_5424ed985f752.jpg','my gf','2014-09-26 12:37:44',3),(56,'1','userfile6_1_5424ee2ee4f7d.jpg','resume picture','2014-09-26 12:40:14',6),(57,'3','userfile5_3_542ce69f5e476.sss','j Lawrence Job Offer','2014-10-02 13:46:07',5),(60,'1','userfile1_1_54c2089146f6f.png','kriss','2015-01-23 02:38:41',1);
+INSERT INTO `employee_files` VALUES (49,'2','userfile4_2_5422c873eb0a1.doc','resume','2014-09-24 21:34:43',4),(50,'3','userfile7_3_5422c88bb459e.doc','Jo','2014-09-24 21:35:07',7),(51,'2','userfile7_2_5422c894147c4.doc','res','2014-09-24 21:35:16',7),(54,'2','userfile3_2_5424ed5c3892f.doc','resume','2014-09-26 12:36:44',3),(55,'1','userfile3_1_5424ed985f752.jpg','my gf','2014-09-26 12:37:44',3),(56,'1','userfile6_1_5424ee2ee4f7d.jpg','resume picture','2014-09-26 12:40:14',6),(57,'3','userfile5_3_542ce69f5e476.sss','j Lawrence Job Offer','2014-10-02 13:46:07',5),(60,'1','userfile1_1_54c2089146f6f.png','kriss','2015-01-23 02:38:41',1),(61,'3','userfile1_3_54ddc52b4a822.pdf','jo','2015-02-13 03:34:35',1);
 /*!40000 ALTER TABLE `employee_files` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,7 +218,7 @@ CREATE TABLE `employee_logins` (
   `time` datetime NOT NULL,
   `ip_address` text NOT NULL COMMENT 'the machine IP address use to login and log out',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,7 +227,7 @@ CREATE TABLE `employee_logins` (
 
 LOCK TABLES `employee_logins` WRITE;
 /*!40000 ALTER TABLE `employee_logins` DISABLE KEYS */;
-INSERT INTO `employee_logins` VALUES (1,1,0,'2014-10-27 17:01:32','192.168.4.167'),(2,1,0,'2014-10-27 18:07:25','192.168.4.167'),(3,1,0,'2014-10-27 19:04:24','192.168.4.167'),(4,1,0,'2014-10-27 19:23:25','192.168.4.167'),(5,1,0,'2014-10-27 19:26:39','192.168.4.167'),(6,1,0,'2014-10-28 14:46:22','192.168.4.167'),(7,1,0,'2014-10-28 14:47:14','192.168.4.167'),(8,1,0,'2014-10-28 14:48:40','192.168.4.167'),(9,1,0,'2014-10-28 14:51:34','192.168.4.167'),(10,1,0,'2014-10-28 14:53:16','192.168.4.167'),(11,1,0,'2014-10-28 14:55:28','192.168.4.167'),(12,1,0,'2014-10-28 14:56:12','192.168.4.167'),(13,1,0,'2014-10-28 14:57:12','192.168.4.167'),(14,1,0,'2014-10-28 15:07:01','192.168.4.167'),(15,2,0,'2014-10-28 15:10:01','192.168.4.167'),(16,4,0,'2014-10-28 15:13:24','192.168.4.167'),(17,5,0,'2014-10-28 15:18:32','192.168.4.167'),(18,6,0,'2014-10-28 15:26:02','192.168.4.167'),(19,3,0,'2015-01-09 00:34:24','192.168.4.125'),(20,3,0,'2015-01-09 01:06:10','192.168.4.125'),(21,3,0,'2015-01-09 01:07:43','192.168.4.125');
+INSERT INTO `employee_logins` VALUES (74,1,0,'2015-02-18 15:48:14','192.168.60.92'),(75,1,0,'2015-02-18 15:52:35','192.168.60.92'),(76,7,0,'2015-02-24 19:09:34','192.168.60.109'),(77,1,0,'2015-03-02 16:10:48','192.168.1.3'),(78,1,0,'2015-03-02 16:43:46','192.168.1.3'),(79,1,0,'2015-03-02 18:38:42','192.168.1.3'),(80,7,0,'2015-03-02 18:58:38','192.168.1.3'),(81,1,0,'2015-03-02 19:11:06','192.168.1.3'),(82,7,0,'2015-03-02 19:54:19','192.168.1.3'),(83,7,0,'2015-03-02 20:05:12','192.168.1.3'),(84,1,0,'2015-03-02 20:32:58','192.168.1.3'),(85,7,0,'2015-03-02 20:33:08','192.168.1.3'),(86,7,0,'2015-03-02 20:33:20','192.168.1.3'),(87,7,0,'2015-03-02 20:34:16','192.168.1.3'),(88,1,0,'2015-03-03 10:47:31','192.168.2.33'),(89,1,0,'2015-03-03 13:16:13','192.168.2.33'),(90,1,0,'2015-03-03 14:22:27','192.168.2.33'),(91,1,0,'2015-03-03 14:31:14','192.168.2.33'),(92,1,0,'2015-03-03 14:32:33','192.168.2.33'),(93,1,0,'2015-03-03 14:48:12','192.168.2.33'),(94,1,0,'2015-03-03 14:48:56','192.168.2.33'),(95,1,0,'2015-03-05 11:14:18','192.168.60.158'),(96,7,0,'2015-03-05 11:14:31','192.168.60.158'),(97,7,0,'2015-03-05 11:17:49','192.168.60.158'),(98,7,0,'2015-03-05 12:36:14','192.168.60.158'),(99,1,0,'2015-03-05 12:36:22','192.168.60.158'),(100,7,0,'2015-03-05 15:17:13','192.168.60.158'),(101,1,0,'2015-03-05 15:17:24','192.168.60.158'),(102,1,0,'2015-03-05 15:36:53','192.168.60.158'),(103,1,0,'2015-03-05 15:39:51','192.168.60.158'),(104,1,0,'2015-03-05 15:53:14','192.168.60.158'),(105,1,0,'2015-03-05 16:41:32','192.168.60.158'),(106,1,0,'2015-03-05 17:17:20','192.168.60.158'),(107,1,0,'2015-03-05 17:44:14','192.168.60.158'),(108,1,0,'2015-03-08 20:12:04','192.168.100.4'),(109,7,0,'2015-03-08 20:12:19','192.168.100.4'),(110,1,0,'2015-03-08 20:51:43','192.168.100.4'),(111,1,0,'2015-03-08 20:53:08','192.168.100.4'),(112,7,0,'2015-03-08 21:53:08','192.168.100.4'),(113,7,0,'2015-03-08 21:53:30','192.168.100.4'),(114,1,0,'2015-03-09 16:44:15','192.168.100.4'),(115,1,0,'2015-03-09 17:50:29','192.168.100.4'),(116,1,0,'2015-03-09 19:46:40','192.168.100.4'),(117,1,0,'2015-03-09 20:51:30','192.168.100.4');
 /*!40000 ALTER TABLE `employee_logins` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -299,7 +327,7 @@ CREATE TABLE `employee_quiz` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -308,7 +336,7 @@ CREATE TABLE `employee_quiz` (
 
 LOCK TABLES `employee_quiz` WRITE;
 /*!40000 ALTER TABLE `employee_quiz` DISABLE KEYS */;
-INSERT INTO `employee_quiz` VALUES (1,'basic brain test',93,1,'2014-10-13 17:32:50','2014-10-13 17:32:50'),(2,'java OOp',98,1,'2014-10-27 19:08:20','2014-10-27 19:08:20'),(4,'reb',90,3,'2014-11-04 16:56:15','2014-11-04 16:56:15'),(5,'designs',90,3,'2014-11-04 16:56:23','2014-11-04 16:56:23'),(6,'Basic Scalla Programming',89,1,'2015-01-13 01:55:34','2015-01-13 01:55:34');
+INSERT INTO `employee_quiz` VALUES (1,'basic brain test',93,1,'2015-02-17 00:59:55','2015-02-17 00:59:55'),(2,'java OOp',98,1,'2014-10-27 19:08:20','2014-10-27 19:08:20'),(4,'reb',90,3,'2014-11-04 16:56:15','2014-11-04 16:56:15'),(5,'designs',90,3,'2014-11-04 16:56:23','2014-11-04 16:56:23'),(6,'Basic Scalla Programming',89,1,'2015-01-13 01:55:34','2015-01-13 01:55:34'),(7,'iq test',89,2,'2015-02-12 05:23:38','2015-02-12 05:23:38'),(8,'basic oop test',90,2,'2015-02-13 03:38:14','2015-02-13 03:38:14');
 /*!40000 ALTER TABLE `employee_quiz` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -415,6 +443,33 @@ INSERT INTO `positions` VALUES (1,'PHP Developer','2014-09-15 00:00:00'),(2,'Sr.
 UNLOCK TABLES;
 
 --
+-- Table structure for table `schedules`
+--
+
+DROP TABLE IF EXISTS `schedules`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `schedules` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `schedules_name` varchar(45) DEFAULT NULL,
+  `schedules` text,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `schedules_name_UNIQUE` (`schedules_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `schedules`
+--
+
+LOCK TABLES `schedules` WRITE;
+/*!40000 ALTER TABLE `schedules` DISABLE KEYS */;
+INSERT INTO `schedules` VALUES (1,'Morning-M-F-10am-7pm','{ \"mon\": \"10am-7pm\", \"tue\": \"10am-7pm\", \"wed\": \"10am-7pm\", \"thu\": \"10am-7pm\", \"fri\": \"10am-7pm\" }','2015-03-01 00:00:00'),(2,'Iregular - MWF 5am-4pm','{ \"mon\": \"5am-4pm\", \"tue\": \"none\", \"wed\": \"5am-4pm\", \"thu\": \"none\", \"fri\": \"5am-4pm\" }','2015-03-01 00:00:00');
+/*!40000 ALTER TABLE `schedules` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user_profile`
 --
 
@@ -437,7 +492,7 @@ CREATE TABLE `user_profile` (
   `last_modified` datetime NOT NULL,
   `profile_pic_url` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -446,7 +501,7 @@ CREATE TABLE `user_profile` (
 
 LOCK TABLES `user_profile` WRITE;
 /*!40000 ALTER TABLE `user_profile` DISABLE KEYS */;
-INSERT INTO `user_profile` VALUES (10,11,'Marvin','Manguiat','U','2007-01-09',1,'#64 dela rosa st. makati city','123456','901223221','Programming since 2006, i can handle medium to large complex system.','2011-01-05','2015-01-09 02:54:47','/img/avatar/user11.png'),(11,12,'Jayson','Salillas','x','1981-07-08',1,'Bulacan Philippines','36985212','09178858475','I\'m Jason Salillias, From Bulacan MM.','0000-00-00','2014-10-27 19:30:34','/img/avatar/user12.png'),(12,13,'Edgar','Delacruz','Pugi','1900-04-27',1,'sfdsfdf','435454545','23434343434','ed','0000-00-00','2014-10-03 12:36:18','/img/avatar/user13.png'),(13,14,'Peter ','Dinklage','M','1969-10-15',1,'Morristown, New Jersey','4512125','09198852124',' Emmy Award and Golden Globe winner','2014-10-28','2014-10-28 00:00:00','/img/avatar/user14.png'),(14,15,'Nikolaj','Waldau','Coster','1970-07-27',1,'Rudkøbing, Denmark','5623251','09184547','Danish actor, producer, and screenwriter. He attended Statens Teaterskole in Copenhagen in 1993. In the United States, he played Detective John Amsterdam on the short-lived Fox television series New Amsterdam, as well as appearing as Frank Pike in the 2009 Fox television film Virtuality, originally intended as a pilot. Since April 2011, he became known to a broad audience by playing the role of Jaime Lannister in the HBO series Game of Thrones','0000-00-00','2014-10-28 15:13:19','/img/avatar/user15.png'),(15,16,'Lena','Headey','M','1973-10-03',2,'Hamilton, Bermuda','5625214','0919852514','British actress, she was born in Bermuda, to parents from Yorkshire, England, where she was also raised. She is the daughter of Sue and John Headey, a police officer. Headey is best known for her appearances in The Brothers Grimm (2005), Possession (2002), and The Remains of the Day (1993). Headey stars as Queen Gorgo, a heroic Spartan woman in the period film 300 (2006), by director Zack Snyder.','0000-00-00','2014-10-28 15:18:20','/img/avatar/user16.png'),(16,17,'Isaac','Wright','Hempstead','1999-04-09',1,'England, UK','5623528','09184517','Isaac Hempstead-Wright is an English actor. He began his professional acting career at the age of eleven, Hempstead-Wright is best known for his role as Bran Stark on the HBO series Game of Thrones, which earned him a Young Artist Award nomination as Best Young Supporting Actor in a TV Series','0000-00-00','2014-10-28 15:25:58','/img/avatar/user17.png');
+INSERT INTO `user_profile` VALUES (10,11,'Marvin','Manguiat','U','2007-01-09',1,'#64 dela rosa st. makati city','123456','901223221','Programming since 2006, i can handle medium to large complex system.','2011-01-05','2015-02-03 20:19:02','/img/avatar/user11.png'),(11,12,'Jayson','Salillas','x','1981-07-08',1,'Bulacan Philippines','36985212','09178858475','I\'m Jason Salillias, From Bulacan MM.','0000-00-00','2014-10-27 19:30:34','/img/avatar/user12.png'),(12,13,'Edgar','Delacruz','Pugi','1900-04-27',1,'sfdsfdf','435454545','23434343434','ed','0000-00-00','2014-10-03 12:36:18','/img/avatar/user13.png'),(13,14,'Peter ','Dinklage','M','1969-10-15',1,'Morristown, New Jersey','4512125','09198852124',' Emmy Award and Golden Globe winner','2014-10-28','2014-10-28 00:00:00','/img/avatar/user14.png'),(14,15,'Nikolaj','Waldau','Coster','1970-07-27',1,'Rudkøbing, Denmark','5623251','09184547','Danish actor, producer, and screenwriter. He attended Statens Teaterskole in Copenhagen in 1993. In the United States, he played Detective John Amsterdam on the short-lived Fox television series New Amsterdam, as well as appearing as Frank Pike in the 2009 Fox television film Virtuality, originally intended as a pilot. Since April 2011, he became known to a broad audience by playing the role of Jaime Lannister in the HBO series Game of Thrones','0000-00-00','2014-10-28 15:13:19','/img/avatar/user15.png'),(15,16,'Lena','Headey','M','1973-10-03',2,'Hamilton, Bermuda','5625214','0919852514','British actress, she was born in Bermuda, to parents from Yorkshire, England, where she was also raised. She is the daughter of Sue and John Headey, a police officer. Headey is best known for her appearances in The Brothers Grimm (2005), Possession (2002), and The Remains of the Day (1993). Headey stars as Queen Gorgo, a heroic Spartan woman in the period film 300 (2006), by director Zack Snyder.','0000-00-00','2014-10-28 15:18:20','/img/avatar/user16.png'),(16,17,'Isaac','Wright','Hempstead','1999-04-09',1,'England, UK','5623528','09184517','Isaac Hempstead-Wright is an English actor. He began his professional acting career at the age of eleven, Hempstead-Wright is best known for his role as Bran Stark on the HBO series Game of Thrones, which earned him a Young Artist Award nomination as Best Young Supporting Actor in a TV Series','0000-00-00','2014-10-28 15:25:58','/img/avatar/user17.png'),(17,19,'client001','client','c','1970-04-09',1,'US','123658','09154258','','0000-00-00','2015-02-12 02:30:53','/img/avatar/user19.png'),(18,20,'Rex','Villanueva','c','2000-07-07',1,'amsndfjasbdsadsadsadsd','123658','09154258','Hello this Rex','0000-00-00','2015-02-13 01:52:25','/img/avatar/user20.png');
 /*!40000 ALTER TABLE `user_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -462,10 +517,10 @@ CREATE TABLE `users` (
   `user_name` varchar(100) NOT NULL,
   `pass_word` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `role` varchar(150) NOT NULL,
+  `role` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -474,7 +529,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (11,'mmanguiat','secret123','marvin.manguiat@sourcefit.com','admin'),(12,'jsalillas','secret123','jayson.salillas@sourcefit.com','employee'),(13,'edelacruz','secret123','edgar.delacruz@sourcefit.com','guest'),(14,'peterdinklage','secret123','peterdinklage@yahoo.com','employee'),(15,'nikolacosterwaldau','secret123','nikolacosterwaldau@yahoo.com','employee'),(16,'lenaheadey','secret123','lenaheadey@gmail.com','employee'),(17,'isaachempstead','secret123','isaachempstead@gmail.com','employee'),(18,'nivramstrikes','secret123','nivramstrikes@gmail.com','guest');
+INSERT INTO `users` VALUES (11,'mmanguiat','secret123','marvin.manguiat@sourcefit.com','hr-manager'),(12,'jsalillas','secret123','jayson.salillas@sourcefit.com','employee'),(13,'edelacruz','secret123','edgar.delacruz@sourcefit.com','employee'),(14,'peterdinklage','secret123','peterdinklage@yahoo.com','employee'),(15,'nikolacosterwaldau','secret123','nikolacosterwaldau@yahoo.com','employee'),(16,'lenaheadey','secret123','lenaheadey@gmail.com','employee'),(17,'isaachempstead','secret123','isaachempstead@gmail.com','employee'),(18,'nivramstrikes','secret123','nivramstrikes@gmail.com','employee'),(19,'client001','secret123','client001@gmail.com','client'),(20,'rexv','secret123','rexv@sourcefit.com','employee');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -487,4 +542,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-04 10:16:59
+-- Dump completed on 2015-03-09 22:31:08
