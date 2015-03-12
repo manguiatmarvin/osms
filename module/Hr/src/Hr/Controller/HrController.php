@@ -4,6 +4,8 @@ namespace Hr\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
+
 use Hr\Model\Hr; // <-- Add this import
 use Hr\Form\HrForm; // <-- Add this import
 use Hr\Form\EmployeeMemoForm;
@@ -20,7 +22,6 @@ use Hr\Model\EmployeeMemo;
 use Hr\Model\EmployeeQuiz;
 use Hr\Form\EmployeeQuizzesForm;
 
-
 use Hr\Model\EmployeeEvaluations;
 use Hr\Form\EmployeeEvaluationsForm;
 
@@ -29,6 +30,7 @@ use Hr\Model\EmployeeFeedback;
 use Hr\Form\EmployeeFeedbackForm;
 
 use Zend\Mvc\View\Console\ViewManager;
+
 
 
 class HrController extends AbstractActionController {
@@ -57,6 +59,14 @@ class HrController extends AbstractActionController {
 	   return new ViewModel();
 	}
 	
+	
+	/**
+	 * Add Customer client Account
+	 */
+	public function addEmployeeAction(){
+		return new ViewModel();
+	}
+	
 	/**
 	 * 
 	 * @return \Zend\View\Model\ViewModel
@@ -78,9 +88,47 @@ class HrController extends AbstractActionController {
 	 * @return \Zend\View\Model\ViewModel
 	 */
 	public function schedulingAction(){
-		return new ViewModel();
+		$this->checkLogin();
+		
+		try{
+			$scheduleList = $this->getHrTable()->getScheduleList();
+			
+			
+		}catch (\Exception $ex){
+			
+		}
+		
+		return new ViewModel(array('schedlist'=>$scheduleList));
 	}
 	
+	public function assignScheduleEmployeeAction(){
+		$this->checkLogin();
+	
+		$schedId = (int) $this->params()->fromRoute('id', 0);
+		
+		if (!$schedId) {
+			return $this->redirect()->toRoute('hr');
+		}
+		
+		try {
+			
+			$sched = $this->getHrTable()->getScheduleById($schedId); 
+			$employeeUnderSched = $this->getHrTable()->getAllEmployeeBySchedId($schedId);
+		
+			
+		
+		}catch (\Exception $ex){
+			
+		}
+		
+		return new ViewModel(array('schedule'=>$sched,
+				                    'employees'=>$employeeUnderSched)
+				             );
+	}
+	
+	public function assignScheduleTeamAction(){
+		return new ViewModel();
+	}
 	
 	/**
 	 *
@@ -123,6 +171,61 @@ class HrController extends AbstractActionController {
 	public function clubsAction(){
 		return new ViewModel();
 	}
+	
+	
+	public function assignSchedToEmployeeAction(){
+		$this->checkLogin();
+
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			
+			$sched_id     = $term = $this->getRequest()->getPost('emp_id');
+			$employee_id  = $this->getRequest()->getPost('sched_id');
+			
+			$this->getHrTable()->assignScheduleToEmployee($employee_id,$sched_id);
+			
+			
+			return new JsonModel(array('result'=>array('sched_id'=>$sched_id,'emp_id'=>$employee_id)));
+			
+		}
+		return new JsonModel(array('invalid request'));
+	}
+	
+    public function jsonGetEmployeeListByNameAction(){
+    	
+    	
+    	$request = $this->getRequest();
+    	if ($request->isPost()) {
+    		
+    		$term = $this->getRequest()->getPost('term');
+    		
+    		try{
+    			
+    			$employee = $this->getHrTable()->getEmployeeByName($term);
+    			$r = array();
+    			foreach ($employee as $ee){
+    				
+    				$row['id'] = $ee->id;
+    				$row['value'] = $ee->firstname." ".$ee->lastname;
+    				$row['label'] =  $ee->firstname." ".$ee->lastname;
+    				$row['desc'] =  $ee->firstname." ".$ee->lastname;
+    				$row['icon']  = $ee->profile_pic_url;
+    				$r[] = $row;
+    			}
+
+    			if(count($r)>0){
+    				return new JsonModel( $r);
+    			}
+    			return new JsonModel(array('no data found'));
+    			
+    		}catch (\Exception $ex){
+    			return new JsonModel(array('error'=>$ex->getMessage()));
+		    }
+    	}
+   
+    
+      return new JsonModel(array('invalid request'));
+    }
 	
 	/**
 	 *

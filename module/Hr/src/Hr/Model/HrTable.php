@@ -58,6 +58,39 @@ use Zend\Paginator\Paginator;
 	}
 	
 	
+	public function getEmployeeByName($term){
+		if ($term != "") {
+			
+			$select = new Select('employees');
+			
+			$select->join('user_profile', // table name,
+					'employees.users_id = user_profile.users_id', // expression to join on (will be quoted by platform object before insertion),
+					array('firstname',
+							'lastname','middle','birthdate','address','landline','cellphone','about','created','last_modified','profile_pic_url'), // (optional) list of columns, same requiremetns as columns() above
+					Select::JOIN_LEFT // (optional), one of inner, outer, left, right also represtned by constants in the API
+			);
+			$select->where->like('user_profile.firstname', "{$term}%");
+			$select->where(array('employees.schedule_id IS NULL'));
+			$select->where->OR->equalTo( 'employees.schedule_id','');
+			$select->order('user_profile.firstname ACS');
+			
+			$paginatorAdapter = new DbSelect(
+					// our configured select object
+					$select,
+					// the adapter to run it against
+					$this->tableGateway->getAdapter(),
+					// the result set to hydrate
+					new ResultSet () );
+			
+			$paginator = new Paginator ( $paginatorAdapter );
+			
+			return $paginator;
+
+		}
+		return null;
+	}
+	
+	
 	
 	public function fetchAllStaffsByClientId($client_id){
 	
@@ -77,6 +110,7 @@ use Zend\Paginator\Paginator;
 				Select::JOIN_LEFT // (optional), one of inner, outer, left, right also represtned by constants in the API
 		);
 	
+		$select->where(array('employees.users_id IS NULL'));
 		$paginatorAdapter = new DbSelect(
 				// our configured select object
 				$select,
@@ -103,9 +137,6 @@ use Zend\Paginator\Paginator;
 		);
 		
 		$select->where(array('employees.users_id IS NULL'));
-		
-		
-	
 		$paginatorAdapter = new DbSelect(
 				// our configured select object
 				$select,
@@ -118,6 +149,55 @@ use Zend\Paginator\Paginator;
 		return $paginator;
 	}
 	
+	
+	public function getAllEmployeeBySchedId($sched_id){
+		$sched_id = (int)$sched_id;
+		
+		if(!$sched_id){
+			
+				throw new \Exception ( "Could not find row $sched_id" );
+			
+		}
+		
+		$select = new Select('user_profile');
+		$select->join('employees', // table name,
+				'employees.users_id = user_profile.users_id', // expression to join on (will be quoted by platform object before insertion),
+				array('u_id'=>'id',
+						'schedule_id'=>'schedule_id'
+				),// (optional) list of columns, same requiremetns as columns() above
+				Select::JOIN_LEFT // (optional), one of inner, outer, left, right also represtned by constants in the API
+		);
+		
+		$select->where(array("schedule_id = {$sched_id}"));
+		
+		$paginatorAdapter = new DbSelect(
+				// our configured select object
+				$select,
+				// the adapter to run it against
+				$this->tableGateway->getAdapter(),
+				// the result set to hydrate
+				new ResultSet () );
+		
+		$paginator = new Paginator ( $paginatorAdapter );
+		return $paginator;
+		
+	}
+	
+	public function getScheduleById($sched_id){
+		$sched_id = (int)$sched_id;
+		if(!$sched_id){
+			throw new \Exception("Invalid sched ID $sched_id");
+		}
+		
+		
+		$dbAdapter = $this->tableGateway->getAdapter();
+		 
+		$sql = "SELECT * from schedules where schedules.id = $sched_id";
+		 
+		$statement = $dbAdapter->query($sql);
+		$result    = $statement->execute();
+		return $result->current();
+	}
 	
 	/**
 	 * get Empoyee details 
@@ -178,6 +258,25 @@ use Zend\Paginator\Paginator;
 			return $result;
 		}
 		return null;
+	}
+	
+	
+	public function assignScheduleToEmployee($emp_id,$sched_id){
+		
+		$emp_id = (int)$emp_id;
+		$sched_id = (int)$sched_id;
+		
+		if(!$emp_id && !$sched_id){
+			throw new \Exception("Invalid employee Id  $emp_id and sched id $schedId");
+		}
+		
+		$dbAdapter = $this->tableGateway->getAdapter ();
+		$sql = "UPDATE employees set schedule_id = {$sched_id}
+		        WHERE employees.id = {$emp_id}";
+		
+		$statement = $dbAdapter->query ( $sql );
+		$result = $statement->execute ();
+		
 	}
 	
 	/*
@@ -374,6 +473,26 @@ use Zend\Paginator\Paginator;
 
 		
 		return true;
+	}
+	
+	/**
+	 * get all schedule
+	 * @return \Zend\Paginator\Paginator
+	 */
+	public function getScheduleList(){
+		// create a new Select object for the table album
+		$select = new Select('schedules');
+
+		$paginatorAdapter = new DbSelect(
+				// our configured select object
+				$select,
+				// the adapter to run it against
+				$this->tableGateway->getAdapter(),
+				// the result set to hydrate
+				new ResultSet () );
+		
+		$paginator = new Paginator ( $paginatorAdapter );
+		return $paginator;
 	}
 	
 	

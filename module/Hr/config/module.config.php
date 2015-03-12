@@ -52,6 +52,8 @@ return array(
      		'template_map' => array (
      				'layout/hr-menu'  => __DIR__ . '/../view/layout/hr-menu.phtml',
      				'layout/hr-menu-update-e'  => __DIR__ . '/../view/layout/hr-menu-update-e.phtml',
+     				'layout/hr-bulletin-board'  => __DIR__ . '/../view/layout/hr-bulletin-board.phtml',
+     				'layout/hr-notification'  => __DIR__ . '/../view/layout/hr-notification.phtml'
      		),
          'template_path_stack' => array(
              'hr' => __DIR__ . '/../view',

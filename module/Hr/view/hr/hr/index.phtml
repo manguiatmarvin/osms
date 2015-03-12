@@ -1,38 +1,111 @@
-<?php echo $this->render('flashmessenger/layout') ?>
-<div class="row">
-	<!-- Left col -->
-	<section class="col-lg-7 connectedSortable">
-		<div>
-			<!-- main sub page content// -->
-
-			<div class="panel panel-default">
-				<div class="panel-heading"><?php echo $this->escapeHtml("Employees"); ?></div>
-				<div class="panel-body">
-					<div class="box-body">
-						<!-- Content here -->
-
+				<!-- Main row -->
+				<div class="row">
+					<!-- Left col -->
+					<section class="col-lg-7 connectedSortable ui-sortable">
+						<!-- /.ATTENDACE box -->
+						<div class="panel panel-default sfit">
+							<div class="panel-heading">
+								<h3 class="panel-title">ATTENDACE ALLERTS</h3>
+							</div>
+							<div class="panel-body">
+								<!--// Attendance alert panel content -->
 
 
-						<!-- Content here:end -->
-					</div>
+								<div class="box-body chat" id="chat-box"
+									style="overflow:auto; width: auto; height: 250px;">
+									<!-- chat item -->
+									<div class="item">
+										<img src="dist/img/user4-128x128.jpg" alt="user image"
+											class="online">
+										<p class="message">
+											<a href="#" class="name"> <small
+												class="text-muted pull-right"><i
+													class="fa fa-clock-o"></i> 2:15</small> Mike Doe
+											</a> I would like to meet you to discuss the latest news about
+											the arrival of the new theme. They say it is going to be one
+											the best themes on the market
+										</p>
+
+									</div>
+									<!-- /.item -->
+																		<!-- chat item -->
+									<div class="item">
+										<img src="dist/img/user4-128x128.jpg" alt="user image"
+											class="online">
+										<p class="message">
+											<a href="#" class="name"> <small
+												class="text-muted pull-right"><i
+													class="fa fa-clock-o"></i> 2:15</small> Mike Doe
+											</a> I would like to meet you to discuss the latest news about
+											the arrival of the new theme. They say it is going to be one
+											the best themes on the market
+										</p>
+
+									</div>
+									<!-- /.item -->
+									<!-- chat item -->
+									<div class="item">
+										<img src="dist/img/user3-128x128.jpg" alt="user image"
+											class="offline">
+										<p class="message">
+											<a href="#" class="name"> <small
+												class="text-muted pull-right"><i
+													class="fa fa-clock-o"></i> 5:15</small> Alexander Pierce
+											</a> I would like to meet you to discuss the latest news about
+											the arrival of the new theme. They say it is going to be one
+											the best themes on the market
+										</p>
+									</div>
+									<!-- /.item -->
+									<!-- chat item -->
+									<div class="item">
+										<img src="dist/img/user2-160x160.jpg" alt="user image"
+											class="offline">
+										<p class="message">
+											<a href="#" class="name"> <small
+												class="text-muted pull-right"><i
+													class="fa fa-clock-o"></i> 5:30</small> Susan Doe
+											</a> I would like to meet you to discuss the latest news about
+											the arrival of the new theme. They say it is going to be one
+											the best themes on the market
+										</p>
+									</div>
+									<!-- /.item -->
+								</div>
+								<div style="margin: 0 auto 0 auto">
+									<small><a class="pull-right" href="#">View All</a></small>
+								</div>
+							</div>
+						</div>
+						<!-- /.box -->
+
+						<!-- QUestiosn of the Day box -->
+						<div class="panel panel-default sfit">
+							<div class="panel-heading">
+								<h3 class="panel-title">QUESTIONS OF THE DAY</h3>
+							</div>
+							<div class="panel-body">
+								<!-- // Questionsof the day panel contet -->
+								<p>How do you feel at the end of the day
+							</div>
+						</div>
+						<!-- /.box -->
+					</section>
+					<!-- /.Left col -->
+
+					<!-- right col (We are only adding the ID to make the widgets sortable)-->
+					<section class="col-lg-5 connectedSortable ui-sortable">
+
+						<!-- BULLETIN BOARD box -->
+		                   <?php echo $this->render('layout/hr-bulletin-board');?>
+						<!-- /.box -->
+
+
+						<!-- Notifications box -->
+                            <?php echo $this->render('layout/hr-notification');?>
+						<!-- /.box -->
+
+					</section>
+					<!-- right col -->
 				</div>
-			</div>
-
-		</div>
-
-	</section>
-	<!-- /.Left col -->
-
-	<!-- right col (We are only adding the ID to make the widgets sortable)-->
-	<section class="col-lg-5 connectedSortable">
-
-		<div class="panel panel-default">
-			<div class="panel-heading">Employee Menu</div>
-			<div class="panel-body rightbar-menu">
-				<!-- right navigation //-->
-               <?php echo $this->render('layout/hr-menu') ?>
-			</div>
-		</div>
-	</section>
-</div>
-
+				<!-- /.row (main row) -->

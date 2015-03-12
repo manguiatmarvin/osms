@@ -3827,6 +3827,10 @@ fieldset[disabled] .btn-vk.active {
 .bg-blue {
   background-color: #0073b7 !important;
 }
+.bg-blue a{
+	color:rgb(210, 210, 210);
+}
+
 .bg-light-blue,
 .label-primary,
 .modal-primary .modal-body {
@@ -4138,4 +4142,12 @@ Gradient Background colors
 .full-opacity-hover:hover {
   opacity: 1;
   filter: alpha(opacity=100);
+}
+
+.dropdown-toggle a{
+	color:pink !important;
+}
+
+ul.ui-autocomplete.ui-menu {
+  z-index: 1000;
 }

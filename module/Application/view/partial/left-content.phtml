@@ -100,6 +100,7 @@ foreach ( $this->container as $parent ) {
 				</div>
                    <ul class="sidebar-menu">
                    <?php foreach ($childNode as $childd):?>
+                    <?php if($childd['showInMenu'] === false) continue ?>
                      <?php if($acl->isAllowed($role,$childd['resourceName'])):?>
                         <li class="<?php echo $childd['isActive']?>">
 					            <a href="<?php echo $childd['href']; ?>">
