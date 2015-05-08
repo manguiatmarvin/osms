@@ -36,7 +36,8 @@ class AuthController extends AbstractActionController
             $this->storage = $this->getServiceLocator()
                                   ->get('SanAuth\Model\MyAuthStorage');
         }
-
+         //added
+         $this->storage->setDbHandler();
         return $this->storage;
     }
 
