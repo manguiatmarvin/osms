@@ -16,7 +16,7 @@ class FileUploadUtils extends Upload {
 	public $xfile;
 	protected $max_file_size = 2097152; // 2 mb max
 	
-	public function FileUploadUtils($file) {
+	public function __construct($file) {
 		$this->xfile = $file;
 		parent::__construct( $this->xfile );
 	}
